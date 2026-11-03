@@ -1,0 +1,10 @@
+{"id": "banking77-train-00418", "input": "The exchange rate on my payment doesn't look right", "gold": "card_payment_wrong_exchange_rate", "meta": {"split": "train", "row": 418}}
+{"id": "banking77-train-07409", "input": "How to receive transfers from my employer when I get paid in GBP?", "gold": "receiving_money", "meta": {"split": "train", "row": 7409}}
+{"id": "banking77-train-01977", "input": "How long should I wait for top up go go through ?", "gold": "pending_top_up", "meta": {"split": "train", "row": 1977}}
+{"id": "banking77-train-07513", "input": "My transfer failed, why?", "gold": "failed_transfer", "meta": {"split": "train", "row": 7513}}
+{"id": "banking77-train-09724", "input": "I can't get my Google Pay Top to work. Are there any issues on your end?", "gold": "apple_pay_or_google_pay", "meta": {"split": "train", "row": 9724}}
+{"id": "banking77-train-00918", "input": "What currencies can I hold?", "gold": "fiat_currency_support", "meta": {"split": "train", "row": 918}}
+{"id": "banking77-train-03189", "input": "Why didn't my top up work?", "gold": "top_up_reverted", "meta": {"split": "train", "row": 3189}}
+{"id": "banking77-train-04416", "input": "Where can I use a disposable card?", "gold": "disposable_card_limits", "meta": {"split": "train", "row": 4416}}
+{"id": "banking77-train-03679", "input": "How do I change my account details?", "gold": "edit_personal_details", "meta": {"split": "train", "row": 3679}}
+{"id": "banking77-train-05457", "input": "Can I get a refund on an item?", "gold": "request_refund", "meta": {"split": "train", "row": 5457}}

@@ -1,0 +1,200 @@
+{"id": "banking77-test-02029", "input": "Why do you need to know where my money is coming from?", "gold": "verify_source_of_funds", "meta": {"split": "test", "row": 2029}}
+{"id": "banking77-test-02370", "input": "Where can I find the verification code on a top-up card?", "gold": "verify_top_up", "meta": {"split": "test", "row": 2370}}
+{"id": "banking77-test-02931", "input": "My card is about to expire and I need to know how much it costs and how long it takes to get a new one.", "gold": "card_about_to_expire", "meta": {"split": "test", "row": 2931}}
+{"id": "banking77-test-01902", "input": "I am not satisfied with your company and would like to delete my accounts!", "gold": "terminate_account", "meta": {"split": "test", "row": 1902}}
+{"id": "banking77-test-01923", "input": "What do I do since the machine swallowed my card. I need one.", "gold": "card_swallowed", "meta": {"split": "test", "row": 1923}}
+{"id": "banking77-test-03000", "input": "What can I use to verify my identify?", "gold": "verify_my_identity", "meta": {"split": "test", "row": 3000}}
+{"id": "banking77-test-02232", "input": "Why was I charged a fee for a transfer?", "gold": "transfer_fee_charged", "meta": {"split": "test", "row": 2232}}
+{"id": "banking77-test-00604", "input": "Can I also transfer with SWIFT?", "gold": "top_up_by_bank_transfer_charge", "meta": {"split": "test", "row": 604}}
+{"id": "banking77-test-00683", "input": "I made a transaction but did it to the wrong account.", "gold": "cancel_transfer", "meta": {"split": "test", "row": 683}}
+{"id": "banking77-test-01586", "input": "Why could I not get cash?", "gold": "declined_cash_withdrawal", "meta": {"split": "test", "row": 1586}}
+{"id": "banking77-test-02755", "input": "Cash I didn't get shows in my app.", "gold": "cash_withdrawal_not_recognised", "meta": {"split": "test", "row": 2755}}
+{"id": "banking77-test-02556", "input": "I need help getting the virtual card to work.", "gold": "virtual_card_not_working", "meta": {"split": "test", "row": 2556}}
+{"id": "banking77-test-03034", "input": "What will I need for identity verification?", "gold": "verify_my_identity", "meta": {"split": "test", "row": 3034}}
+{"id": "banking77-test-00786", "input": "I asked for 100 but only got 20.", "gold": "wrong_amount_of_cash_received", "meta": {"split": "test", "row": 786}}
+{"id": "banking77-test-01709", "input": "I want this amount reversed out of my account.", "gold": "request_refund", "meta": {"split": "test", "row": 1709}}
+{"id": "banking77-test-00071", "input": "Is there a way to make my old card usable with the app?", "gold": "card_linking", "meta": {"split": "test", "row": 71}}
+{"id": "banking77-test-02141", "input": "I am travelling for two more weeks but really need to change my PIN asap. What do I do?", "gold": "change_pin", "meta": {"split": "test", "row": 2141}}
+{"id": "banking77-test-02961", "input": "Can I use the system Google Pay for top-ups?", "gold": "apple_pay_or_google_pay", "meta": {"split": "test", "row": 2961}}
+{"id": "banking77-test-00328", "input": "Can I have it add money at certain time intervals when I travel?", "gold": "automatic_top_up", "meta": {"split": "test", "row": 328}}
+{"id": "banking77-test-01046", "input": "How can I get the cash deposit to show up on my account?", "gold": "balance_not_updated_after_cheque_or_cash_deposit", "meta": {"split": "test", "row": 1046}}
+{"id": "banking77-test-00761", "input": "I didn't get all the cash I requested for at the ATM", "gold": "wrong_amount_of_cash_received", "meta": {"split": "test", "row": 761}}
+{"id": "banking77-test-00014", "input": "I am still waiting for my card after 1 week.  Is this ok?", "gold": "card_arrival", "meta": {"split": "test", "row": 14}}
+{"id": "banking77-test-02579", "input": "Can I make a withdraw if I am out of country from with out any fees at an ATM?", "gold": "wrong_exchange_rate_for_cash_withdrawal", "meta": {"split": "test", "row": 2579}}
+{"id": "banking77-test-02151", "input": "Where can I find instructions to change my PIN?", "gold": "change_pin", "meta": {"split": "test", "row": 2151}}
+{"id": "banking77-test-02705", "input": "The  money I transferred does not show in the balance.", "gold": "balance_not_updated_after_bank_transfer", "meta": {"split": "test", "row": 2705}}
+{"id": "banking77-test-02243", "input": "Can I get my salary through this?", "gold": "receiving_money", "meta": {"split": "test", "row": 2243}}
+{"id": "banking77-test-01762", "input": "I requested a refund, and never received it. What can I do?", "gold": "Refund_not_showing_up", "meta": {"split": "test", "row": 1762}}
+{"id": "banking77-test-00494", "input": "What is the age to open an account?", "gold": "age_limit", "meta": {"split": "test", "row": 494}}
+{"id": "banking77-test-01020", "input": "What happened to my top-up?", "gold": "top_up_reverted", "meta": {"split": "test", "row": 1020}}
+{"id": "banking77-test-00856", "input": "I transferred the rent payment for my new place a couple days ago but the landlord says it's not there yet, despite showing up as done on my side. I checked the account number I sent it to and it's definitely correct. Can you please verify if the transaction really went through or not?", "gold": "transfer_not_received_by_recipient", "meta": {"split": "test", "row": 856}}
+{"id": "banking77-test-02861", "input": "Assist me please with card activation.", "gold": "activate_my_card", "meta": {"split": "test", "row": 2861}}
+{"id": "banking77-test-00450", "input": "card is lost, please help", "gold": "lost_or_stolen_card", "meta": {"split": "test", "row": 450}}
+{"id": "banking77-test-01285", "input": "Do you guys accept mastercard or visa?", "gold": "visa_or_mastercard", "meta": {"split": "test", "row": 1285}}
+{"id": "banking77-test-00157", "input": "Your exchange rate is totally wrong for my card payment", "gold": "card_payment_wrong_exchange_rate", "meta": {"split": "test", "row": 157}}
+{"id": "banking77-test-02903", "input": "I thought cash withdrawals didn't have a fee", "gold": "cash_withdrawal_charge", "meta": {"split": "test", "row": 2903}}
+{"id": "banking77-test-01478", "input": "Is there places where I can't withdraw money?", "gold": "atm_support", "meta": {"split": "test", "row": 1478}}
+{"id": "banking77-test-01722", "input": "I am getting continuous failure for all my transfers. I have cross checked each recipient detail again and again and everything is correct.", "gold": "declined_transfer", "meta": {"split": "test", "row": 1722}}
+{"id": "banking77-test-01943", "input": "I have a problem!  The ATM stole my card!", "gold": "card_swallowed", "meta": {"split": "test", "row": 1943}}
+{"id": "banking77-test-01237", "input": "Why can't I verify my identity?", "gold": "unable_to_verify_identity", "meta": {"split": "test", "row": 1237}}
+{"id": "banking77-test-02553", "input": "My disposable virtual card was rejected by the merchant, please help?", "gold": "virtual_card_not_working", "meta": {"split": "test", "row": 2553}}
+{"id": "banking77-test-00951", "input": "Can I order a virtual card?", "gold": "getting_virtual_card", "meta": {"split": "test", "row": 951}}
+{"id": "banking77-test-00037", "input": "Is there tracking info available?", "gold": "card_arrival", "meta": {"split": "test", "row": 37}}
+{"id": "banking77-test-01940", "input": "What do I do if an ATM ate my card?", "gold": "card_swallowed", "meta": {"split": "test", "row": 1940}}
+{"id": "banking77-test-00316", "input": "When will my card arrive?", "gold": "card_delivery_estimate", "meta": {"split": "test", "row": 316}}
+{"id": "banking77-test-02596", "input": "how do you determine your exchange rates because one of yours was off when i got cash", "gold": "wrong_exchange_rate_for_cash_withdrawal", "meta": {"split": "test", "row": 2596}}
+{"id": "banking77-test-02627", "input": "How do I obtain a disposable virtual card?", "gold": "get_disposable_virtual_card", "meta": {"split": "test", "row": 2627}}
+{"id": "banking77-test-00322", "input": "Will it automatically top-up or do I need to do that manually if there isn't much cash left?", "gold": "automatic_top_up", "meta": {"split": "test", "row": 322}}
+{"id": "banking77-test-00139", "input": "I purchased an item and the exchange rate I was given was incorrect.", "gold": "card_payment_wrong_exchange_rate", "meta": {"split": "test", "row": 139}}
+{"id": "banking77-test-01160", "input": "Why do you require so many details about my identity?", "gold": "why_verify_identity", "meta": {"split": "test", "row": 1160}}
+{"id": "banking77-test-00621", "input": "What is the fee to receive money?", "gold": "top_up_by_bank_transfer_charge", "meta": {"split": "test", "row": 621}}
+{"id": "banking77-test-00659", "input": "I topped up by card a while ago and it's still pending, surely it should be done by now?", "gold": "pending_top_up", "meta": {"split": "test", "row": 659}}
+{"id": "banking77-test-02990", "input": "Is it possible to use Apple Pay to put money in my account?", "gold": "apple_pay_or_google_pay", "meta": {"split": "test", "row": 2990}}
+{"id": "banking77-test-00963", "input": "It will be fine to use at any establishment that accepts Mastercard.", "gold": "card_acceptance", "meta": {"split": "test", "row": 963}}
+{"id": "banking77-test-00016", "input": "I've been waiting longer than expected for my card.", "gold": "card_arrival", "meta": {"split": "test", "row": 16}}
+{"id": "banking77-test-01131", "input": "Where can I go to modify my detail?", "gold": "edit_personal_details", "meta": {"split": "test", "row": 1131}}
+{"id": "banking77-test-00987", "input": "Where can I pay with my debit or credit card?", "gold": "card_acceptance", "meta": {"split": "test", "row": 987}}
+{"id": "banking77-test-00902", "input": "Are US credit cards accepted?", "gold": "supported_cards_and_currencies", "meta": {"split": "test", "row": 902}}
+{"id": "banking77-test-03050", "input": "Can I get a card despite the fact I'm not in the UK?", "gold": "country_support", "meta": {"split": "test", "row": 3050}}
+{"id": "banking77-test-01748", "input": "I tried to make a transfer, but it was declined. Can you tell me why?", "gold": "declined_transfer", "meta": {"split": "test", "row": 1748}}
+{"id": "banking77-test-01991", "input": "I was double charged", "gold": "transaction_charged_twice", "meta": {"split": "test", "row": 1991}}
+{"id": "banking77-test-02446", "input": "Need to deposit a cheque into my account", "gold": "top_up_by_cash_or_cheque", "meta": {"split": "test", "row": 2446}}
+{"id": "banking77-test-00927", "input": "Where is the virtual card?", "gold": "getting_virtual_card", "meta": {"split": "test", "row": 927}}
+{"id": "banking77-test-01636", "input": "What does a pending transaction mean?", "gold": "pending_card_payment", "meta": {"split": "test", "row": 1636}}
+{"id": "banking77-test-00264", "input": "Am I able to exchange currencies?", "gold": "fiat_currency_support", "meta": {"split": "test", "row": 264}}
+{"id": "banking77-test-00145", "input": "The exchange rate seems off on this transaction", "gold": "card_payment_wrong_exchange_rate", "meta": {"split": "test", "row": 145}}
+{"id": "banking77-test-02168", "input": "Hey I want to buy some crypto but the app doesn't allow me to! What's the issue, I really want to exchange this", "gold": "beneficiary_not_allowed", "meta": {"split": "test", "row": 2168}}
+{"id": "banking77-test-00107", "input": "What is the exchange rate like?", "gold": "exchange_rate", "meta": {"split": "test", "row": 107}}
+{"id": "banking77-test-01062", "input": "My cash deposit from a week ago hasn't shown up. I need the money - how quickly can you sort this out?", "gold": "balance_not_updated_after_cheque_or_cash_deposit", "meta": {"split": "test", "row": 1062}}
+{"id": "banking77-test-01086", "input": "What should I do if I see a payment I didn't make?", "gold": "card_payment_not_recognised", "meta": {"split": "test", "row": 1086}}
+{"id": "banking77-test-02916", "input": "I had a wrong fee charged at this ATM.", "gold": "cash_withdrawal_charge", "meta": {"split": "test", "row": 2916}}
+{"id": "banking77-test-00560", "input": "Are contactless payments enabled on my new card?", "gold": "contactless_not_working", "meta": {"split": "test", "row": 560}}
+{"id": "banking77-test-00899", "input": "How can I use American Express to add money to my account?", "gold": "supported_cards_and_currencies", "meta": {"split": "test", "row": 899}}
+{"id": "banking77-test-02791", "input": "I will need to exchange currencies frequently, will I be able to get a discount?", "gold": "exchange_charge", "meta": {"split": "test", "row": 2791}}
+{"id": "banking77-test-00077", "input": "I already have one of your cards, how do I link them?", "gold": "card_linking", "meta": {"split": "test", "row": 77}}
+{"id": "banking77-test-01315", "input": "What major card payments are accepted?", "gold": "visa_or_mastercard", "meta": {"split": "test", "row": 1315}}
+{"id": "banking77-test-01867", "input": "Someone transferred money to me and it doesn't show", "gold": "pending_transfer", "meta": {"split": "test", "row": 1867}}
+{"id": "banking77-test-02876", "input": "How do I activate a new card?", "gold": "activate_my_card", "meta": {"split": "test", "row": 2876}}
+{"id": "banking77-test-03022", "input": "What steps do I take to verify my identity?", "gold": "verify_my_identity", "meta": {"split": "test", "row": 3022}}
+{"id": "banking77-test-02738", "input": "I'm unsure of a withdrawl in my statement.", "gold": "cash_withdrawal_not_recognised", "meta": {"split": "test", "row": 2738}}
+{"id": "banking77-test-01538", "input": "Help me reset the passcode.", "gold": "passcode_forgotten", "meta": {"split": "test", "row": 1538}}
+{"id": "banking77-test-02815", "input": "How much can I expect to pay to top up a US card?", "gold": "top_up_by_card_charge", "meta": {"split": "test", "row": 2815}}
+{"id": "banking77-test-03055", "input": "Is it possible to get a card if I'm not in the UK?", "gold": "country_support", "meta": {"split": "test", "row": 3055}}
+{"id": "banking77-test-02762", "input": "What are your currency exchange fees?", "gold": "exchange_charge", "meta": {"split": "test", "row": 2762}}
+{"id": "banking77-test-02222", "input": "I was charged a fee when making this transfer, and I don't think I should have been!", "gold": "transfer_fee_charged", "meta": {"split": "test", "row": 2222}}
+{"id": "banking77-test-01143", "input": "Is it possible to edit my personal details on the app?", "gold": "edit_personal_details", "meta": {"split": "test", "row": 1143}}
+{"id": "banking77-test-00759", "input": "What are the top-up limits?", "gold": "top_up_limits", "meta": {"split": "test", "row": 759}}
+{"id": "banking77-test-01480", "input": "Help me.  There is a Direct Debit that I didn't make.", "gold": "direct_debit_payment_not_recognised", "meta": {"split": "test", "row": 1480}}
+{"id": "banking77-test-02805", "input": "Are there charges for topping up US cards?", "gold": "top_up_by_card_charge", "meta": {"split": "test", "row": 2805}}
+{"id": "banking77-test-01417", "input": "My card is being used online to make a bunch of purchases! Someone else is using it fraudulently. Can you help me freeze it?", "gold": "compromised_card", "meta": {"split": "test", "row": 1417}}
+{"id": "banking77-test-01159", "input": "What do I need to do to change the address on my account?", "gold": "edit_personal_details", "meta": {"split": "test", "row": 1159}}
+{"id": "banking77-test-02774", "input": "Is there a fee for exchanging foreign currencies?", "gold": "exchange_charge", "meta": {"split": "test", "row": 2774}}
+{"id": "banking77-test-02952", "input": "I need a new card since my old one is about to expire.", "gold": "card_about_to_expire", "meta": {"split": "test", "row": 2952}}
+{"id": "banking77-test-03062", "input": "What countries do you support?", "gold": "country_support", "meta": {"split": "test", "row": 3062}}
+{"id": "banking77-test-00594", "input": "How can I fix a problem where contactless isn't working?", "gold": "contactless_not_working", "meta": {"split": "test", "row": 594}}
+{"id": "banking77-test-01247", "input": "is my card PIN saved in the app", "gold": "get_physical_card", "meta": {"split": "test", "row": 1247}}
+{"id": "banking77-test-01671", "input": "Someone stole my phone.", "gold": "lost_or_stolen_phone", "meta": {"split": "test", "row": 1671}}
+{"id": "banking77-test-01506", "input": "I don't think I made this charge on my debit statement.", "gold": "direct_debit_payment_not_recognised", "meta": {"split": "test", "row": 1506}}
+{"id": "banking77-test-01392", "input": "What is the limit to disposable cards you can have?", "gold": "disposable_card_limits", "meta": {"split": "test", "row": 1392}}
+{"id": "banking77-test-00795", "input": "The ATM didn't give me the the withdraw amount requested.", "gold": "wrong_amount_of_cash_received", "meta": {"split": "test", "row": 795}}
+{"id": "banking77-test-02686", "input": "The amount of time that transfers usually take from a UK account is what?I just completed a transfer and it is not showing up at all. I'm wondering at this point if everything is actually okay.", "gold": "balance_not_updated_after_bank_transfer", "meta": {"split": "test", "row": 2686}}
+{"id": "banking77-test-02181", "input": "I couldn't do a transfer to an account", "gold": "beneficiary_not_allowed", "meta": {"split": "test", "row": 2181}}
+{"id": "banking77-test-01492", "input": "Even though it's late, I wanted to see about disputing a charge. I was just looking through my transactions over the past couple of months and noticed a pretty large amount that was not completed by me. Is this possibly something I can still do.", "gold": "direct_debit_payment_not_recognised", "meta": {"split": "test", "row": 1492}}
+{"id": "banking77-test-00523", "input": "I accidentally blocked my PIN. How do I reset it?", "gold": "pin_blocked", "meta": {"split": "test", "row": 523}}
+{"id": "banking77-test-00412", "input": "If I wanted to make a change from GBP to AUD what is the process?", "gold": "exchange_via_app", "meta": {"split": "test", "row": 412}}
+{"id": "banking77-test-00084", "input": "How do I find the exchange rate?", "gold": "exchange_rate", "meta": {"split": "test", "row": 84}}
+{"id": "banking77-test-02404", "input": "Is there a fee for extra cards?", "gold": "getting_spare_card", "meta": {"split": "test", "row": 2404}}
+{"id": "banking77-test-00742", "input": "Is there a limit on top-ups?", "gold": "top_up_limits", "meta": {"split": "test", "row": 742}}
+{"id": "banking77-test-00473", "input": "I believe my credit card was stolen.", "gold": "lost_or_stolen_card", "meta": {"split": "test", "row": 473}}
+{"id": "banking77-test-00668", "input": "Why is my top-up still outstanding?", "gold": "pending_top_up", "meta": {"split": "test", "row": 668}}
+{"id": "banking77-test-02610", "input": "Can you explain the disposable cards to me?", "gold": "get_disposable_virtual_card", "meta": {"split": "test", "row": 2610}}
+{"id": "banking77-test-00184", "input": "Something went wrong, I was charged an extra pound?", "gold": "extra_charge_on_statement", "meta": {"split": "test", "row": 184}}
+{"id": "banking77-test-02351", "input": "How does a transfer work?", "gold": "transfer_into_account", "meta": {"split": "test", "row": 2351}}
+{"id": "banking77-test-02512", "input": "How can I get a real-life card of my own?", "gold": "order_physical_card", "meta": {"split": "test", "row": 2512}}
+{"id": "banking77-test-01811", "input": "My new card keeps getting declined. I was very excited to use it for the first time today. Why is this doing this?", "gold": "declined_card_payment", "meta": {"split": "test", "row": 1811}}
+{"id": "banking77-test-02759", "input": "The app made a mistake and said I made a cash withdrawal.", "gold": "cash_withdrawal_not_recognised", "meta": {"split": "test", "row": 2759}}
+{"id": "banking77-test-00804", "input": "Why do I get charged additional fees on some payments, but not others?", "gold": "card_payment_fee_charged", "meta": {"split": "test", "row": 804}}
+{"id": "banking77-test-00582", "input": "When I tried to pay for my bus ride, the contactless payment wouldn't work. How can I prevent this in the future?", "gold": "contactless_not_working", "meta": {"split": "test", "row": 582}}
+{"id": "banking77-test-01087", "input": "I found an unauthorized card payment", "gold": "card_payment_not_recognised", "meta": {"split": "test", "row": 1087}}
+{"id": "banking77-test-00982", "input": "Will I be able to use my card anywhere?", "gold": "card_acceptance", "meta": {"split": "test", "row": 982}}
+{"id": "banking77-test-01874", "input": "Why is a money transfer not showing?", "gold": "pending_transfer", "meta": {"split": "test", "row": 1874}}
+{"id": "banking77-test-02171", "input": "I am having problems transferring to a beneficiary.", "gold": "beneficiary_not_allowed", "meta": {"split": "test", "row": 2171}}
+{"id": "banking77-test-00386", "input": "My card stopped working when I use it", "gold": "card_not_working", "meta": {"split": "test", "row": 386}}
+{"id": "banking77-test-00521", "input": "Where can I view my PIN?", "gold": "pin_blocked", "meta": {"split": "test", "row": 521}}
+{"id": "banking77-test-00605", "input": "Are SWIFT transfers accepted?", "gold": "top_up_by_bank_transfer_charge", "meta": {"split": "test", "row": 605}}
+{"id": "banking77-test-00748", "input": "What is the limit to top-up?", "gold": "top_up_limits", "meta": {"split": "test", "row": 748}}
+{"id": "banking77-test-00062", "input": "I found my card, I would like to reactivate it.", "gold": "card_linking", "meta": {"split": "test", "row": 62}}
+{"id": "banking77-test-01433", "input": "I think someone has access to my card numbers that shouldn't.", "gold": "compromised_card", "meta": {"split": "test", "row": 1433}}
+{"id": "banking77-test-00850", "input": "I transferred some money and it didint arrive", "gold": "transfer_not_received_by_recipient", "meta": {"split": "test", "row": 850}}
+{"id": "banking77-test-00204", "input": "How long does the cash withdrawal take to pend?", "gold": "pending_cash_withdrawal", "meta": {"split": "test", "row": 204}}
+{"id": "banking77-test-00493", "input": "Could I open an account for my children?", "gold": "age_limit", "meta": {"split": "test", "row": 493}}
+{"id": "banking77-test-02118", "input": "If my card payment is cancelled, what should I do?", "gold": "reverted_card_payment?", "meta": {"split": "test", "row": 2118}}
+{"id": "banking77-test-00352", "input": "Will it automatically top-up if there isn't much money left?", "gold": "automatic_top_up", "meta": {"split": "test", "row": 352}}
+{"id": "banking77-test-01581", "input": "I attempted to get cash but was declined.", "gold": "declined_cash_withdrawal", "meta": {"split": "test", "row": 1581}}
+{"id": "banking77-test-02087", "input": "Hello, My money went through for my purchase but now I got contacted from the seller noting that they didn't receive it. Then the money was returned to my account and I'm not sure why this occurred. So if you can resolve this issue please.", "gold": "reverted_card_payment?", "meta": {"split": "test", "row": 2087}}
+{"id": "banking77-test-02325", "input": "I need to transfer money into my account, how do I go about doing this?", "gold": "transfer_into_account", "meta": {"split": "test", "row": 2325}}
+{"id": "banking77-test-00235", "input": "Where's accounting for my cash withdrawal?", "gold": "pending_cash_withdrawal", "meta": {"split": "test", "row": 235}}
+{"id": "banking77-test-02576", "input": "It seems I was overcharged when I used an ATM while on vacation. If I knew about your fees in advance I sure would have gone somewhere else.", "gold": "wrong_exchange_rate_for_cash_withdrawal", "meta": {"split": "test", "row": 2576}}
+{"id": "banking77-test-01334", "input": "I have friends that would like to top-up my account is that possible?", "gold": "topping_up_by_card", "meta": {"split": "test", "row": 1334}}
+{"id": "banking77-test-01036", "input": "Im very upset as my top-up was canceled and I have no idea why.", "gold": "top_up_reverted", "meta": {"split": "test", "row": 1036}}
+{"id": "banking77-test-02432", "input": "Where do I request another card?", "gold": "getting_spare_card", "meta": {"split": "test", "row": 2432}}
+{"id": "banking77-test-02468", "input": "how come i can't find anywhere to load using cash", "gold": "top_up_by_cash_or_cheque", "meta": {"split": "test", "row": 2468}}
+{"id": "banking77-test-00889", "input": "can you tell me what cards and currencies you take?", "gold": "supported_cards_and_currencies", "meta": {"split": "test", "row": 889}}
+{"id": "banking77-test-01313", "input": "Please give me both a visa and a master card.", "gold": "visa_or_mastercard", "meta": {"split": "test", "row": 1313}}
+{"id": "banking77-test-00527", "input": "How do I reset my PIN, I can't seem to use my card?", "gold": "pin_blocked", "meta": {"split": "test", "row": 527}}
+{"id": "banking77-test-01114", "input": "Some of my card payments look different than where I purchased products from. Why is that?", "gold": "card_payment_not_recognised", "meta": {"split": "test", "row": 1114}}
+{"id": "banking77-test-01227", "input": "How do I show this stupid system that this is really my identity?", "gold": "unable_to_verify_identity", "meta": {"split": "test", "row": 1227}}
+{"id": "banking77-test-01632", "input": "How long does it take for a payment to go thru? I made one a few days ago and it has not been cleared yet.", "gold": "pending_card_payment", "meta": {"split": "test", "row": 1632}}
+{"id": "banking77-test-00390", "input": "The card I've got seems to be broken.", "gold": "card_not_working", "meta": {"split": "test", "row": 390}}
+{"id": "banking77-test-01078", "input": "I tired to deposit some cash into my account but it's not there", "gold": "balance_not_updated_after_cheque_or_cash_deposit", "meta": {"split": "test", "row": 1078}}
+{"id": "banking77-test-01275", "input": "What do I need to do for a PIN?", "gold": "get_physical_card", "meta": {"split": "test", "row": 1275}}
+{"id": "banking77-test-01181", "input": "Why am I being asked to have an identity check", "gold": "why_verify_identity", "meta": {"split": "test", "row": 1181}}
+{"id": "banking77-test-01408", "input": "Someone is using my account to do online shopping! Please freeze it asap", "gold": "compromised_card", "meta": {"split": "test", "row": 1408}}
+{"id": "banking77-test-01027", "input": "The app reverted my action when I topped up.", "gold": "top_up_reverted", "meta": {"split": "test", "row": 1027}}
+{"id": "banking77-test-01164", "input": "Can I make transfers before identity verification?", "gold": "why_verify_identity", "meta": {"split": "test", "row": 1164}}
+{"id": "banking77-test-02340", "input": "How can I fund my top-up account using my bank account?", "gold": "transfer_into_account", "meta": {"split": "test", "row": 2340}}
+{"id": "banking77-test-00425", "input": "Change currency", "gold": "exchange_via_app", "meta": {"split": "test", "row": 425}}
+{"id": "banking77-test-00507", "input": "How old do you have to be to be able to open an account?", "gold": "age_limit", "meta": {"split": "test", "row": 507}}
+{"id": "banking77-test-02713", "input": "Where is my transfer from [country]?", "gold": "balance_not_updated_after_bank_transfer", "meta": {"split": "test", "row": 2713}}
+{"id": "banking77-test-02054", "input": "If I need to do a quick transfer from China, how long should I expect the transfer to take?", "gold": "transfer_timing", "meta": {"split": "test", "row": 2054}}
+{"id": "banking77-test-02641", "input": "Heyy I tried to top up with my card today but it failed! I just got the couple days before but it has worked last time. What's going on, can you double check please?", "gold": "top_up_failed", "meta": {"split": "test", "row": 2641}}
+{"id": "banking77-test-00215", "input": "Is my pending cash withdrawal processed?", "gold": "pending_cash_withdrawal", "meta": {"split": "test", "row": 215}}
+{"id": "banking77-test-00300", "input": "How fast can you deliver?", "gold": "card_delivery_estimate", "meta": {"split": "test", "row": 300}}
+{"id": "banking77-test-01372", "input": "What if I need multiple disposable cards?", "gold": "disposable_card_limits", "meta": {"split": "test", "row": 1372}}
+{"id": "banking77-test-02076", "input": "If my transfer is from Europe how long will it take?", "gold": "transfer_timing", "meta": {"split": "test", "row": 2076}}
+{"id": "banking77-test-01776", "input": "Do you have any idea on when I will receive my refund? I got my statement and it was not there.", "gold": "Refund_not_showing_up", "meta": {"split": "test", "row": 1776}}
+{"id": "banking77-test-02846", "input": "What's the right way to activate my card?", "gold": "activate_my_card", "meta": {"split": "test", "row": 2846}}
+{"id": "banking77-test-00658", "input": "Is there something wrong with your website? I tried topping up my account and it's been close to two hours now and it's still at \"pending\" for some reason. I just joined with you guys and this is the first attempt at this, so maybe I'm wrong, but shouldn't this be instant?", "gold": "pending_top_up", "meta": {"split": "test", "row": 658}}
+{"id": "banking77-test-01472", "input": "What ATMs will accept this type of card?", "gold": "atm_support", "meta": {"split": "test", "row": 1472}}
+{"id": "banking77-test-00199", "input": "Can you please check why I am having this extra fee on my statement.", "gold": "extra_charge_on_statement", "meta": {"split": "test", "row": 199}}
+{"id": "banking77-test-02673", "input": "My top-up has failed.", "gold": "top_up_failed", "meta": {"split": "test", "row": 2673}}
+{"id": "banking77-test-01817", "input": "Do you know why my card payment did not work?", "gold": "declined_card_payment", "meta": {"split": "test", "row": 1817}}
+{"id": "banking77-test-00375", "input": "Why isn't my card working?", "gold": "card_not_working", "meta": {"split": "test", "row": 375}}
+{"id": "banking77-test-01997", "input": "I have a duplicate payment showing", "gold": "transaction_charged_twice", "meta": {"split": "test", "row": 1997}}
+{"id": "banking77-test-02071", "input": "I have to transfer something to China as fast as I can. How long will it take to arrive in China?", "gold": "transfer_timing", "meta": {"split": "test", "row": 2071}}
+{"id": "banking77-test-02318", "input": "Can you provide a reason as to why my transfer did not work?", "gold": "failed_transfer", "meta": {"split": "test", "row": 2318}}
+{"id": "banking77-test-00868", "input": "Is there a reason why my transaction is taking so long?", "gold": "transfer_not_received_by_recipient", "meta": {"split": "test", "row": 868}}
+{"id": "banking77-test-01523", "input": "My passcode doesn't seem to be working", "gold": "passcode_forgotten", "meta": {"split": "test", "row": 1523}}
+{"id": "banking77-test-02127", "input": "I would like to change my card PIN.", "gold": "change_pin", "meta": {"split": "test", "row": 2127}}
+{"id": "banking77-test-00834", "input": "Why was I charged a fee when I paid with card?", "gold": "card_payment_fee_charged", "meta": {"split": "test", "row": 834}}
+{"id": "banking77-test-01388", "input": "I need to create several disposable cards per day.", "gold": "disposable_card_limits", "meta": {"split": "test", "row": 1388}}
+{"id": "banking77-test-01665", "input": "Someone attacked me yesterday and took my things, so I am unable to use the app.  I am in need of some help.", "gold": "lost_or_stolen_phone", "meta": {"split": "test", "row": 1665}}
+{"id": "banking77-test-01234", "input": "Why am I having trouble verifying my id?", "gold": "unable_to_verify_identity", "meta": {"split": "test", "row": 1234}}
+{"id": "banking77-test-01716", "input": "I want a refund for my purchase", "gold": "request_refund", "meta": {"split": "test", "row": 1716}}
+{"id": "banking77-test-02017", "input": "Help me check where the funds came from.", "gold": "verify_source_of_funds", "meta": {"split": "test", "row": 2017}}
+{"id": "banking77-test-02510", "input": "Where can I receive my card?", "gold": "order_physical_card", "meta": {"split": "test", "row": 2510}}
+{"id": "banking77-test-02285", "input": "My transfer did not go through.", "gold": "failed_transfer", "meta": {"split": "test", "row": 2285}}
+{"id": "banking77-test-02914", "input": "I took cash and got charged a fee", "gold": "cash_withdrawal_charge", "meta": {"split": "test", "row": 2914}}
+{"id": "banking77-test-00274", "input": "How man currencies can I hold?", "gold": "fiat_currency_support", "meta": {"split": "test", "row": 274}}
+{"id": "banking77-test-00308", "input": "Can I get my card expedited?", "gold": "card_delivery_estimate", "meta": {"split": "test", "row": 308}}
+{"id": "banking77-test-02372", "input": "Is it possible to verify a top up?", "gold": "verify_top_up", "meta": {"split": "test", "row": 2372}}
+{"id": "banking77-test-01343", "input": "Help me transfer money to my credit card.", "gold": "topping_up_by_card", "meta": {"split": "test", "row": 1343}}
+{"id": "banking77-test-02274", "input": "can I transfer my salary if it's in a different currency?", "gold": "receiving_money", "meta": {"split": "test", "row": 2274}}
+{"id": "banking77-test-02827", "input": "When using a US card, what is the cost for a top up/off?", "gold": "top_up_by_card_charge", "meta": {"split": "test", "row": 2827}}
+{"id": "banking77-test-01331", "input": "Where's the money that got charged to my card? It's not showing up in my account balance", "gold": "topping_up_by_card", "meta": {"split": "test", "row": 1331}}
+{"id": "banking77-test-01450", "input": "Help me locate the nearest ATM.", "gold": "atm_support", "meta": {"split": "test", "row": 1450}}
+{"id": "banking77-test-00938", "input": "Where is the virtual card located?", "gold": "getting_virtual_card", "meta": {"split": "test", "row": 938}}
+{"id": "banking77-test-00116", "input": "What kind of foreign exchange rate will I get when I exchange my money?", "gold": "exchange_rate", "meta": {"split": "test", "row": 116}}
+{"id": "banking77-test-00693", "input": "Help me cancel my transaction", "gold": "cancel_transfer", "meta": {"split": "test", "row": 693}}
+{"id": "banking77-test-01916", "input": "Please delete my account, this company is not working for me!", "gold": "terminate_account", "meta": {"split": "test", "row": 1916}}
+{"id": "banking77-test-02091", "input": "I'm not sure why my account has been refunded a payment for an item I've already received about 2 weeks ago. Can you please tell me what is going on?", "gold": "reverted_card_payment?", "meta": {"split": "test", "row": 2091}}

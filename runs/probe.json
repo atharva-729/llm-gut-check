@@ -1,0 +1,218 @@
+[
+  {
+    "model": "gpt-5.4-mini",
+    "mode": "gut",
+    "structured_output": true,
+    "accepted": true,
+    "error": null,
+    "reasoning_tokens": [
+      0,
+      0,
+      0
+    ],
+    "reasoning_measured": true,
+    "output_tokens": [
+      15,
+      15,
+      15
+    ],
+    "json_ok": 3,
+    "correct": 3,
+    "latency_s": [
+      2.089,
+      0.919,
+      0.9
+    ],
+    "cost_usd": 0.000412,
+    "sample": "{\"answer\":\"NO\",\"confidence\":99}"
+  },
+  {
+    "model": "gpt-5.4-mini",
+    "mode": "gut",
+    "structured_output": false,
+    "accepted": true,
+    "error": null,
+    "reasoning_tokens": [
+      0,
+      0,
+      0
+    ],
+    "reasoning_measured": true,
+    "output_tokens": [
+      12,
+      12,
+      12
+    ],
+    "json_ok": 3,
+    "correct": 3,
+    "latency_s": [
+      0.831,
+      1.263,
+      0.831
+    ],
+    "cost_usd": 0.000286,
+    "sample": "{\"answer\":\"NO\",\"confidence\":100}"
+  },
+  {
+    "model": "gpt-5.4-mini",
+    "mode": "reasoned",
+    "structured_output": true,
+    "accepted": true,
+    "error": null,
+    "reasoning_tokens": [
+      17,
+      32,
+      7
+    ],
+    "reasoning_measured": true,
+    "output_tokens": [
+      38,
+      53,
+      28
+    ],
+    "json_ok": 3,
+    "correct": 3,
+    "latency_s": [
+      0.892,
+      0.9,
+      0.881
+    ],
+    "cost_usd": 0.000745,
+    "sample": "{\"answer\":\"NO\",\"confidence\":99}"
+  },
+  {
+    "model": "gpt-5.4-mini",
+    "mode": "reasoned",
+    "structured_output": false,
+    "accepted": true,
+    "error": null,
+    "reasoning_tokens": [
+      18,
+      36,
+      7
+    ],
+    "reasoning_measured": true,
+    "output_tokens": [
+      36,
+      54,
+      25
+    ],
+    "json_ok": 3,
+    "correct": 3,
+    "latency_s": [
+      0.869,
+      1.059,
+      0.939
+    ],
+    "cost_usd": 0.000641,
+    "sample": "{\"answer\":\"NO\",\"confidence\":99}"
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "mode": "gut",
+    "structured_output": true,
+    "accepted": true,
+    "error": null,
+    "reasoning_tokens": [
+      0,
+      0,
+      0
+    ],
+    "reasoning_measured": false,
+    "output_tokens": [
+      15,
+      15,
+      15
+    ],
+    "json_ok": 3,
+    "correct": 3,
+    "latency_s": [
+      1.558,
+      1.273,
+      1.117
+    ],
+    "cost_usd": 0.00094,
+    "sample": "{\"answer\": \"NO\", \"confidence\": 95}"
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "mode": "gut",
+    "structured_output": false,
+    "accepted": true,
+    "error": null,
+    "reasoning_tokens": [
+      0,
+      0,
+      0
+    ],
+    "reasoning_measured": false,
+    "output_tokens": [
+      48,
+      73,
+      20
+    ],
+    "json_ok": 3,
+    "correct": 3,
+    "latency_s": [
+      1.082,
+      1.256,
+      0.788
+    ],
+    "cost_usd": 0.000874,
+    "sample": "```json\n{\n  \"answer\": \"NO\",\n  \"confidence\": 99\n}\n```\n\n91 is not a prime number because it can be factored as 7 \u00d7 13."
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "mode": "reasoned",
+    "structured_output": true,
+    "accepted": true,
+    "error": null,
+    "reasoning_tokens": [
+      243,
+      208,
+      56
+    ],
+    "reasoning_measured": false,
+    "output_tokens": [
+      253,
+      218,
+      67
+    ],
+    "json_ok": 3,
+    "correct": 3,
+    "latency_s": [
+      16.709,
+      3.935,
+      1.468
+    ],
+    "cost_usd": 0.003495,
+    "sample": "{\"answer\": \"NO\", \"confidence\": 100}"
+  },
+  {
+    "model": "claude-haiku-4-5",
+    "mode": "reasoned",
+    "structured_output": false,
+    "accepted": true,
+    "error": null,
+    "reasoning_tokens": [
+      240,
+      168,
+      61
+    ],
+    "reasoning_measured": false,
+    "output_tokens": [
+      272,
+      242,
+      77
+    ],
+    "json_ok": 3,
+    "correct": 3,
+    "latency_s": [
+      2.692,
+      3.173,
+      1.386
+    ],
+    "cost_usd": 0.003214,
+    "sample": "```json\n{\"answer\": \"NO\", \"confidence\": 100}\n```\n\n91 is not a prime number because it can be factored as 7 \u00d7 13."
+  }
+]

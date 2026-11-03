@@ -1,0 +1,9 @@
+name: "Banking77 intent classification"
+task_id: banking77
+answer_type: single_choice
+options_file: options.txt
+instructions: "Classify the bank customer's message into exactly one of the listed intents. Answer with the intent label exactly as written."
+target_precision: 0.95
+target_accuracy: 0.9
+licence: "CC BY 4.0"
+source_url: "https://github.com/PolyAI-LDN/task-specific-datasets/tree/master/banking_data"

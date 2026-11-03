@@ -1,0 +1,9 @@
+name: "BLiMP grammaticality (A/B)"
+task_id: blimp
+answer_type: single_choice
+options: ["A", "B"]
+instructions: "Which sentence is grammatically acceptable? Answer A or B."
+target_precision: 0.95
+target_accuracy: 0.95
+licence: "CC BY 4.0"
+source_url: "https://huggingface.co/datasets/nyu-mll/blimp"

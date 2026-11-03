@@ -1,0 +1,15 @@
+# Gut-Check Harness — lean v1 configuration
+budget_usd: 20.0          # soft budget across all runs; `gch run` refuses to exceed it without --force
+seed: 20261103
+target_precision: 0.95    # auto-accept threshold target (0.99 is unreachable with 200 items/task: needs ~380 all-correct)
+min_items_above_threshold: 30
+
+tasks: [banking77, blimp, toxicity]
+models: [gpt-5.4-mini, claude-haiku-4-5]
+modes: [gut, reasoned]
+
+concurrency:              # parallel in-flight calls per provider
+  openai: 8
+  anthropic: 6
+
+retry_overhead: 0.15      # planner adds this fraction for parse retries / errors

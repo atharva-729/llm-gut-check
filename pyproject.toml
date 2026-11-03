@@ -1,0 +1,22 @@
+[project]
+name = "gch"
+version = "0.1.0"
+description = "Gut-Check Harness: fast vs thinking mode, and when model confidence can skip human review"
+requires-python = ">=3.11"
+dependencies = ["httpx", "pyyaml", "python-dotenv", "numpy", "pandas", "plotly"]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+gch = "gch.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
