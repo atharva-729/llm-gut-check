@@ -113,6 +113,38 @@ def _anthropic(model: Model, mode: str, system: str, user: str, schema: dict | N
             "has_thinking": has_thinking}, usage
 
 
+def _gemini(model: Model, mode: str, system: str, user: str, schema: dict | None) -> tuple[dict, dict]:
+    p = model.modes[mode]
+    gen = {"maxOutputTokens": p.get("max_tokens", 8000)}
+    if "thinking" in p:
+        gen["thinkingConfig"] = p["thinking"]
+    if schema:
+        gen["responseMimeType"] = "application/json"
+        gen["responseJsonSchema"] = schema
+    body = {
+        "systemInstruction": {"parts": [{"text": system}]},
+        "contents": [{"role": "user", "parts": [{"text": user}]}],
+        "generationConfig": gen,
+    }
+    r = _http().post(f"{_base()}/gemini/v1beta/models/{model.model_id}:generateContent", json=body,
+                     headers={"Authorization": _auth()})
+    _raise(r)
+    d = r.json()
+    cand = (d.get("candidates") or [{}])[0]
+    parts = (cand.get("content") or {}).get("parts") or []
+    text = "".join(pt.get("text", "") for pt in parts if not pt.get("thought"))
+    u = d.get("usageMetadata", {}) or {}
+    thoughts = u.get("thoughtsTokenCount", 0) or 0
+    usage = {
+        "input": u.get("promptTokenCount", 0) or 0,
+        "cached_input": u.get("cachedContentTokenCount", 0) or 0,
+        "output": (u.get("candidatesTokenCount", 0) or 0) + thoughts,  # thinking is billed as output
+        "reasoning": thoughts,
+        "reasoning_measured": True,
+    }
+    return {"text": text, "finish": cand.get("finishReason")}, usage
+
+
 class APIError(Exception):
     def __init__(self, status: int, body: str):
         super().__init__(f"HTTP {status}: {body[:500]}")
@@ -125,7 +157,7 @@ def _raise(r: httpx.Response) -> None:
         raise APIError(r.status_code, r.text)
 
 
-PROVIDERS = {"openai": _openai, "anthropic": _anthropic}
+PROVIDERS = {"openai": _openai, "anthropic": _anthropic, "gemini": _gemini}
 
 
 # ---------------------------------------------------------------- public

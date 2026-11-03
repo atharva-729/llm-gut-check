@@ -47,3 +47,40 @@ Lowest stated confidence *t* such that, among parsed items with confidence ≥ *
 - API errors are retried with backoff. Items that still error are re-queued on the next run. Any item still missing at analysis time is reported.
 - Gut-mode reasoning leaks (reasoning tokens > 0) are flagged. If any occur, results are analysed with and without the leaking items.
 - No prompt, template or rule changes after the main run starts. Pilot items are never reused.
+
+---
+
+# Addendum v1.1: confirmation study (written 2026-11-03, before any confirmation item was run)
+
+Status at time of writing: the lean v1 main run (200 items/task, gpt-5.4-mini + claude-haiku-4-5) is complete, and its results are in `reports/`. Exploratory analysis of those 200 items (the **discovery set**) suggested the hypotheses below. They are tested on a **confirmation set** of 600 new items per task (`tasks/<task>/confirm.jsonl`, seed 20261104), disjoint from main and pilot by id and text. No confirmation item has been sent to any model before this addendum is committed.
+
+## Changes
+
+- **Third vendor:** `gemini-3.5-flash` (gut = `thinkingBudget: 0`, verified 0 thought tokens. Reasoned = default dynamic thinking). The README's `gemini-3.8-flash` was rejected because it has no true thinking-off: the probe on 2026-11-03 found 0–72 thought tokens at its lowest setting. Gemini is also run on the 200-item discovery set, so all three models have discovery data.
+- **Budget:** soft budget raised to $40 (user-approved).
+- Prompt template, parsing, the 95% precision target, the Wilson method and all v1 rules are unchanged. The v1 verdict cards are regenerated on the confirmation set exactly as before.
+
+## Auto-accept policies (defined now, fitted on discovery, tested on confirmation)
+
+For each task, an **auto-accept policy** decides which items skip human review and what answer to use:
+
+- **SELF(m, mode, c):** accept if model *m* in *mode* states confidence ≥ c. Answer = its answer.
+- **AGREE(S, mode, c):** for a set S of 2 or 3 models in the same mode, accept if **all models in S give the same answer** and each states confidence ≥ c. Answer = the shared answer. Pairs {gpt, haiku}, {gpt, gemini}, {haiku, gemini} and the triple, in gut and in reasoned mode.
+- **MAJ(mode, c):** at least 2 of the 3 models agree, and each agreeing model states confidence ≥ c. Answer = the majority answer.
+
+Confidence floors c ∈ {0, 50, 60, 70, 80, 85, 90, 95, 100}.
+
+**Fitting (discovery set, n = 200):** for each policy, pick the lowest c with **point precision ≥ 97%** and ≥ 30 accepted items. A policy with no such c is "not fitted".
+**Testing (confirmation set, n = 600):** apply the fitted c unchanged. A policy **passes** if the Wilson 95% lower bound on its precision is ≥ 0.95 (≥ 30 accepted). Report coverage = accepted ÷ 600.
+**API cost of a policy** = the sum of the per-item costs of every call it uses (measured on the confirmation set).
+
+**Review economics (pre-specified cost model):** total cost per 1,000 items = API cost + R × (items not accepted) + E × (accepted items that are wrong). Primary: R = $0.25 per human review, E = $2.50 per wrong auto-accepted answer. Sensitivity grid: R ∈ {0.05, 0.25, 1.00}, E ∈ {0, 2.50, 25}.
+
+## Hypotheses
+
+- **H4 (agreement beats self-confidence):** on **BLiMP and Banking77**, the best passing **gut-mode** AGREE/MAJ policy has **coverage ≥** the best passing SELF policy (any model, either mode; counted as 0 if none passes) **and lower API cost per 1,000 items**. Supported if this holds on both tasks, mixed if on one, not supported if on neither.
+- **H5 (confidence is blind to human ambiguity):** on **toxicity**, items are "split" if the annotator toxicity score is 0.3–0.7, otherwise "clear". For each model in gut mode, accuracy on split items is lower than on clear items (bootstrap 95% CI of the difference excludes 0). But mean stated confidence is **not** lower: the CI of (split − clear) confidence includes 0 or lies above it. Supported if both parts hold for ≥ 2 of 3 models.
+- **H6 (models agree with each other, not with the labels):** on **toxicity**, precision among items where all three gut answers agree is **< 85%**, and **no** policy (SELF, AGREE or MAJ, either mode) passes at 95% on the confirmation set.
+- **H7 (thinking doesn't help on judgment tasks):** on **toxicity**, the v1 verdict rule returns "Use fast mode" for **all three** models on the confirmation set.
+
+Replications of H1 to H3 on the confirmation set are reported as secondary results. Anything else is exploratory.

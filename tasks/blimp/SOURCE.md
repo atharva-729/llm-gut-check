@@ -38,3 +38,21 @@
 ## Item format
 `id` = `blimp-<paradigm>-<pair_id>`, `input` = `"A: <sentence>\nB: <sentence>"`, `gold` = `A`|`B`,
 `meta` = {paradigm, pair_id, field, linguistics_term, human_agreement}.
+
+## Confirmation set (`confirm.jsonl`)
+- Purpose: 600 fresh items to confirm findings made on the 200 main items. Built with
+  `PYTHONPATH=src python -m gch.build_tasks --confirm` (does not touch `items.jsonl` / `pilot.jsonl`).
+- **Seed:** 20261104 (`random.Random(CONFIRM_SEED)`, see `src/gch/build_tasks.py::confirm_blimp`)
+- Source rows: for each of the 67 paradigms, pairs at rows 100–199 (of 1000), i.e. entirely outside the
+  rows 0–99 pool used for main/pilot (one extra datasets-server page per paradigm,
+  cached as `tasks/_raw/blimp/<paradigm>/train_00000100_100.json`).
+- Filters: dropped any pair whose id is in main/pilot or whose good/bad sentence (normalised) appears in any
+  main/pilot item, and any pair sharing a sentence with an earlier candidate in the same paradigm
+  (confirm items are mutually sentence-disjoint). Candidates per paradigm after filtering:
+  99–100.
+- Sampling: stratified across paradigms: 8 pairs each, plus one more for 64 paradigms chosen at random →
+  3 paradigms × 8, 64 paradigms × 9. Order shuffled.
+- A/B order: exactly balanced, assignment shuffled with the seed. Gold balance: A = 300, B = 300.
+- Field distribution: morphology 160, semantics 81, syntax 233, syntax/semantics 9, syntax_semantics 117.
+- Human agreement attached exactly as for main (`human_ref` + `meta.human_agreement`, per paradigm): 600/600 items.
+- Count: 600.

@@ -59,6 +59,23 @@ MODELS: dict[str, Model] = {
         },
         notes="Prompt caching needs >=4096-token prefix on Haiku 4.5, so option lists here will not cache.",
     ),
+    # gemini-3.8-flash was the README's choice but has no true thinking-off (probe 2026-11-03: thinkingBudget 0 and
+    # thinkingLevel low still emit 0-72 thought tokens; MINIMAL rejected). gemini-3.5-flash honours thinkingBudget 0.
+    "gemini-3.5-flash": Model(
+        key="gemini-3.5-flash",
+        provider="gemini",
+        model_id="gemini-3.5-flash",
+        price_in=1.50,
+        price_cached_in=0.15,
+        price_out=9.00,
+        price_source="third-party aggregators (anotherwrapper.com, dev.to, pricepertoken.com) agree; NOT verified "
+                     "against ai.google.dev/gemini-api/docs/pricing",
+        cutoff=None,
+        modes={
+            "gut": {"max_tokens": 400, "thinking": {"thinkingBudget": 0}},
+            "reasoned": {"max_tokens": 16000},  # default dynamic thinking
+        },
+    ),
 }
 
 

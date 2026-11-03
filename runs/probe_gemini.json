@@ -1,0 +1,110 @@
+[
+  {
+    "model": "gemini-3.5-flash",
+    "mode": "gut",
+    "structured_output": true,
+    "accepted": true,
+    "error": null,
+    "reasoning_tokens": [
+      0,
+      0,
+      0
+    ],
+    "reasoning_measured": true,
+    "output_tokens": [
+      14,
+      14,
+      20
+    ],
+    "json_ok": 3,
+    "correct": 3,
+    "latency_s": [
+      1.395,
+      2.277,
+      1.243
+    ],
+    "cost_usd": 0.000654,
+    "sample": "{\"answer\": \"NO\", \"confidence\": 100}"
+  },
+  {
+    "model": "gemini-3.5-flash",
+    "mode": "gut",
+    "structured_output": false,
+    "accepted": true,
+    "error": null,
+    "reasoning_tokens": [
+      0,
+      0,
+      0
+    ],
+    "reasoning_measured": true,
+    "output_tokens": [
+      19,
+      14,
+      14
+    ],
+    "json_ok": 3,
+    "correct": 3,
+    "latency_s": [
+      1.423,
+      1.878,
+      1.533
+    ],
+    "cost_usd": 0.000645,
+    "sample": "```json\n{\"answer\": \"NO\", \"confidence\": 100}\n```"
+  },
+  {
+    "model": "gemini-3.5-flash",
+    "mode": "reasoned",
+    "structured_output": true,
+    "accepted": true,
+    "error": null,
+    "reasoning_tokens": [
+      56,
+      99,
+      45
+    ],
+    "reasoning_measured": true,
+    "output_tokens": [
+      76,
+      113,
+      65
+    ],
+    "json_ok": 3,
+    "correct": 3,
+    "latency_s": [
+      2.989,
+      3.003,
+      2.146
+    ],
+    "cost_usd": 0.002508,
+    "sample": "{\n  \"answer\": \"NO\",\n  \"confidence\": 100\n}"
+  },
+  {
+    "model": "gemini-3.5-flash",
+    "mode": "reasoned",
+    "structured_output": false,
+    "accepted": true,
+    "error": null,
+    "reasoning_tokens": [
+      143,
+      106,
+      98
+    ],
+    "reasoning_measured": true,
+    "output_tokens": [
+      168,
+      120,
+      112
+    ],
+    "json_ok": 3,
+    "correct": 3,
+    "latency_s": [
+      2.011,
+      1.939,
+      1.997
+    ],
+    "cost_usd": 0.003822,
+    "sample": "```json\n{\n  \"answer\": \"NO\",\n  \"confidence\": 100\n}\n```"
+  }
+]

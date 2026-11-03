@@ -14,7 +14,7 @@ SPEND = ROOT / "runs" / "spend.json"
 _lock = threading.Lock()
 
 # Prior per-call token guesses, replaced by pilot measurements when available.
-PRIOR_OUT = {"gut": 30, "reasoned": {"gpt-5.4-mini": 800, "claude-haiku-4-5": 1100}}
+PRIOR_OUT = {"gut": 30, "reasoned": {"gpt-5.4-mini": 800, "claude-haiku-4-5": 1100, "gemini-3.5-flash": 1000}}
 
 
 def spent() -> float:

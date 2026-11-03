@@ -26,3 +26,15 @@
 ## Item format
 `id` = `toxicity-<split>-<HF row_idx>`, `input` = comment text, `gold` = `YES`|`NO`,
 `meta` = {split, row_idx, toxicity}.
+
+## Confirmation set (`confirm.jsonl`) — test split
+- Purpose: 600 fresh items to confirm findings made on the 200 main items. Built with
+  `PYTHONPATH=src python -m gch.build_tasks --confirm` (does not touch `items.jsonl` / `pilot.jsonl`).
+- **Seed:** 20261104 (`random.Random(CONFIRM_SEED)`, see `src/gch/build_tasks.py::confirm_toxicity`)
+- Source rows: test split rows 0–5999 (same cached datasets-server pages as main; the builder pages further,
+  up to row 19999, only if this pool is too small). Same filters as main (20–600 chars,
+  normalised duplicates dropped); additionally excluded every main/pilot id and every text (normalised)
+  appearing in `items.jsonl` or `pilot.jsonl`. Pool after exclusion: 359 YES / 4374 NO.
+- Sampling: stratified random sample, exactly 180 YES + 420 NO (30% toxic, same ratio as main). Order shuffled.
+- Count: 600 (YES 180, NO 420). Raw score kept in `meta.toxicity`.
+- Disjoint from main and pilot by `id` and by normalised text.

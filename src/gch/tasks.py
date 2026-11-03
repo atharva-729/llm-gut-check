@@ -45,7 +45,7 @@ class Task:
         }
 
     def items(self, split: str = "main") -> list[dict]:
-        fn = "items.jsonl" if split == "main" else "pilot.jsonl"
+        fn = {"main": "items.jsonl", "pilot": "pilot.jsonl", "confirm": "confirm.jsonl"}[split]
         return _read_jsonl(TASKS_DIR / self.task_id / fn)
 
 

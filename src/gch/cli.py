@@ -19,7 +19,8 @@ def cfg() -> dict:
 
 
 def _jobs(c: dict, split: str, task: str | None) -> list[dict]:
-    tasks = [task] if task else [t for t in c["tasks"] if (ROOT / "tasks" / t / "task.yaml").exists()]
+    fn = {"main": "items.jsonl", "pilot": "pilot.jsonl", "confirm": "confirm.jsonl"}[split]
+    tasks = [task] if task else [t for t in c["tasks"] if (ROOT / "tasks" / t / fn).exists()]
     return queue.build_jobs(tasks, c["models"], c["modes"], split)
 
 
@@ -32,7 +33,7 @@ def cmd_probe(a):
 def cmd_plan(a):
     c = cfg()
     measured = budget.measured_per_call(queue.load_results("pilot"))
-    for split in (["pilot", "main"] if a.split == "all" else [a.split]):
+    for split in (["pilot", "main", "confirm"] if a.split == "all" else [a.split]):
         print(f"\n=== {split} ===")
         jobs = [j for j in _jobs(c, split, a.task) if queue.job_key(j) not in queue.done_keys(split)]
         budget.print_plan(budget.plan(jobs, measured, c["retry_overhead"]), c["budget_usd"])
@@ -59,16 +60,16 @@ def cmd_pilot(a):
 
 
 def cmd_run(a):
-    _run("main", a)
+    _run(a.split, a)
 
 
 def cmd_status(a):
     """Counts and cost only — never accuracy (no peeking before the queue is complete)."""
     c = cfg()
-    for split in ("pilot", "main"):
+    for split in ("pilot", "main", "confirm"):
         jobs = _jobs(c, split, None)
         res = queue.load_results(split)
-        if not res and split == "main":
+        if not res and split != "pilot":
             print(f"\n{split}: 0/{len(jobs)} done")
             continue
         by = defaultdict(Counter)
@@ -90,9 +91,10 @@ def cmd_analyse(a):
     split = a.split
     res = queue.load_results(split)
     expected = len(_jobs(c, split, None))
-    if split == "main" and len(res) < expected and not a.force:
+    if split != "pilot" and len(res) < expected and not a.force:
         sys.exit(f"Queue incomplete ({len(res)}/{expected}). Finish `gch run` first (or --force).")
-    outdir = ROOT / ("reports/verdicts" if split == "main" else "runs/pilot_reports")
+    outdir = ROOT / {"main": "reports/verdicts", "confirm": "reports/confirm/verdicts",
+                     "pilot": "runs/pilot_reports"}[split]
     cards = analyse.run(res, outdir, c["target_precision"], c["min_items_above_threshold"])
     print(f"Wrote {len(cards)} verdict cards to {outdir}")
 
@@ -102,17 +104,19 @@ def main(argv=None):
     sub = p.add_subparsers(dest="cmd", required=True)
     sub.add_parser("probe").set_defaults(f=cmd_probe)
     sp = sub.add_parser("plan")
-    sp.add_argument("--split", default="all", choices=["all", "pilot", "main"])
+    sp.add_argument("--split", default="all", choices=["all", "pilot", "main", "confirm"])
     sp.add_argument("--task")
     sp.set_defaults(f=cmd_plan)
     for name, fn in (("pilot", cmd_pilot), ("run", cmd_run)):
         sp = sub.add_parser(name)
         sp.add_argument("--task")
+        if name == "run":
+            sp.add_argument("--split", default="main", choices=["main", "confirm"])
         sp.add_argument("--force", action="store_true")
         sp.set_defaults(f=fn)
     sub.add_parser("status").set_defaults(f=cmd_status)
     sp = sub.add_parser("analyse")
-    sp.add_argument("--split", default="main", choices=["pilot", "main"])
+    sp.add_argument("--split", default="main", choices=["pilot", "main", "confirm"])
     sp.add_argument("--force", action="store_true")
     sp.set_defaults(f=cmd_analyse)
     a = p.parse_args(argv)
