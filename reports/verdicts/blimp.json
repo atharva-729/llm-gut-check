@@ -152,6 +152,137 @@
       }
     },
     {
+      "model": "gemini-3.5-flash",
+      "mode": "gut",
+      "cost_per_1k": 0.34438499999999994,
+      "latency_median_s": 1.8054999999999999,
+      "latency_p90_s": 3.7413000000000003,
+      "mean_reasoning_tokens": 0.0,
+      "reasoning_leak_items": 0,
+      "accuracy": {
+        "n": 200,
+        "acc": 0.935,
+        "ci": [
+          0.899875,
+          0.965
+        ]
+      },
+      "acc_ci_lo": 0.899875,
+      "calibration": {
+        "n": 200,
+        "ece": 0.049499999999999975,
+        "mean_conf": 0.9795,
+        "acc_parsed": 0.935,
+        "overconfidence": 0.044499999999999984,
+        "reliability": [
+          {
+            "bin": 5,
+            "lo": 0.5,
+            "hi": 0.6,
+            "n": 3,
+            "mean_conf": 0.5,
+            "acc": 0.6666666666666666
+          },
+          {
+            "bin": 7,
+            "lo": 0.7,
+            "hi": 0.8,
+            "n": 1,
+            "mean_conf": 0.75,
+            "acc": 0.0
+          },
+          {
+            "bin": 8,
+            "lo": 0.8,
+            "hi": 0.9,
+            "n": 8,
+            "mean_conf": 0.85,
+            "acc": 0.75
+          },
+          {
+            "bin": 9,
+            "lo": 0.9,
+            "hi": 1.0,
+            "n": 188,
+            "mean_conf": 0.9938829787234043,
+            "acc": 0.9521276595744681
+          }
+        ]
+      },
+      "parse_fail": 0,
+      "threshold": {
+        "target": 0.95,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 73
+      },
+      "threshold_99": {
+        "target": 0.99,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 381
+      }
+    },
+    {
+      "model": "gemini-3.5-flash",
+      "mode": "reasoned",
+      "cost_per_1k": 3.41406,
+      "latency_median_s": 3.154,
+      "latency_p90_s": 6.3007,
+      "mean_reasoning_tokens": 341.31,
+      "reasoning_leak_items": 200,
+      "accuracy": {
+        "n": 200,
+        "acc": 0.975,
+        "ci": [
+          0.95,
+          0.995
+        ]
+      },
+      "acc_ci_lo": 0.95,
+      "calibration": {
+        "n": 200,
+        "ece": 0.012500000000000058,
+        "mean_conf": 0.9875,
+        "acc_parsed": 0.975,
+        "overconfidence": 0.012500000000000067,
+        "reliability": [
+          {
+            "bin": 8,
+            "lo": 0.8,
+            "hi": 0.9,
+            "n": 2,
+            "mean_conf": 0.85,
+            "acc": 0.5
+          },
+          {
+            "bin": 9,
+            "lo": 0.9,
+            "hi": 1.0,
+            "n": 198,
+            "mean_conf": 0.9888888888888889,
+            "acc": 0.9797979797979798
+          }
+        ]
+      },
+      "parse_fail": 0,
+      "threshold": {
+        "target": 0.95,
+        "threshold": 95.0,
+        "n_above": 194,
+        "precision": 0.9896907216494846,
+        "precision_lower": 0.9631966801170025,
+        "coverage": 0.97,
+        "found": true
+      },
+      "threshold_99": {
+        "target": 0.99,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 381
+      }
+    },
+    {
       "model": "gpt-5.4-mini",
       "mode": "gut",
       "cost_per_1k": 0.20453624999999998,
@@ -344,6 +475,38 @@
       },
       "cost_ratio": 6.096371401952838
     },
+    "gemini-3.5-flash": {
+      "diff": {
+        "n": 200,
+        "diff": 0.04,
+        "ci": [
+          0.01,
+          0.07
+        ]
+      },
+      "flips": {
+        "right_to_wrong": 1,
+        "wrong_to_right": 9,
+        "wrong_to_wrong_changed": 0,
+        "unchanged": 190,
+        "n": 200,
+        "flips": 10,
+        "overthinking_rate": 0.005,
+        "overthinking_share_of_flips": 0.1,
+        "net_gain": 8
+      },
+      "mode_verdict": {
+        "verdict": "Use reasoning",
+        "why": "+4.0 pts, CI excludes 0",
+        "cost_per_extra_correct_usd": 0.076741875
+      },
+      "overthinking_risk": false,
+      "confidence_usable": {
+        "gut": false,
+        "reasoned": true
+      },
+      "cost_ratio": 9.913497974650467
+    },
     "gpt-5.4-mini": {
       "diff": {
         "n": 200,
@@ -378,13 +541,17 @@
     }
   },
   "cheapest": {
-    "by_accuracy": null,
-    "by_auto_accept": {
-      "model": "claude-haiku-4-5",
+    "by_accuracy": {
+      "model": "gemini-3.5-flash",
       "mode": "reasoned",
-      "cost_per_1k": 2.5192950000000005,
-      "coverage": 0.715,
-      "threshold": 87.0
+      "cost_per_1k": 3.41406
+    },
+    "by_auto_accept": {
+      "model": "gemini-3.5-flash",
+      "mode": "reasoned",
+      "cost_per_1k": 3.41406,
+      "coverage": 0.97,
+      "threshold": 95.0
     }
   }
 }

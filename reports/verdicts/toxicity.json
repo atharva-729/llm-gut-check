@@ -141,6 +141,142 @@
       }
     },
     {
+      "model": "gemini-3.5-flash",
+      "mode": "gut",
+      "cost_per_1k": 0.37662749999999995,
+      "latency_median_s": 1.8625,
+      "latency_p90_s": 3.523399999999999,
+      "mean_reasoning_tokens": 0.0,
+      "reasoning_leak_items": 0,
+      "accuracy": {
+        "n": 200,
+        "acc": 0.785,
+        "ci": [
+          0.725,
+          0.84
+        ]
+      },
+      "acc_ci_lo": 0.725,
+      "calibration": {
+        "n": 200,
+        "ece": 0.11375000000000002,
+        "mean_conf": 0.8987499999999998,
+        "acc_parsed": 0.785,
+        "overconfidence": 0.1137499999999998,
+        "reliability": [
+          {
+            "bin": 7,
+            "lo": 0.7,
+            "hi": 0.8,
+            "n": 20,
+            "mean_conf": 0.7449999999999999,
+            "acc": 0.55
+          },
+          {
+            "bin": 8,
+            "lo": 0.8,
+            "hi": 0.9,
+            "n": 69,
+            "mean_conf": 0.8449275362318841,
+            "acc": 0.6521739130434783
+          },
+          {
+            "bin": 9,
+            "lo": 0.9,
+            "hi": 1.0,
+            "n": 111,
+            "mean_conf": 0.95990990990991,
+            "acc": 0.9099099099099099
+          }
+        ]
+      },
+      "parse_fail": 0,
+      "threshold": {
+        "target": 0.95,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 73
+      },
+      "threshold_99": {
+        "target": 0.99,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 381
+      }
+    },
+    {
+      "model": "gemini-3.5-flash",
+      "mode": "reasoned",
+      "cost_per_1k": 2.2548375000000003,
+      "latency_median_s": 3.0330000000000004,
+      "latency_p90_s": 5.139499999999999,
+      "mean_reasoning_tokens": 208.845,
+      "reasoning_leak_items": 200,
+      "accuracy": {
+        "n": 200,
+        "acc": 0.8,
+        "ci": [
+          0.745,
+          0.855
+        ]
+      },
+      "acc_ci_lo": 0.745,
+      "calibration": {
+        "n": 200,
+        "ece": 0.11110000000000006,
+        "mean_conf": 0.9070999999999998,
+        "acc_parsed": 0.8,
+        "overconfidence": 0.10709999999999975,
+        "reliability": [
+          {
+            "bin": 6,
+            "lo": 0.6,
+            "hi": 0.7,
+            "n": 1,
+            "mean_conf": 0.6,
+            "acc": 1.0
+          },
+          {
+            "bin": 7,
+            "lo": 0.7,
+            "hi": 0.8,
+            "n": 7,
+            "mean_conf": 0.7428571428571429,
+            "acc": 0.42857142857142855
+          },
+          {
+            "bin": 8,
+            "lo": 0.8,
+            "hi": 0.9,
+            "n": 65,
+            "mean_conf": 0.8353846153846154,
+            "acc": 0.6923076923076923
+          },
+          {
+            "bin": 9,
+            "lo": 0.9,
+            "hi": 1.0,
+            "n": 127,
+            "mean_conf": 0.9552755905511812,
+            "acc": 0.8740157480314961
+          }
+        ]
+      },
+      "parse_fail": 0,
+      "threshold": {
+        "target": 0.95,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 73
+      },
+      "threshold_99": {
+        "target": 0.99,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 381
+      }
+    },
+    {
       "model": "gpt-5.4-mini",
       "mode": "gut",
       "cost_per_1k": 0.22840125000000003,
@@ -316,6 +452,37 @@
         "reasoned": false
       },
       "cost_ratio": 5.103723374455164
+    },
+    "gemini-3.5-flash": {
+      "diff": {
+        "n": 200,
+        "diff": 0.015,
+        "ci": [
+          -0.025,
+          0.055
+        ]
+      },
+      "flips": {
+        "right_to_wrong": 7,
+        "wrong_to_right": 10,
+        "wrong_to_wrong_changed": 0,
+        "unchanged": 183,
+        "n": 200,
+        "flips": 17,
+        "overthinking_rate": 0.035,
+        "overthinking_share_of_flips": 0.4117647058823529,
+        "net_gain": 3
+      },
+      "mode_verdict": {
+        "verdict": "Use fast mode",
+        "why": "accuracy gain CI includes 0"
+      },
+      "overthinking_risk": true,
+      "confidence_usable": {
+        "gut": false,
+        "reasoned": false
+      },
+      "cost_ratio": 5.986916781169725
     },
     "gpt-5.4-mini": {
       "diff": {

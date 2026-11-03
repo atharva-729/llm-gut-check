@@ -1,0 +1,572 @@
+{
+  "task": "blimp",
+  "name": "BLiMP grammaticality (A/B)",
+  "target_accuracy": 0.95,
+  "target_precision": 0.95,
+  "configs": [
+    {
+      "model": "claude-haiku-4-5",
+      "mode": "gut",
+      "cost_per_1k": 0.4131116666666666,
+      "latency_median_s": 1.5265,
+      "latency_p90_s": 3.881100000000001,
+      "mean_reasoning_tokens": 0.0,
+      "reasoning_leak_items": 0,
+      "accuracy": {
+        "n": 600,
+        "acc": 0.9266666666666666,
+        "ci": [
+          0.905,
+          0.9466666666666667
+        ]
+      },
+      "acc_ci_lo": 0.905,
+      "calibration": {
+        "n": 600,
+        "ece": 0.013700000000000125,
+        "mean_conf": 0.9322333333333334,
+        "acc_parsed": 0.9266666666666666,
+        "overconfidence": 0.00556666666666672,
+        "reliability": [
+          {
+            "bin": 5,
+            "lo": 0.5,
+            "hi": 0.6,
+            "n": 1,
+            "mean_conf": 0.5,
+            "acc": 1.0
+          },
+          {
+            "bin": 7,
+            "lo": 0.7,
+            "hi": 0.8,
+            "n": 39,
+            "mean_conf": 0.7600000000000001,
+            "acc": 0.6923076923076923
+          },
+          {
+            "bin": 8,
+            "lo": 0.8,
+            "hi": 0.9,
+            "n": 39,
+            "mean_conf": 0.84974358974359,
+            "acc": 0.7692307692307693
+          },
+          {
+            "bin": 9,
+            "lo": 0.9,
+            "hi": 1.0,
+            "n": 521,
+            "mean_conf": 0.952130518234165,
+            "acc": 0.9558541266794626
+          }
+        ]
+      },
+      "parse_fail": 0,
+      "threshold": {
+        "target": 0.95,
+        "threshold": 95.0,
+        "n_above": 367,
+        "precision": 0.9918256130790191,
+        "precision_lower": 0.9762456623349125,
+        "coverage": 0.6116666666666667,
+        "found": true
+      },
+      "threshold_99": {
+        "target": 0.99,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 381
+      }
+    },
+    {
+      "model": "claude-haiku-4-5",
+      "mode": "reasoned",
+      "cost_per_1k": 2.459395,
+      "latency_median_s": 6.112,
+      "latency_p90_s": 10.4148,
+      "mean_reasoning_tokens": 408.25666666666666,
+      "reasoning_leak_items": 600,
+      "accuracy": {
+        "n": 600,
+        "acc": 0.9383333333333334,
+        "ci": [
+          0.9183333333333333,
+          0.9566666666666667
+        ]
+      },
+      "acc_ci_lo": 0.9183333333333333,
+      "calibration": {
+        "n": 600,
+        "ece": 0.04268333333333336,
+        "mean_conf": 0.9064500000000002,
+        "acc_parsed": 0.9383333333333334,
+        "overconfidence": -0.03188333333333315,
+        "reliability": [
+          {
+            "bin": 5,
+            "lo": 0.5,
+            "hi": 0.6,
+            "n": 17,
+            "mean_conf": 0.543529411764706,
+            "acc": 0.35294117647058826
+          },
+          {
+            "bin": 6,
+            "lo": 0.6,
+            "hi": 0.7,
+            "n": 19,
+            "mean_conf": 0.6442105263157895,
+            "acc": 0.7368421052631579
+          },
+          {
+            "bin": 7,
+            "lo": 0.7,
+            "hi": 0.8,
+            "n": 77,
+            "mean_conf": 0.7384415584415582,
+            "acc": 0.7922077922077922
+          },
+          {
+            "bin": 8,
+            "lo": 0.8,
+            "hi": 0.9,
+            "n": 55,
+            "mean_conf": 0.86,
+            "acc": 0.9090909090909091
+          },
+          {
+            "bin": 9,
+            "lo": 0.9,
+            "hi": 1.0,
+            "n": 432,
+            "mean_conf": 0.968125,
+            "acc": 1.0
+          }
+        ]
+      },
+      "parse_fail": 0,
+      "threshold": {
+        "target": 0.95,
+        "threshold": 75.0,
+        "n_above": 517,
+        "precision": 0.9825918762088974,
+        "precision_lower": 0.9672500289171356,
+        "coverage": 0.8616666666666667,
+        "found": true
+      },
+      "threshold_99": {
+        "target": 0.99,
+        "threshold": 92.0,
+        "n_above": 432,
+        "precision": 1.0,
+        "precision_lower": 0.9911861096668306,
+        "coverage": 0.72,
+        "found": true
+      }
+    },
+    {
+      "model": "gemini-3.5-flash",
+      "mode": "gut",
+      "cost_per_1k": 0.34448,
+      "latency_median_s": 1.804,
+      "latency_p90_s": 4.295900000000001,
+      "mean_reasoning_tokens": 0.0,
+      "reasoning_leak_items": 0,
+      "accuracy": {
+        "n": 600,
+        "acc": 0.945,
+        "ci": [
+          0.9266666666666666,
+          0.9616666666666667
+        ]
+      },
+      "acc_ci_lo": 0.9266666666666666,
+      "calibration": {
+        "n": 600,
+        "ece": 0.04599999999999998,
+        "mean_conf": 0.991,
+        "acc_parsed": 0.945,
+        "overconfidence": 0.04600000000000004,
+        "reliability": [
+          {
+            "bin": 5,
+            "lo": 0.5,
+            "hi": 0.6,
+            "n": 3,
+            "mean_conf": 0.5,
+            "acc": 0.3333333333333333
+          },
+          {
+            "bin": 8,
+            "lo": 0.8,
+            "hi": 0.9,
+            "n": 13,
+            "mean_conf": 0.8499999999999999,
+            "acc": 0.6923076923076923
+          },
+          {
+            "bin": 9,
+            "lo": 0.9,
+            "hi": 1.0,
+            "n": 584,
+            "mean_conf": 0.9966609589041096,
+            "acc": 0.9537671232876712
+          }
+        ]
+      },
+      "parse_fail": 0,
+      "threshold": {
+        "target": 0.95,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 73
+      },
+      "threshold_99": {
+        "target": 0.99,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 381
+      }
+    },
+    {
+      "model": "gemini-3.5-flash",
+      "mode": "reasoned",
+      "cost_per_1k": 3.0994699999999997,
+      "latency_median_s": 3.2765,
+      "latency_p90_s": 7.677700000000003,
+      "mean_reasoning_tokens": 306.2866666666667,
+      "reasoning_leak_items": 600,
+      "accuracy": {
+        "n": 600,
+        "acc": 0.98,
+        "ci": [
+          0.9683333333333334,
+          0.99
+        ]
+      },
+      "acc_ci_lo": 0.9683333333333334,
+      "calibration": {
+        "n": 600,
+        "ece": 0.011833333333333298,
+        "mean_conf": 0.9906666666666666,
+        "acc_parsed": 0.98,
+        "overconfidence": 0.010666666666666602,
+        "reliability": [
+          {
+            "bin": 8,
+            "lo": 0.8,
+            "hi": 0.9,
+            "n": 2,
+            "mean_conf": 0.825,
+            "acc": 1.0
+          },
+          {
+            "bin": 9,
+            "lo": 0.9,
+            "hi": 1.0,
+            "n": 598,
+            "mean_conf": 0.9912207357859532,
+            "acc": 0.979933110367893
+          }
+        ]
+      },
+      "parse_fail": 0,
+      "threshold": {
+        "target": 0.95,
+        "threshold": 80.0,
+        "n_above": 600,
+        "precision": 0.98,
+        "precision_lower": 0.9653699456538908,
+        "coverage": 1.0,
+        "found": true
+      },
+      "threshold_99": {
+        "target": 0.99,
+        "threshold": 100.0,
+        "n_above": 507,
+        "precision": 1.0,
+        "precision_lower": 0.9924801349726735,
+        "coverage": 0.845,
+        "found": true
+      }
+    },
+    {
+      "model": "gpt-5.4-mini",
+      "mode": "gut",
+      "cost_per_1k": 0.204725,
+      "latency_median_s": 1.4580000000000002,
+      "latency_p90_s": 3.3457000000000003,
+      "mean_reasoning_tokens": 0.0,
+      "reasoning_leak_items": 0,
+      "accuracy": {
+        "n": 600,
+        "acc": 0.8733333333333333,
+        "ci": [
+          0.845,
+          0.9
+        ]
+      },
+      "acc_ci_lo": 0.845,
+      "calibration": {
+        "n": 600,
+        "ece": 0.08388333333333342,
+        "mean_conf": 0.9572166666666665,
+        "acc_parsed": 0.8733333333333333,
+        "overconfidence": 0.0838833333333332,
+        "reliability": [
+          {
+            "bin": 5,
+            "lo": 0.5,
+            "hi": 0.6,
+            "n": 7,
+            "mean_conf": 0.5385714285714286,
+            "acc": 0.42857142857142855
+          },
+          {
+            "bin": 6,
+            "lo": 0.6,
+            "hi": 0.7,
+            "n": 6,
+            "mean_conf": 0.6433333333333333,
+            "acc": 0.16666666666666666
+          },
+          {
+            "bin": 7,
+            "lo": 0.7,
+            "hi": 0.8,
+            "n": 16,
+            "mean_conf": 0.7375,
+            "acc": 0.5
+          },
+          {
+            "bin": 8,
+            "lo": 0.8,
+            "hi": 0.9,
+            "n": 26,
+            "mean_conf": 0.8534615384615385,
+            "acc": 0.6538461538461539
+          },
+          {
+            "bin": 9,
+            "lo": 0.9,
+            "hi": 1.0,
+            "n": 545,
+            "mean_conf": 0.9774495412844038,
+            "acc": 0.908256880733945
+          }
+        ]
+      },
+      "parse_fail": 0,
+      "threshold": {
+        "target": 0.95,
+        "threshold": 99.0,
+        "n_above": 243,
+        "precision": 0.9835390946502057,
+        "precision_lower": 0.9584475459186488,
+        "coverage": 0.405,
+        "found": true
+      },
+      "threshold_99": {
+        "target": 0.99,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 381
+      }
+    },
+    {
+      "model": "gpt-5.4-mini",
+      "mode": "reasoned",
+      "cost_per_1k": 1.7396749999999999,
+      "latency_median_s": 2.3765,
+      "latency_p90_s": 6.875100000000002,
+      "mean_reasoning_tokens": 333.40833333333336,
+      "reasoning_leak_items": 600,
+      "accuracy": {
+        "n": 600,
+        "acc": 0.955,
+        "ci": [
+          0.9366666666666666,
+          0.97
+        ]
+      },
+      "acc_ci_lo": 0.9366666666666666,
+      "calibration": {
+        "n": 600,
+        "ece": 0.037383333333333366,
+        "mean_conf": 0.9176166666666665,
+        "acc_parsed": 0.955,
+        "overconfidence": -0.037383333333333435,
+        "reliability": [
+          {
+            "bin": 5,
+            "lo": 0.5,
+            "hi": 0.6,
+            "n": 40,
+            "mean_conf": 0.55975,
+            "acc": 0.85
+          },
+          {
+            "bin": 6,
+            "lo": 0.6,
+            "hi": 0.7,
+            "n": 23,
+            "mean_conf": 0.6399999999999999,
+            "acc": 0.6956521739130435
+          },
+          {
+            "bin": 7,
+            "lo": 0.7,
+            "hi": 0.8,
+            "n": 26,
+            "mean_conf": 0.7515384615384615,
+            "acc": 0.7692307692307693
+          },
+          {
+            "bin": 8,
+            "lo": 0.8,
+            "hi": 0.9,
+            "n": 39,
+            "mean_conf": 0.8569230769230768,
+            "acc": 0.9487179487179487
+          },
+          {
+            "bin": 9,
+            "lo": 0.9,
+            "hi": 1.0,
+            "n": 472,
+            "mean_conf": 0.975635593220339,
+            "acc": 0.9872881355932204
+          }
+        ]
+      },
+      "parse_fail": 0,
+      "threshold": {
+        "target": 0.95,
+        "threshold": 64.0,
+        "n_above": 549,
+        "precision": 0.9690346083788707,
+        "precision_lower": 0.9509726346385252,
+        "coverage": 0.915,
+        "found": true
+      },
+      "threshold_99": {
+        "target": 0.99,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 381
+      }
+    }
+  ],
+  "per_model": {
+    "claude-haiku-4-5": {
+      "diff": {
+        "n": 600,
+        "diff": 0.011666666666666667,
+        "ci": [
+          -0.01,
+          0.035
+        ]
+      },
+      "flips": {
+        "right_to_wrong": 18,
+        "wrong_to_right": 25,
+        "wrong_to_wrong_changed": 0,
+        "unchanged": 557,
+        "n": 600,
+        "flips": 43,
+        "overthinking_rate": 0.03,
+        "overthinking_share_of_flips": 0.4186046511627907,
+        "net_gain": 7
+      },
+      "mode_verdict": {
+        "verdict": "Use fast mode",
+        "why": "accuracy gain CI includes 0"
+      },
+      "overthinking_risk": true,
+      "confidence_usable": {
+        "gut": true,
+        "reasoned": true
+      },
+      "cost_ratio": 5.953341913203453
+    },
+    "gemini-3.5-flash": {
+      "diff": {
+        "n": 600,
+        "diff": 0.035,
+        "ci": [
+          0.018333333333333333,
+          0.051666666666666666
+        ]
+      },
+      "flips": {
+        "right_to_wrong": 4,
+        "wrong_to_right": 25,
+        "wrong_to_wrong_changed": 0,
+        "unchanged": 571,
+        "n": 600,
+        "flips": 29,
+        "overthinking_rate": 0.006666666666666667,
+        "overthinking_share_of_flips": 0.13793103448275862,
+        "net_gain": 21
+      },
+      "mode_verdict": {
+        "verdict": "Use reasoning",
+        "why": "+3.5 pts, CI excludes 0",
+        "cost_per_extra_correct_usd": 0.07871399999999999
+      },
+      "overthinking_risk": false,
+      "confidence_usable": {
+        "gut": false,
+        "reasoned": true
+      },
+      "cost_ratio": 8.997532512772874
+    },
+    "gpt-5.4-mini": {
+      "diff": {
+        "n": 600,
+        "diff": 0.08166666666666667,
+        "ci": [
+          0.058333333333333334,
+          0.10666666666666667
+        ]
+      },
+      "flips": {
+        "right_to_wrong": 5,
+        "wrong_to_right": 54,
+        "wrong_to_wrong_changed": 0,
+        "unchanged": 541,
+        "n": 600,
+        "flips": 59,
+        "overthinking_rate": 0.008333333333333333,
+        "overthinking_share_of_flips": 0.0847457627118644,
+        "net_gain": 49
+      },
+      "mode_verdict": {
+        "verdict": "Use reasoning",
+        "why": "+8.2 pts, CI excludes 0",
+        "cost_per_extra_correct_usd": 0.018795306122448976
+      },
+      "overthinking_risk": false,
+      "confidence_usable": {
+        "gut": true,
+        "reasoned": true
+      },
+      "cost_ratio": 8.49761875686897
+    }
+  },
+  "cheapest": {
+    "by_accuracy": {
+      "model": "gemini-3.5-flash",
+      "mode": "reasoned",
+      "cost_per_1k": 3.0994699999999997
+    },
+    "by_auto_accept": {
+      "model": "gemini-3.5-flash",
+      "mode": "reasoned",
+      "cost_per_1k": 3.0994699999999997,
+      "coverage": 1.0,
+      "threshold": 80.0
+    }
+  }
+}

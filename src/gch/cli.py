@@ -99,6 +99,18 @@ def cmd_analyse(a):
     print(f"Wrote {len(cards)} verdict cards to {outdir}")
 
 
+def cmd_confirm_report(a):
+    from . import confirm_report
+    c = cfg()
+    res = queue.load_results("confirm")
+    expected = len(_jobs(c, "confirm", None))
+    if len(res) < expected and not a.force:
+        sys.exit(f"Confirmation queue incomplete ({len(res)}/{expected}).")
+    rep = confirm_report.run(c["models"], c["tasks"])
+    for h, v in rep["hypotheses"].items():
+        print(h, v["result"])
+
+
 def main(argv=None):
     p = argparse.ArgumentParser(prog="gch")
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -119,6 +131,9 @@ def main(argv=None):
     sp.add_argument("--split", default="main", choices=["pilot", "main", "confirm"])
     sp.add_argument("--force", action="store_true")
     sp.set_defaults(f=cmd_analyse)
+    sp = sub.add_parser("confirm-report")
+    sp.add_argument("--force", action="store_true")
+    sp.set_defaults(f=cmd_confirm_report)
     a = p.parse_args(argv)
     a.f(a)
 

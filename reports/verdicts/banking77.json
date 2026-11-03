@@ -181,6 +181,129 @@
       }
     },
     {
+      "model": "gemini-3.5-flash",
+      "mode": "gut",
+      "cost_per_1k": 1.2631799999999997,
+      "latency_median_s": 1.705,
+      "latency_p90_s": 3.1445999999999996,
+      "mean_reasoning_tokens": 0.0,
+      "reasoning_leak_items": 0,
+      "accuracy": {
+        "n": 200,
+        "acc": 0.83,
+        "ci": [
+          0.775,
+          0.875
+        ]
+      },
+      "acc_ci_lo": 0.775,
+      "calibration": {
+        "n": 200,
+        "ece": 0.12469999999999992,
+        "mean_conf": 0.9547,
+        "acc_parsed": 0.83,
+        "overconfidence": 0.12470000000000003,
+        "reliability": [
+          {
+            "bin": 7,
+            "lo": 0.7,
+            "hi": 0.8,
+            "n": 7,
+            "mean_conf": 0.75,
+            "acc": 0.2857142857142857
+          },
+          {
+            "bin": 8,
+            "lo": 0.8,
+            "hi": 0.9,
+            "n": 15,
+            "mean_conf": 0.8466666666666665,
+            "acc": 0.3333333333333333
+          },
+          {
+            "bin": 9,
+            "lo": 0.9,
+            "hi": 1.0,
+            "n": 178,
+            "mean_conf": 0.9718539325842696,
+            "acc": 0.8932584269662921
+          }
+        ]
+      },
+      "parse_fail": 0,
+      "threshold": {
+        "target": 0.95,
+        "threshold": 100.0,
+        "n_above": 87,
+        "precision": 1.0,
+        "precision_lower": 0.9577124930558795,
+        "coverage": 0.435,
+        "found": true
+      },
+      "threshold_99": {
+        "target": 0.99,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 381
+      }
+    },
+    {
+      "model": "gemini-3.5-flash",
+      "mode": "reasoned",
+      "cost_per_1k": 3.500985,
+      "latency_median_s": 3.153,
+      "latency_p90_s": 5.3011,
+      "mean_reasoning_tokens": 248.825,
+      "reasoning_leak_items": 200,
+      "accuracy": {
+        "n": 200,
+        "acc": 0.845,
+        "ci": [
+          0.79,
+          0.895
+        ]
+      },
+      "acc_ci_lo": 0.79,
+      "calibration": {
+        "n": 200,
+        "ece": 0.11205000000000007,
+        "mean_conf": 0.9570499999999998,
+        "acc_parsed": 0.845,
+        "overconfidence": 0.11204999999999987,
+        "reliability": [
+          {
+            "bin": 8,
+            "lo": 0.8,
+            "hi": 0.9,
+            "n": 3,
+            "mean_conf": 0.85,
+            "acc": 0.3333333333333333
+          },
+          {
+            "bin": 9,
+            "lo": 0.9,
+            "hi": 1.0,
+            "n": 197,
+            "mean_conf": 0.9586802030456854,
+            "acc": 0.8527918781725888
+          }
+        ]
+      },
+      "parse_fail": 0,
+      "threshold": {
+        "target": 0.95,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 73
+      },
+      "threshold_99": {
+        "target": 0.99,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 381
+      }
+    },
+    {
       "model": "gpt-5.4-mini",
       "mode": "gut",
       "cost_per_1k": 0.8545762500000001,
@@ -366,6 +489,37 @@
       },
       "cost_ratio": 1.8093678755308569
     },
+    "gemini-3.5-flash": {
+      "diff": {
+        "n": 200,
+        "diff": 0.015,
+        "ci": [
+          -0.005,
+          0.04
+        ]
+      },
+      "flips": {
+        "right_to_wrong": 1,
+        "wrong_to_right": 4,
+        "wrong_to_wrong_changed": 8,
+        "unchanged": 187,
+        "n": 200,
+        "flips": 13,
+        "overthinking_rate": 0.005,
+        "overthinking_share_of_flips": 0.07692307692307693,
+        "net_gain": 3
+      },
+      "mode_verdict": {
+        "verdict": "Use fast mode",
+        "why": "accuracy gain CI includes 0"
+      },
+      "overthinking_risk": false,
+      "confidence_usable": {
+        "gut": true,
+        "reasoned": false
+      },
+      "cost_ratio": 2.771564622619105
+    },
     "gpt-5.4-mini": {
       "diff": {
         "n": 200,
@@ -401,6 +555,12 @@
   },
   "cheapest": {
     "by_accuracy": null,
-    "by_auto_accept": null
+    "by_auto_accept": {
+      "model": "gemini-3.5-flash",
+      "mode": "gut",
+      "cost_per_1k": 1.2631799999999997,
+      "coverage": 0.435,
+      "threshold": 100.0
+    }
   }
 }
