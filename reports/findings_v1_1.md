@@ -22,17 +22,17 @@ Replications of v1 hypotheses on the 600 new items:
 
 ## What held up (the defensible client story)
 
-1. **Thinking doesn't pay on judgment tasks, confirmed across three vendors.** On content moderation, reasoned mode costs 1.2–6× more and never improves accuracy. For Haiku it makes moderation measurably worse. All three trip the overthinking flag (right → wrong ≥ 3% of items).
+1. **Thinking doesn't pay on judgment tasks, confirmed across three vendors.** On content moderation, reasoned mode costs 2.3–5.9× more and never improves accuracy. For Haiku it makes moderation measurably worse. All three trip the overthinking flag (right → wrong ≥ 3% of items).
 2. **The same three models give very different safe automation depending on the task.** Using rules fitted on discovery data and checked on 600 new items:
 
    | Task | Best safe auto-accept (≥ 95% precision, lower bound) | Total cost / 1k items incl. review* | vs. all-human $250 |
    |---|---|---|---|
-   | Grammar (BLiMP) | 92–100% of items (e.g. gpt+gemini reasoned agreeing: 96% at 99.0%) | **$41** | −84% |
+   | Grammar (BLiMP) | **96%** (cheapest safe rule: gpt + gemini in reasoned mode, accepted when they agree; 99.0% correct). Safe rules range from 57% to 100% coverage. | **$41** | −84% |
    | Banking intents | **20%** (Gemini reasoned at confidence 100) | $209 | −16% |
    | Moderation | **0%**: no configuration is safe | $250 | 0% |
 
    *$0.25 per human review, $2.50 per wrong auto-accepted answer (pre-specified).
-   Model price is noise next to review cost: API spend is $0.40–8 per 1k items, against $250 for human review.
+   Model price is noise next to review cost: a single model costs $0.20–3.50 per 1k items (rules that combine all three, up to about $8), against $250 for human review.
 3. **A threshold that looks safe on a small sample often isn't.** Of 27 auto-accept rules that hit ≥ 97% precision on the 200-item discovery set, **12 failed** the 95% bar on new data. On Banking77, **9 of 10 failed**. A vendor who sets a confidence cut-off on a few hundred examples is likely to over-promise on harder tasks.
 4. **Our own exploratory headlines didn't survive.** "Agreement beats self-confidence" and "Haiku needs reasoning on Banking77" (+7 pts on discovery, +0.7 on confirmation) looked strong on 200 items and failed on 600. That is the case for the harness's method: pre-register, then confirm on held-out data before telling a client anything.
 

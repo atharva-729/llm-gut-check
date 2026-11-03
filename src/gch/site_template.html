@@ -102,7 +102,7 @@ footer { font-size: 13px; color: var(--muted); display: grid; gap: 8px; }
 <section>
   <div class="exhibit">Finding 1</div>
   <h2>The same three models give three different answers, depending on the task</h2>
-  <p>For each task we found the auto-accept rule that covers the most items while staying at least 95% correct (by a conservative lower bound). Rules were set on 200 items and tested unchanged on new ones. Total cost counts the API plus <span id="rc"></span> per human review of every item the rule doesn't accept.</p>
+  <p>For each task we found the cheapest auto-accept rule (API plus human review) that stays at least 95% correct (by a conservative lower bound). Rules were set on 200 items and tested unchanged on new ones. Total cost counts the API plus <span id="rc"></span> per human review of every item the rule doesn't accept.</p>
   <div class="grid3" id="tiles"></div>
 </section>
 
@@ -239,7 +239,7 @@ $("rc").textContent = usd(D.review_cost);
 
 // ---------- Finding 1 tiles
 for (const t of ["blimp", "banking77", "toxicity"]) {
-  const k = T[t], b = k.best_policy, c = k.cheapest_total;
+  const k = T[t], b = k.cheapest_total, c = k.cheapest_total;  // one rule per tile: the cheapest safe one
   const allHuman = D.review_cost * 1000;
   const div = document.createElement("div"); div.className = "panel tile";
   const saving = c ? 1 - c.total_cost_per_1k / allHuman : 0;
