@@ -1,0 +1,406 @@
+{
+  "task": "banking77",
+  "name": "Banking77 intent classification",
+  "target_accuracy": 0.9,
+  "target_precision": 0.95,
+  "configs": [
+    {
+      "model": "claude-haiku-4-5",
+      "mode": "gut",
+      "cost_per_1k": 1.7742549999999997,
+      "latency_median_s": 0.9964999999999999,
+      "latency_p90_s": 1.4634,
+      "mean_reasoning_tokens": 0.0,
+      "reasoning_leak_items": 0,
+      "accuracy": {
+        "n": 200,
+        "acc": 0.7,
+        "ci": [
+          0.635,
+          0.76
+        ]
+      },
+      "acc_ci_lo": 0.635,
+      "calibration": {
+        "n": 200,
+        "ece": 0.14109999999999998,
+        "mean_conf": 0.8410999999999998,
+        "acc_parsed": 0.7,
+        "overconfidence": 0.1410999999999999,
+        "reliability": [
+          {
+            "bin": 3,
+            "lo": 0.3,
+            "hi": 0.4,
+            "n": 2,
+            "mean_conf": 0.35,
+            "acc": 0.0
+          },
+          {
+            "bin": 4,
+            "lo": 0.4,
+            "hi": 0.5,
+            "n": 12,
+            "mean_conf": 0.4275,
+            "acc": 0.25
+          },
+          {
+            "bin": 7,
+            "lo": 0.7,
+            "hi": 0.8,
+            "n": 46,
+            "mean_conf": 0.7571739130434784,
+            "acc": 0.4782608695652174
+          },
+          {
+            "bin": 8,
+            "lo": 0.8,
+            "hi": 0.9,
+            "n": 35,
+            "mean_conf": 0.8482857142857144,
+            "acc": 0.6
+          },
+          {
+            "bin": 9,
+            "lo": 0.9,
+            "hi": 1.0,
+            "n": 105,
+            "mean_conf": 0.932095238095238,
+            "acc": 0.8952380952380953
+          }
+        ]
+      },
+      "parse_fail": 0,
+      "threshold": {
+        "target": 0.95,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 73
+      },
+      "threshold_99": {
+        "target": 0.99,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 381
+      }
+    },
+    {
+      "model": "claude-haiku-4-5",
+      "mode": "reasoned",
+      "cost_per_1k": 3.21028,
+      "latency_median_s": 3.518,
+      "latency_p90_s": 6.4125,
+      "mean_reasoning_tokens": 285.32,
+      "reasoning_leak_items": 200,
+      "accuracy": {
+        "n": 200,
+        "acc": 0.77,
+        "ci": [
+          0.71,
+          0.825
+        ]
+      },
+      "acc_ci_lo": 0.71,
+      "calibration": {
+        "n": 200,
+        "ece": 0.08679999999999997,
+        "mean_conf": 0.8519,
+        "acc_parsed": 0.77,
+        "overconfidence": 0.08189999999999997,
+        "reliability": [
+          {
+            "bin": 3,
+            "lo": 0.3,
+            "hi": 0.4,
+            "n": 1,
+            "mean_conf": 0.35,
+            "acc": 0.0
+          },
+          {
+            "bin": 4,
+            "lo": 0.4,
+            "hi": 0.5,
+            "n": 3,
+            "mean_conf": 0.45,
+            "acc": 0.0
+          },
+          {
+            "bin": 5,
+            "lo": 0.5,
+            "hi": 0.6,
+            "n": 1,
+            "mean_conf": 0.58,
+            "acc": 1.0
+          },
+          {
+            "bin": 6,
+            "lo": 0.6,
+            "hi": 0.7,
+            "n": 10,
+            "mean_conf": 0.6560000000000001,
+            "acc": 0.4
+          },
+          {
+            "bin": 7,
+            "lo": 0.7,
+            "hi": 0.8,
+            "n": 50,
+            "mean_conf": 0.7568,
+            "acc": 0.62
+          },
+          {
+            "bin": 8,
+            "lo": 0.8,
+            "hi": 0.9,
+            "n": 51,
+            "mean_conf": 0.8582352941176471,
+            "acc": 0.7450980392156863
+          },
+          {
+            "bin": 9,
+            "lo": 0.9,
+            "hi": 1.0,
+            "n": 84,
+            "mean_conf": 0.9515476190476191,
+            "acc": 0.9523809523809523
+          }
+        ]
+      },
+      "parse_fail": 0,
+      "threshold": {
+        "target": 0.95,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 73
+      },
+      "threshold_99": {
+        "target": 0.99,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 381
+      }
+    },
+    {
+      "model": "gpt-5.4-mini",
+      "mode": "gut",
+      "cost_per_1k": 0.8545762500000001,
+      "latency_median_s": 0.988,
+      "latency_p90_s": 1.2772999999999999,
+      "mean_reasoning_tokens": 0.0,
+      "reasoning_leak_items": 0,
+      "accuracy": {
+        "n": 200,
+        "acc": 0.76,
+        "ci": [
+          0.7,
+          0.815
+        ]
+      },
+      "acc_ci_lo": 0.7,
+      "calibration": {
+        "n": 200,
+        "ece": 0.17704999999999999,
+        "mean_conf": 0.9370499999999999,
+        "acc_parsed": 0.76,
+        "overconfidence": 0.17704999999999993,
+        "reliability": [
+          {
+            "bin": 6,
+            "lo": 0.6,
+            "hi": 0.7,
+            "n": 1,
+            "mean_conf": 0.61,
+            "acc": 0.0
+          },
+          {
+            "bin": 7,
+            "lo": 0.7,
+            "hi": 0.8,
+            "n": 9,
+            "mean_conf": 0.7522222222222222,
+            "acc": 0.3333333333333333
+          },
+          {
+            "bin": 8,
+            "lo": 0.8,
+            "hi": 0.9,
+            "n": 26,
+            "mean_conf": 0.861153846153846,
+            "acc": 0.5
+          },
+          {
+            "bin": 9,
+            "lo": 0.9,
+            "hi": 1.0,
+            "n": 164,
+            "mean_conf": 0.9612195121951219,
+            "acc": 0.8292682926829268
+          }
+        ]
+      },
+      "parse_fail": 0,
+      "threshold": {
+        "target": 0.95,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 73
+      },
+      "threshold_99": {
+        "target": 0.99,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 381
+      }
+    },
+    {
+      "model": "gpt-5.4-mini",
+      "mode": "reasoned",
+      "cost_per_1k": 1.33958625,
+      "latency_median_s": 1.2755,
+      "latency_p90_s": 2.1144,
+      "mean_reasoning_tokens": 101.97,
+      "reasoning_leak_items": 200,
+      "accuracy": {
+        "n": 200,
+        "acc": 0.825,
+        "ci": [
+          0.775,
+          0.875
+        ]
+      },
+      "acc_ci_lo": 0.775,
+      "calibration": {
+        "n": 200,
+        "ece": 0.08700000000000006,
+        "mean_conf": 0.9120000000000001,
+        "acc_parsed": 0.825,
+        "overconfidence": 0.08700000000000019,
+        "reliability": [
+          {
+            "bin": 5,
+            "lo": 0.5,
+            "hi": 0.6,
+            "n": 3,
+            "mean_conf": 0.5599999999999999,
+            "acc": 0.3333333333333333
+          },
+          {
+            "bin": 6,
+            "lo": 0.6,
+            "hi": 0.7,
+            "n": 7,
+            "mean_conf": 0.6585714285714285,
+            "acc": 0.5714285714285714
+          },
+          {
+            "bin": 7,
+            "lo": 0.7,
+            "hi": 0.8,
+            "n": 15,
+            "mean_conf": 0.7493333333333333,
+            "acc": 0.6666666666666666
+          },
+          {
+            "bin": 8,
+            "lo": 0.8,
+            "hi": 0.9,
+            "n": 32,
+            "mean_conf": 0.8578125,
+            "acc": 0.75
+          },
+          {
+            "bin": 9,
+            "lo": 0.9,
+            "hi": 1.0,
+            "n": 143,
+            "mean_conf": 0.9609790209790211,
+            "acc": 0.8811188811188811
+          }
+        ]
+      },
+      "parse_fail": 0,
+      "threshold": {
+        "target": 0.95,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 73
+      },
+      "threshold_99": {
+        "target": 0.99,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 381
+      }
+    }
+  ],
+  "per_model": {
+    "claude-haiku-4-5": {
+      "diff": {
+        "n": 200,
+        "diff": 0.07,
+        "ci": [
+          0.025,
+          0.12
+        ]
+      },
+      "flips": {
+        "right_to_wrong": 6,
+        "wrong_to_right": 20,
+        "wrong_to_wrong_changed": 7,
+        "unchanged": 167,
+        "n": 200,
+        "flips": 33,
+        "overthinking_rate": 0.03,
+        "overthinking_share_of_flips": 0.18181818181818182,
+        "net_gain": 14
+      },
+      "mode_verdict": {
+        "verdict": "Use reasoning",
+        "why": "+7.0 pts, CI excludes 0",
+        "cost_per_extra_correct_usd": 0.020514642857142863
+      },
+      "overthinking_risk": true,
+      "confidence_usable": {
+        "gut": false,
+        "reasoned": false
+      },
+      "cost_ratio": 1.8093678755308569
+    },
+    "gpt-5.4-mini": {
+      "diff": {
+        "n": 200,
+        "diff": 0.065,
+        "ci": [
+          0.02,
+          0.115
+        ]
+      },
+      "flips": {
+        "right_to_wrong": 6,
+        "wrong_to_right": 19,
+        "wrong_to_wrong_changed": 6,
+        "unchanged": 169,
+        "n": 200,
+        "flips": 31,
+        "overthinking_rate": 0.03,
+        "overthinking_share_of_flips": 0.1935483870967742,
+        "net_gain": 13
+      },
+      "mode_verdict": {
+        "verdict": "Use reasoning",
+        "why": "+6.5 pts, CI excludes 0",
+        "cost_per_extra_correct_usd": 0.0074616923076923055
+      },
+      "overthinking_risk": true,
+      "confidence_usable": {
+        "gut": false,
+        "reasoned": false
+      },
+      "cost_ratio": 1.5675444408851753
+    }
+  },
+  "cheapest": {
+    "by_accuracy": null,
+    "by_auto_accept": null
+  }
+}

@@ -1,0 +1,356 @@
+{
+  "task": "toxicity",
+  "name": "Toxicity (Civil Comments)",
+  "target_accuracy": 0.9,
+  "target_precision": 0.95,
+  "configs": [
+    {
+      "model": "claude-haiku-4-5",
+      "mode": "gut",
+      "cost_per_1k": 0.44623499999999994,
+      "latency_median_s": 0.928,
+      "latency_p90_s": 1.3032,
+      "mean_reasoning_tokens": 0.0,
+      "reasoning_leak_items": 0,
+      "accuracy": {
+        "n": 200,
+        "acc": 0.725,
+        "ci": [
+          0.66,
+          0.785
+        ]
+      },
+      "acc_ci_lo": 0.66,
+      "calibration": {
+        "n": 200,
+        "ece": 0.11060000000000002,
+        "mean_conf": 0.8172,
+        "acc_parsed": 0.725,
+        "overconfidence": 0.09220000000000006,
+        "reliability": [
+          {
+            "bin": 7,
+            "lo": 0.7,
+            "hi": 0.8,
+            "n": 107,
+            "mean_conf": 0.7578504672897196,
+            "acc": 0.5981308411214953
+          },
+          {
+            "bin": 8,
+            "lo": 0.8,
+            "hi": 0.9,
+            "n": 42,
+            "mean_conf": 0.8378571428571429,
+            "acc": 0.7619047619047619
+          },
+          {
+            "bin": 9,
+            "lo": 0.9,
+            "hi": 1.0,
+            "n": 51,
+            "mean_conf": 0.9247058823529413,
+            "acc": 0.9607843137254902
+          }
+        ]
+      },
+      "parse_fail": 0,
+      "threshold": {
+        "target": 0.95,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 73
+      },
+      "threshold_99": {
+        "target": 0.99,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 381
+      }
+    },
+    {
+      "model": "claude-haiku-4-5",
+      "mode": "reasoned",
+      "cost_per_1k": 2.27746,
+      "latency_median_s": 4.659,
+      "latency_p90_s": 6.6635,
+      "mean_reasoning_tokens": 365.245,
+      "reasoning_leak_items": 200,
+      "accuracy": {
+        "n": 200,
+        "acc": 0.685,
+        "ci": [
+          0.62,
+          0.75
+        ]
+      },
+      "acc_ci_lo": 0.62,
+      "calibration": {
+        "n": 200,
+        "ece": 0.10364999999999998,
+        "mean_conf": 0.78865,
+        "acc_parsed": 0.685,
+        "overconfidence": 0.10364999999999991,
+        "reliability": [
+          {
+            "bin": 6,
+            "lo": 0.6,
+            "hi": 0.7,
+            "n": 37,
+            "mean_conf": 0.6678378378378378,
+            "acc": 0.43243243243243246
+          },
+          {
+            "bin": 7,
+            "lo": 0.7,
+            "hi": 0.8,
+            "n": 86,
+            "mean_conf": 0.7465116279069768,
+            "acc": 0.627906976744186
+          },
+          {
+            "bin": 8,
+            "lo": 0.8,
+            "hi": 0.9,
+            "n": 49,
+            "mean_conf": 0.8624489795918366,
+            "acc": 0.8571428571428571
+          },
+          {
+            "bin": 9,
+            "lo": 0.9,
+            "hi": 1.0,
+            "n": 28,
+            "mean_conf": 0.9485714285714286,
+            "acc": 0.8928571428571429
+          }
+        ]
+      },
+      "parse_fail": 0,
+      "threshold": {
+        "target": 0.95,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 73
+      },
+      "threshold_99": {
+        "target": 0.99,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 381
+      }
+    },
+    {
+      "model": "gpt-5.4-mini",
+      "mode": "gut",
+      "cost_per_1k": 0.22840125000000003,
+      "latency_median_s": 1.006,
+      "latency_p90_s": 1.2905,
+      "mean_reasoning_tokens": 0.0,
+      "reasoning_leak_items": 0,
+      "accuracy": {
+        "n": 200,
+        "acc": 0.72,
+        "ci": [
+          0.655,
+          0.785
+        ]
+      },
+      "acc_ci_lo": 0.655,
+      "calibration": {
+        "n": 200,
+        "ece": 0.19104999999999994,
+        "mean_conf": 0.9077500000000001,
+        "acc_parsed": 0.72,
+        "overconfidence": 0.18775000000000008,
+        "reliability": [
+          {
+            "bin": 6,
+            "lo": 0.6,
+            "hi": 0.7,
+            "n": 1,
+            "mean_conf": 0.67,
+            "acc": 1.0
+          },
+          {
+            "bin": 7,
+            "lo": 0.7,
+            "hi": 0.8,
+            "n": 12,
+            "mean_conf": 0.7624999999999998,
+            "acc": 0.75
+          },
+          {
+            "bin": 8,
+            "lo": 0.8,
+            "hi": 0.9,
+            "n": 64,
+            "mean_conf": 0.8596874999999999,
+            "acc": 0.75
+          },
+          {
+            "bin": 9,
+            "lo": 0.9,
+            "hi": 1.0,
+            "n": 123,
+            "mean_conf": 0.9488617886178862,
+            "acc": 0.6991869918699187
+          }
+        ]
+      },
+      "parse_fail": 0,
+      "threshold": {
+        "target": 0.95,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 73
+      },
+      "threshold_99": {
+        "target": 0.99,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 381
+      }
+    },
+    {
+      "model": "gpt-5.4-mini",
+      "mode": "reasoned",
+      "cost_per_1k": 0.52576125,
+      "latency_median_s": 1.2235,
+      "latency_p90_s": 1.6843,
+      "mean_reasoning_tokens": 60.83,
+      "reasoning_leak_items": 200,
+      "accuracy": {
+        "n": 200,
+        "acc": 0.74,
+        "ci": [
+          0.68,
+          0.8
+        ]
+      },
+      "acc_ci_lo": 0.68,
+      "calibration": {
+        "n": 200,
+        "ece": 0.18380000000000005,
+        "mean_conf": 0.9238000000000001,
+        "acc_parsed": 0.74,
+        "overconfidence": 0.18380000000000007,
+        "reliability": [
+          {
+            "bin": 6,
+            "lo": 0.6,
+            "hi": 0.7,
+            "n": 1,
+            "mean_conf": 0.68,
+            "acc": 0.0
+          },
+          {
+            "bin": 7,
+            "lo": 0.7,
+            "hi": 0.8,
+            "n": 13,
+            "mean_conf": 0.7599999999999999,
+            "acc": 0.46153846153846156
+          },
+          {
+            "bin": 8,
+            "lo": 0.8,
+            "hi": 0.9,
+            "n": 46,
+            "mean_conf": 0.8604347826086958,
+            "acc": 0.717391304347826
+          },
+          {
+            "bin": 9,
+            "lo": 0.9,
+            "hi": 1.0,
+            "n": 140,
+            "mean_conf": 0.9615714285714286,
+            "acc": 0.7785714285714286
+          }
+        ]
+      },
+      "parse_fail": 0,
+      "threshold": {
+        "target": 0.95,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 73
+      },
+      "threshold_99": {
+        "target": 0.99,
+        "threshold": null,
+        "found": false,
+        "min_all_correct_n_needed": 381
+      }
+    }
+  ],
+  "per_model": {
+    "claude-haiku-4-5": {
+      "diff": {
+        "n": 200,
+        "diff": -0.04,
+        "ci": [
+          -0.085,
+          0.005
+        ]
+      },
+      "flips": {
+        "right_to_wrong": 15,
+        "wrong_to_right": 7,
+        "wrong_to_wrong_changed": 0,
+        "unchanged": 178,
+        "n": 200,
+        "flips": 22,
+        "overthinking_rate": 0.075,
+        "overthinking_share_of_flips": 0.6818181818181818,
+        "net_gain": -8
+      },
+      "mode_verdict": {
+        "verdict": "Use fast mode",
+        "why": "accuracy gain CI includes 0"
+      },
+      "overthinking_risk": true,
+      "confidence_usable": {
+        "gut": false,
+        "reasoned": false
+      },
+      "cost_ratio": 5.103723374455164
+    },
+    "gpt-5.4-mini": {
+      "diff": {
+        "n": 200,
+        "diff": 0.02,
+        "ci": [
+          -0.03,
+          0.07
+        ]
+      },
+      "flips": {
+        "right_to_wrong": 10,
+        "wrong_to_right": 14,
+        "wrong_to_wrong_changed": 0,
+        "unchanged": 176,
+        "n": 200,
+        "flips": 24,
+        "overthinking_rate": 0.05,
+        "overthinking_share_of_flips": 0.4166666666666667,
+        "net_gain": 4
+      },
+      "mode_verdict": {
+        "verdict": "Use fast mode",
+        "why": "accuracy gain CI includes 0"
+      },
+      "overthinking_risk": true,
+      "confidence_usable": {
+        "gut": false,
+        "reasoned": false
+      },
+      "cost_ratio": 2.301919319618434
+    }
+  },
+  "cheapest": {
+    "by_accuracy": null,
+    "by_auto_accept": null
+  }
+}
