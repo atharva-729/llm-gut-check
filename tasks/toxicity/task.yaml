@@ -1,0 +1,9 @@
+name: "Toxicity (Civil Comments)"
+task_id: toxicity
+answer_type: binary
+options: ["YES", "NO"]
+instructions: "Is this online comment toxic (rude, disrespectful or unreasonable)? Answer YES if toxic, NO if not."
+target_precision: 0.95
+target_accuracy: 0.9
+licence: "CC0 1.0"
+source_url: "https://huggingface.co/datasets/google/civil_comments"

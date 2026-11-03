@@ -6,3 +6,4 @@ runs/cache/
 runs/*.jsonl
 .venv/
 tasks/_raw/
+runs/pilot_reports/

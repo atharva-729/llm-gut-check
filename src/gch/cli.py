@@ -84,6 +84,19 @@ def cmd_status(a):
     print(f"\nTotal spend logged: ${budget.spent():.3f} of ${c['budget_usd']:.2f}")
 
 
+def cmd_analyse(a):
+    from . import analyse
+    c = cfg()
+    split = a.split
+    res = queue.load_results(split)
+    expected = len(_jobs(c, split, None))
+    if split == "main" and len(res) < expected and not a.force:
+        sys.exit(f"Queue incomplete ({len(res)}/{expected}). Finish `gch run` first (or --force).")
+    outdir = ROOT / ("reports/verdicts" if split == "main" else "runs/pilot_reports")
+    cards = analyse.run(res, outdir, c["target_precision"], c["min_items_above_threshold"])
+    print(f"Wrote {len(cards)} verdict cards to {outdir}")
+
+
 def main(argv=None):
     p = argparse.ArgumentParser(prog="gch")
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -98,6 +111,10 @@ def main(argv=None):
         sp.add_argument("--force", action="store_true")
         sp.set_defaults(f=fn)
     sub.add_parser("status").set_defaults(f=cmd_status)
+    sp = sub.add_parser("analyse")
+    sp.add_argument("--split", default="main", choices=["pilot", "main"])
+    sp.add_argument("--force", action="store_true")
+    sp.set_defaults(f=cmd_analyse)
     a = p.parse_args(argv)
     a.f(a)
 
