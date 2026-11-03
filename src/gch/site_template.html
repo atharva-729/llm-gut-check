@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gut-Check: Fast or Thinking Mode</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: an audit report. One narrow reading column, findings as numbered exhibits, charts full column width. */
+:root {
+  --paper: #f5f6f4;
+  --panel: #ffffff;
+  --ink: #18202a;
+  --muted: #5d6874;
+  --rule: #d9ddd8;
+  --accent: #1f5f8b;
+  --good: #2c7a4b;
+  --bad: #b1432f;
+  --m1: #1f5f8b;   /* gpt-5.4-mini */
+  --m2: #c27a1a;   /* claude-haiku-4-5 */
+  --m3: #6b4fa0;   /* gemini-3.5-flash */
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+  --font-body: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #12161b; --panel: #1a2027; --ink: #e6e9ec; --muted: #9aa5b1; --rule: #2d353e;
+    --accent: #6fb0dc; --good: #5cbf85; --bad: #e07a62; --m1: #6fb0dc; --m2: #e8a64a; --m3: #a78bdb;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #12161b; --panel: #1a2027; --ink: #e6e9ec; --muted: #9aa5b1; --rule: #2d353e;
+  --accent: #6fb0dc; --good: #5cbf85; --bad: #e07a62; --m1: #6fb0dc; --m2: #e8a64a; --m3: #a78bdb;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body { background: var(--paper); color: var(--ink); font: 16px/1.6 var(--font-body); }
+main { max-width: 920px; margin: 0 auto; padding: 40px 20px 80px; display: grid; gap: 56px; }
+h1, h2 { font-family: var(--font-display); font-weight: 600; text-wrap: balance; line-height: 1.15; margin: 0; }
+h1 { font-size: clamp(30px, 5vw, 44px); }
+h2 { font-size: 26px; }
+h3 { font-size: 17px; margin: 0; }
+p { margin: 0; max-width: 66ch; }
+.lede { font-size: 19px; color: var(--muted); }
+section { display: grid; gap: 16px; }
+.exhibit { font: 500 12px var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
+.panel { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 20px; }
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 760px) { .grid3 { grid-template-columns: 1fr; } }
+.tile { display: grid; gap: 6px; align-content: start; }
+.tile .big { font: 600 34px/1 var(--font-display); font-variant-numeric: tabular-nums; }
+.tile .sub { color: var(--muted); font-size: 14px; }
+.chip { display: inline-block; font: 500 12px var(--font-mono); padding: 2px 8px; border-radius: 999px; border: 1px solid currentColor; }
+.chip.good { color: var(--good); } .chip.bad { color: var(--bad); } .chip.neutral { color: var(--muted); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; font-variant-numeric: tabular-nums; }
+th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-weight: 600; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+.scroll { overflow-x: auto; }
+.mono { font-family: var(--font-mono); font-size: 13px; }
+.muted { color: var(--muted); }
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+.tabs button { font: 500 14px var(--font-body); padding: 7px 14px; border-radius: 999px; border: 1px solid var(--rule);
+  background: var(--panel); color: var(--ink); cursor: pointer; }
+.tabs button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.tabs button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+a { color: var(--accent); }
+.ex { display: grid; gap: 10px; }
+.ex blockquote { margin: 0; padding: 10px 14px; border-left: 3px solid var(--rule); font-size: 15px; white-space: pre-line; }
+.ans { display: grid; grid-template-columns: 110px 1fr; gap: 4px 10px; font-size: 14px; }
+.ans .k { color: var(--muted); }
+.ok { color: var(--good); font-weight: 600; } .no { color: var(--bad); font-weight: 600; }
+svg { display: block; width: 100%; height: auto; overflow: visible; }
+svg text { fill: var(--muted); font: 11px var(--font-body); }
+svg .lbl { fill: var(--ink); font-size: 12px; }
+.legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+.legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; background: var(--c); vertical-align: -1px; }
+.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; counter-reset: s; }
+@media (max-width: 760px) { .steps { grid-template-columns: 1fr 1fr; } }
+.steps div { counter-increment: s; border-top: 3px solid var(--accent); padding-top: 10px; font-size: 14px; }
+.steps div::before { content: counter(s); font: 600 22px var(--font-display); display: block; color: var(--accent); }
+ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; max-width: 70ch; }
+code { font-family: var(--font-mono); font-size: 13px; background: var(--panel); border: 1px solid var(--rule); padding: 1px 5px; border-radius: 4px; }
+pre { margin: 0; font: 13px/1.6 var(--font-mono); background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 14px; overflow-x: auto; }
+footer { font-size: 13px; color: var(--muted); display: grid; gap: 8px; }
+</style>
+</head>
+<body>
+<main>
+
+<header style="display:grid;gap:14px">
+  <div class="exhibit">Gut-Check Harness · audit results</div>
+  <h1>Should your LLM pipeline think first, and how much can skip human review?</h1>
+  <p class="lede" id="lede"></p>
+</header>
+
+<section>
+  <div class="exhibit">Finding 1</div>
+  <h2>The same three models give three different answers, depending on the task</h2>
+  <p>For each task we found the auto-accept rule that covers the most items while staying at least 95% correct (by a conservative lower bound). Rules were set on 200 items and tested unchanged on new ones. Total cost counts the API plus <span id="rc"></span> per human review of every item the rule doesn't accept.</p>
+  <div class="grid3" id="tiles"></div>
+</section>
+
+<section>
+  <div class="exhibit">Finding 2</div>
+  <h2>Paying for thinking makes moderation worse, not better</h2>
+  <p>A "flip" is an item where turning thinking on changed the answer. Green bars are fixes (wrong → right). Red bars are overthinking (right → wrong). On grammar, thinking mostly fixes. On moderation, it breaks about as much as it fixes, and Haiku breaks twice as much.</p>
+  <div class="panel"><div id="flips"></div>
+    <div class="legend" style="margin-top:8px"><span style="--c:var(--good)">wrong → right (fixed)</span><span style="--c:var(--bad)">right → wrong (overthinking)</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="exhibit">Finding 3</div>
+  <h2>A confidence cut-off that looks safe on a small sample often isn't</h2>
+  <p id="shrinktext"></p>
+  <div class="panel"><div id="shrink"></div>
+    <div class="legend" style="margin-top:8px"><span style="--c:var(--good)">still ≥ 95% on new data</span><span style="--c:var(--bad)">failed on new data</span></div>
+  </div>
+</section>
+
+<section>
+  <div class="exhibit">Fast vs thinking, in practice</div>
+  <h2>Three real items from the test set</h2>
+  <div class="grid3" id="examples"></div>
+</section>
+
+<section>
+  <div class="exhibit">Verdict card</div>
+  <h2>What one task's audit looks like</h2>
+  <div class="tabs" role="group" aria-label="Choose task" id="tasktabs"></div>
+  <div class="panel" style="display:grid;gap:18px">
+    <div id="verdict" style="display:grid;gap:10px"></div>
+    <div class="scroll"><table id="cfgtable"></table></div>
+    <div>
+      <h3>Cost vs accuracy</h3>
+      <p class="muted" style="font-size:14px">Each point is one model in one mode. Bars show the 95% confidence interval. Dotted line: this task's target accuracy.</p>
+      <div id="frontier"></div>
+      <div class="legend" id="mlegend"></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="exhibit">Can you trust "I'm 90% sure"?</div>
+  <h2>Stated confidence vs reality, fast mode</h2>
+  <p>On the dashed diagonal, a model that says 90% is right 90% of the time; points below it are overconfident. Marker size shows how many items fall in each band, and most items sit in the top band. In both tasks, answers the models give at 70–85% confidence are right less often than claimed. That's why a confidence cut-off has to be measured per task, never read off the model's own number.</p>
+  <div class="grid3" style="grid-template-columns:1fr 1fr" id="rel"></div>
+  <div class="legend" id="mlegend2"></div>
+</section>
+
+<section>
+  <div class="exhibit">The method</div>
+  <h2>What a client gets</h2>
+  <div class="steps">
+    <div><b>Probe.</b> Check that each model's fast mode really does no hidden thinking, and that its answers parse.</div>
+    <div><b>Pre-register.</b> Write the predictions and decision rules down and commit them before any test item is run.</div>
+    <div><b>Discover, then confirm.</b> Set thresholds on one sample, then test them unchanged on fresh items.</div>
+    <div><b>Verdict card.</b> Which mode, which model, which cut-off, how much review it saves, with confidence intervals.</div>
+  </div>
+<pre>gch probe            # does "fast" really mean no thinking?
+gch pilot            # parse health + real token cost
+gch run --split confirm
+gch analyse --split confirm && gch confirm-report</pre>
+  <p class="muted" style="font-size:14px">Planned next: <code>gch new-task --csv</code> to turn a client's own labelled data into a task pack, and <code>gch rerun</code> for drift checks when a provider updates a model.</p>
+</section>
+
+<section>
+  <div class="exhibit">Uses</div>
+  <ul>
+    <li><b>Mode advisor for LLM pipelines.</b> Fast or thinking, per task, with the cost of each extra correct answer.</li>
+    <li><b>Sizing human review in ops contracts.</b> The share of volume that can be auto-accepted at a stated precision.</li>
+    <li><b>Model-risk evidence for regulated clients.</b> Pre-registered, out-of-sample, with intervals.</li>
+    <li><b>Drift monitoring.</b> Re-run the same items when a provider ships a new version.</li>
+  </ul>
+</section>
+
+<section>
+  <div class="exhibit">Limits</div>
+  <ul>
+    <li>Stated confidence is the model's own number, not a true probability.</li>
+    <li>Three cheap-tier models and one prompt template. Results are about these tasks, not a model leaderboard.</li>
+    <li>Public datasets (Banking77, BLiMP, Civil Comments) may be in the models' training data.</li>
+    <li>Moderation labels are "at least half of annotators said toxic". Part of the moderation error is policy mismatch, not model failure.</li>
+    <li>Review and error costs are assumptions. Gemini prices come from third-party listings.</li>
+    <li id="hyplimit"></li>
+  </ul>
+</section>
+
+<footer>
+  <div id="foot"></div>
+  <div>Data: Banking77 (PolyAI, CC BY 4.0) · BLiMP (Warstadt et al. 2020, CC BY) · Civil Comments (Jigsaw / Google, CC0). Models called through an OpenAI-compatible gateway.</div>
+</footer>
+
+</main>
+<script>
+const D = /*__DATA__*/null;
+const MODELS = ["gpt-5.4-mini", "claude-haiku-4-5", "gemini-3.5-flash"];
+const MC = { "gpt-5.4-mini": "var(--m1)", "claude-haiku-4-5": "var(--m2)", "gemini-3.5-flash": "var(--m3)" };
+const SH = { "gpt-5.4-mini": "gpt-5.4-mini", "claude-haiku-4-5": "Haiku 4.5", "gemini-3.5-flash": "Gemini 3.5 Flash" };
+function polName(p) {
+  const mm = p.match(/^(\w+)\((.*), (gut|reasoned)\)$/); if (!mm) return p;
+  const names = { gpt: "gpt-5.4-mini", haiku: "Haiku 4.5", gemini: "Gemini 3.5 Flash" };
+  const ms = mm[2].split("+").map(x => names[x] || x), mode = mm[3] === "gut" ? "fast mode" : "thinking mode";
+  if (mm[1] === "SELF") return `${ms[0]} in ${mode}, using its own stated confidence`;
+  if (mm[1] === "AGREE") return `${ms.join(" and ").replace(/ and (?=.* and )/, ", ")} in ${mode}, accepted only when all agree`;
+  return `all three in ${mode}, accepted when at least 2 agree`;
+}
+const pct = (x, d = 0) => (x * 100).toFixed(d) + "%";
+const usd = (x, d = 2) => "$" + x.toFixed(d);
+const $ = id => document.getElementById(id);
+const NS = "http://www.w3.org/2000/svg";
+function el(tag, attrs, parent, text) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (text !== undefined) e.textContent = text;
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function svg(w, h, host) { host.innerHTML = ""; return el("svg", { viewBox: `0 0 ${w} ${h}`, role: "img" }, host); }
+function lin(d0, d1, r0, r1) { return v => r0 + (v - d0) / (d1 - d0) * (r1 - r0); }
+function logs(d0, d1, r0, r1) { const a = Math.log10(d0), b = Math.log10(d1); return v => r0 + (Math.log10(v) - a) / (b - a) * (r1 - r0); }
+function axes(s, x, y, xt, yt, W, H, m, xl, yl, xf, yf) {
+  for (const t of yt) { el("line", { x1: m.l, x2: W - m.r, y1: y(t), y2: y(t), stroke: "var(--rule)" }, s); el("text", { x: m.l - 6, y: y(t) + 4, "text-anchor": "end" }, s, yf(t)); }
+  for (const t of xt) { el("text", { x: x(t), y: H - m.b + 16, "text-anchor": "middle" }, s, xf(t)); }
+  el("text", { x: (m.l + W - m.r) / 2, y: H - 4, "text-anchor": "middle" }, s, xl);
+  el("text", { x: 12, y: (m.t + H - m.b) / 2, "text-anchor": "middle", transform: `rotate(-90 12 ${(m.t + H - m.b) / 2})` }, s, yl);
+}
+
+// ---------- header
+const T = D.tasks;
+$("lede").textContent = `We ran three vendors' cheap-tier models (${MODELS.map(m => SH[m]).join(", ")}) on three business-style tasks, each in fast mode and in thinking mode. Rules were set on 200 items per task and then tested on ${T.banking77.n} fresh items per task: ${D.n_calls_confirm.toLocaleString()} test calls, ${usd(D.spend_total)} in API spend for the whole study.`;
+$("rc").textContent = usd(D.review_cost);
+
+// ---------- Finding 1 tiles
+for (const t of ["blimp", "banking77", "toxicity"]) {
+  const k = T[t], b = k.best_policy, c = k.cheapest_total;
+  const allHuman = D.review_cost * 1000;
+  const div = document.createElement("div"); div.className = "panel tile";
+  const saving = c ? 1 - c.total_cost_per_1k / allHuman : 0;
+  div.innerHTML = `<h3>${k.short}</h3><div class="sub">${k.what}</div>
+    <div class="big">${b ? pct(b.coverage) : "0%"}</div>
+    <div class="sub">of items safely auto-accepted${b ? ` (${pct(b.precision, 1)} correct on new data)` : ""}</div>
+    <div class="sub">${c ? `<b>${usd(c.total_cost_per_1k, 0)}</b> per 1,000 items incl. review, vs ${usd(allHuman, 0)} all-human (<span class="${saving > 0.3 ? "ok" : "muted"}">−${pct(saving)}</span>)` : `No rule is safe: <b>${usd(allHuman, 0)}</b> per 1,000, all to human review`}</div>
+    <div>${MODELS.map(m => { const v = k.per_model[m]; const cls = v.verdict === "Use reasoning" ? "good" : "neutral";
+      return `<span class="chip ${cls}" title="${SH[m]}: thinking changes accuracy by ${(v.diff * 100).toFixed(1)} pts">${SH[m]}: ${v.verdict === "Use reasoning" ? "think" : "fast"}</span>`; }).join(" ")}</div>`;
+  $("tiles").appendChild(div);
+}
+
+// ---------- Finding 2 flips
+(function () {
+  const W = 880, H = 300, m = { l: 50, r: 10, t: 10, b: 54 };
+  const s = svg(W, H, $("flips"));
+  const groups = []; for (const t of ["blimp", "banking77", "toxicity"]) for (const mm of MODELS) groups.push([t, mm]);
+  const max = Math.max(...groups.map(([t, mm]) => Math.max(T[t].per_model[mm].r2w, T[t].per_model[mm].w2r)));
+  const top = Math.ceil(max / 10) * 10;
+  const y = lin(0, top, H - m.b, m.t), gw = (W - m.l - m.r) / groups.length;
+  axes(s, v => v, y, [], [0, top / 2, top], W, H, m, "", "items (of " + T.blimp.n + ")", v => v, v => v);
+  groups.forEach(([t, mm], i) => {
+    const v = T[t].per_model[mm], x0 = m.l + i * gw + gw * 0.18, bw = gw * 0.3;
+    el("rect", { x: x0, y: y(v.w2r), width: bw, height: y(0) - y(v.w2r), fill: "var(--good)" }, s);
+    el("rect", { x: x0 + bw + 2, y: y(v.r2w), width: bw, height: y(0) - y(v.r2w), fill: "var(--bad)" }, s);
+    el("text", { x: x0 + bw / 2, y: y(v.w2r) - 4, "text-anchor": "middle", class: "lbl" }, s, v.w2r);
+    el("text", { x: x0 + bw * 1.5 + 2, y: y(v.r2w) - 4, "text-anchor": "middle", class: "lbl" }, s, v.r2w);
+    el("text", { x: m.l + i * gw + gw / 2, y: H - m.b + 16, "text-anchor": "middle" }, s, SH[mm].replace("gpt-5.4-mini", "gpt-mini").replace("Gemini 3.5 Flash", "Gemini").replace("Haiku 4.5", "Haiku"));
+    if (i % 3 === 1) el("text", { x: m.l + i * gw + gw / 2, y: H - m.b + 34, "text-anchor": "middle", class: "lbl" }, s, T[t].short);
+  });
+  [3, 6].forEach(i => el("line", { x1: m.l + i * gw, x2: m.l + i * gw, y1: m.t, y2: H - m.b + 38, stroke: "var(--rule)" }, s));
+})();
+
+// ---------- Finding 3 shrinkage
+(function () {
+  const pts = []; for (const t of ["banking77", "blimp", "toxicity"]) for (const p of T[t].policies) pts.push({ ...p, task: t });
+  const sh = D.shrink;
+  $("shrinktext").textContent = `We picked every auto-accept rule that was at least 97% correct on the first 200 items (${sh.fitted} rules), then ran each one unchanged on the new items. ${sh.failed} of ${sh.fitted} no longer cleared the 95% bar. On banking intents, ${sh.b77_failed} of ${sh.b77_fitted} failed. A vendor that sets your cut-off on a few hundred examples is likely to over-promise on harder tasks.`;
+  const W = 880, H = 340, m = { l: 56, r: 140, t: 12, b: 40 };
+  const s = svg(W, H, $("shrink"));
+  const x = lin(0.9, 1.0, m.l, W - m.r), y = lin(0.88, 1.0, H - m.b, m.t);
+  axes(s, x, y, [0.9, 0.92, 0.94, 0.96, 0.98, 1.0], [0.88, 0.92, 0.96, 1.0], W, H, m,
+       "precision on the first 200 items (where the rule was set)", "precision on new items", v => pct(v), v => pct(v));
+  el("line", { x1: x(0.9), y1: y(0.9), x2: x(1), y2: y(1), stroke: "var(--muted)", "stroke-dasharray": "3 4" }, s);
+  el("text", { x: x(0.995), y: y(0.995) - 8, "text-anchor": "end" }, s, "no change");
+  el("line", { x1: m.l, x2: W - m.r, y1: y(0.95), y2: y(0.95), stroke: "var(--bad)", "stroke-dasharray": "5 4" }, s);
+  el("text", { x: W - m.r + 6, y: y(0.95) + 4, class: "lbl" }, s, "95% target");
+  const shp = { banking77: "M-5,-5h10v10h-10z", blimp: "M0,-6L6,0L0,6L-6,0z", toxicity: "M0,-6L6,5H-6z" };
+  for (const p of pts) {
+    const px = x(Math.max(0.9, p.disc_prec)), py = y(Math.max(0.88, p.prec));
+    const g = el("path", { d: shp[p.task], transform: `translate(${px},${py})`, fill: p.pass ? "var(--good)" : "var(--bad)", "fill-opacity": .75 }, s);
+    el("title", {}, g, `${T[p.task].short} · ${p.name}: ${pct(p.disc_prec, 1)} → ${pct(p.prec, 1)}`);
+  }
+  [["banking77", "Banking (■)"], ["blimp", "Grammar (◆)"], ["toxicity", "Moderation (▲)"]].forEach(([t, lab], i) => {
+    el("path", { d: shp[t], transform: `translate(${x(0.905)},${y(0.905) + i * 22})`, fill: "var(--muted)" }, s);
+    el("text", { x: x(0.905) + 12, y: y(0.905) + 4 + i * 22, class: "lbl" }, s, lab);
+  });
+})();
+
+// ---------- examples
+for (const e of D.examples) {
+  const div = document.createElement("div"); div.className = "panel ex";
+  const row = (lab, a) => `<span class="k">${lab}</span><span><b>${a[0]}</b> · says ${a[1]}% sure · <span class="${a[2] ? "ok" : "no"}">${a[2] ? "right" : "wrong"}</span></span>`;
+  const story = e.gut[2] && !e.rea[2] ? "Thinking talked it out of a right answer." : "98% sure and wrong in fast mode; thinking fixed it.";
+  div.innerHTML = `<h3>${e.short} · ${SH[e.model]}</h3><blockquote></blockquote>
+    <div class="ans"><span class="k">Correct</span><span><b>${e.gold}</b></span>${row("Fast", e.gut)}${row("Thinking", e.rea)}</div>
+    <p class="muted" style="font-size:14px"></p>`;
+  div.querySelector("blockquote").textContent = e.input;
+  div.querySelector("p").textContent = e.gut[2] && !e.rea[2] ? "Thinking talked it out of a right answer."
+    : (e.gut[1] >= 95 ? `${e.gut[1]}% sure and wrong in fast mode. Thinking fixed it.` : "Fast mode picked a near-miss label. Thinking fixed it.");
+  $("examples").appendChild(div);
+}
+
+// ---------- verdict card + frontier
+const legend = MODELS.map(mm => `<span style="--c:${MC[mm]}">${SH[mm]}</span>`).join("") + `<span style="--c:transparent;border:0">● fast · ◆ thinking</span>`;
+$("mlegend").innerHTML = legend; $("mlegend2").innerHTML = MODELS.map(mm => `<span style="--c:${MC[mm]}">${SH[mm]}</span>`).join("");
+function showTask(t) {
+  const k = T[t];
+  document.querySelectorAll("#tasktabs button").forEach(b => b.setAttribute("aria-pressed", b.dataset.t === t));
+  const b = k.best_policy;
+  const lines = MODELS.map(mm => { const v = k.per_model[mm];
+    const ci = `${(v.ci[0] * 100).toFixed(1)} to ${(v.ci[1] * 100).toFixed(1)}`;
+    return `<li><b>${SH[mm]}: ${v.verdict === "Use reasoning" ? "use thinking" : "use fast mode"}.</b> Thinking changes accuracy by ${(v.diff * 100 >= 0 ? "+" : "") + (v.diff * 100).toFixed(1)} pts (95% CI ${ci}) at ${v.ratio.toFixed(1)}× the cost${v.cpec ? `, ${usd(v.cpec, 3)} per extra correct answer` : ""}. ${v.w2r} fixed, ${v.r2w} broken${v.overthink ? ' <span class="chip bad">overthinking risk</span>' : ""}</li>`; }).join("");
+  $("verdict").innerHTML = `<h3>${k.name} · ${k.n} test items</h3>
+    <p><b>Auto-accept:</b> ${b ? `${polName(b.policy)}, at confidence ≥ ${b.fitted_c}. Covers <b>${pct(b.coverage)}</b> at ${pct(b.precision, 1)} precision (lower bound ${pct(b.precision_lower, 1)}).` : "no rule reaches 95% precision on new data. Send everything to review, or don't use confidence."}</p>
+    <ul>${lines}</ul>`;
+  const rows = k.configs.map(c => `<tr><td>${SH[c.model]}</td><td>${c.mode === "gut" ? "fast" : "thinking"}</td><td>${pct(c.acc, 1)} <span class="muted">(${pct(c.ci[0], 1)}–${pct(c.ci[1], 1)})</span></td><td>${usd(c.cost)}</td><td>${c.lat.toFixed(1)}s</td><td>${Math.round(c.think)}</td><td>${(c.overconf * 100 >= 0 ? "+" : "") + (c.overconf * 100).toFixed(1)} pts</td></tr>`).join("");
+  $("cfgtable").innerHTML = `<thead><tr><th>Model</th><th>Mode</th><th>Accuracy (95% CI)</th><th>$ / 1k items</th><th>Median latency</th><th>Thinking tokens / item</th><th>Over-confidence</th></tr></thead><tbody>${rows}</tbody>`;
+  // frontier
+  const W = 880, H = 320, m = { l: 56, r: 20, t: 14, b: 40 };
+  const s = svg(W, H, $("frontier"));
+  const costs = k.configs.map(c => c.cost), lo = Math.min(...k.configs.map(c => c.ci[0]), k.target_accuracy) - 0.02;
+  const x = logs(Math.min(...costs) / 1.5, Math.max(...costs) * 1.5, m.l, W - m.r), y = lin(Math.floor(lo * 20) / 20, 1, H - m.b, m.t);
+  const xt = [0.2, 0.5, 1, 2, 5, 10].filter(v => v >= Math.min(...costs) / 1.5 && v <= Math.max(...costs) * 1.5);
+  const y0 = Math.floor(lo * 20) / 20, yt = []; for (let v = y0; v <= 1.0001; v += 0.05) yt.push(+v.toFixed(2));
+  axes(s, x, y, xt, yt, W, H, m, "API cost per 1,000 items (log scale)", "accuracy", v => "$" + v, v => pct(v));
+  el("line", { x1: m.l, x2: W - m.r, y1: y(k.target_accuracy), y2: y(k.target_accuracy), stroke: "var(--muted)", "stroke-dasharray": "2 4" }, s);
+  el("text", { x: W - m.r, y: y(k.target_accuracy) - 6, "text-anchor": "end" }, s, `target ${pct(k.target_accuracy)}`);
+  for (const c of k.configs) {
+    const px = x(c.cost);
+    el("line", { x1: px, x2: px, y1: y(c.ci[0]), y2: y(c.ci[1]), stroke: MC[c.model], "stroke-width": 1.5 }, s);
+    const shape = c.mode === "gut" ? el("circle", { cx: px, cy: y(c.acc), r: 6, fill: MC[c.model] }, s)
+      : el("path", { d: "M0,-8L8,0L0,8L-8,0z", transform: `translate(${px},${y(c.acc)})`, fill: MC[c.model] }, s);
+    el("title", {}, shape, `${SH[c.model]} ${c.mode === "gut" ? "fast" : "thinking"}: ${pct(c.acc, 1)}, ${usd(c.cost)}/1k`);
+  }
+}
+for (const t of ["banking77", "blimp", "toxicity"]) {
+  const b = document.createElement("button"); b.textContent = T[t].short; b.dataset.t = t; b.type = "button";
+  b.addEventListener("click", () => showTask(t)); $("tasktabs").appendChild(b);
+}
+showTask("banking77");
+
+// ---------- reliability
+for (const t of ["blimp", "toxicity"]) {
+  const host = document.createElement("div"); host.className = "panel";
+  host.innerHTML = `<h3>${T[t].short}</h3><div></div>`; $("rel").appendChild(host);
+  const W = 420, H = 380, m = { l: 48, r: 10, t: 10, b: 40 };
+  const s = svg(W, H, host.querySelector("div"));
+  const x = lin(0.5, 1, m.l, W - m.r), y = lin(0.3, 1, H - m.b, m.t);
+  axes(s, x, y, [0.5, 0.6, 0.7, 0.8, 0.9, 1.0], [0.3, 0.5, 0.7, 0.9, 1.0], W, H, m, "model says it's this sure", "actually right", v => pct(v), v => pct(v));
+  el("line", { x1: x(0.5), y1: y(0.5), x2: x(1), y2: y(1), stroke: "var(--muted)", "stroke-dasharray": "3 4" }, s);
+  for (const c of T[t].configs.filter(c => c.mode === "gut")) {
+    const bins = c.rel.filter(b => b.n >= 5 && b.mean_conf >= 0.5);
+    el("polyline", { points: bins.map(b => `${x(b.mean_conf)},${y(Math.max(0.3, b.acc))}`).join(" "), fill: "none", stroke: MC[c.model], "stroke-width": 2 }, s);
+    for (const b of bins) { const d = el("circle", { cx: x(b.mean_conf), cy: y(Math.max(0.3, b.acc)), r: Math.max(3, Math.min(10, Math.sqrt(b.n))), fill: MC[c.model], "fill-opacity": .8 }, s);
+      el("title", {}, d, `${SH[c.model]}: says ${pct(b.mean_conf)}, right ${pct(b.acc)} (n=${b.n})`); }
+  }
+}
+
+// ---------- footer
+$("hyplimit").textContent = `We pre-registered four predictions for the test run and published the outcome: ${Object.entries(D.hyp).map(([k, v]) => k + " " + v.toLowerCase()).join(", ")}. The findings above are the ones that held.`;
+$("foot").textContent = `Generated by gch site from reports/confirm/ and runs/. Test spend ${usd(D.spend_confirm)} for ${D.n_calls_confirm.toLocaleString()} calls.`;
+</script>
+</body>
+</html>

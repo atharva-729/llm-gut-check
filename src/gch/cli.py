@@ -111,6 +111,11 @@ def cmd_confirm_report(a):
         print(h, v["result"])
 
 
+def cmd_site(a):
+    from . import site
+    print(f"Wrote {site.build()}")
+
+
 def main(argv=None):
     p = argparse.ArgumentParser(prog="gch")
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -131,6 +136,7 @@ def main(argv=None):
     sp.add_argument("--split", default="main", choices=["pilot", "main", "confirm"])
     sp.add_argument("--force", action="store_true")
     sp.set_defaults(f=cmd_analyse)
+    sub.add_parser("site").set_defaults(f=cmd_site)
     sp = sub.add_parser("confirm-report")
     sp.add_argument("--force", action="store_true")
     sp.set_defaults(f=cmd_confirm_report)
