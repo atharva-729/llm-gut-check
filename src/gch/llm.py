@@ -30,7 +30,10 @@ def _http() -> httpx.Client:
 
 
 def _base() -> str:
-    return os.environ.get("LLM_API_BASE", "").rstrip("/")
+    base = os.environ.get("LLM_API_BASE", "").rstrip("/")
+    if not base:
+        raise RuntimeError("LLM_API_BASE not set (put your gateway's base URL in .env)")
+    return base
 
 
 def _auth() -> str:

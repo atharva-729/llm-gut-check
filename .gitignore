@@ -7,3 +7,4 @@ runs/*.jsonl
 .venv/
 tasks/_raw/
 runs/pilot_reports/
+docs/explainer.html
