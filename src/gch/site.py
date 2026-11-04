@@ -128,6 +128,10 @@ def build_data() -> dict:
          "detail": f"They agreed on {h['H6']['unanimous_share'] * 100:.0f}% of comments and were right "
                    f"{h['H6']['precision_when_unanimous'] * 100:.1f}% of the time, just past the line we drew."},
     ]
+    for sc, hid in zip(scorecard, ["H7", "H1", "H2", "H3", "H4", "H5", "H6"]):
+        sc["id"] = hid
+        sc["when"] = "before round 1" if hid in ("H1", "H2", "H3") else "after round 1"
+    scorecard.sort(key=lambda r: r["id"])
     n_fit = sum(len(tasks[t]["policies"]) for t in TASKS)
     n_fail = sum(1 for t in TASKS for p in tasks[t]["policies"] if not p["pass"])
     return {

@@ -56,49 +56,46 @@
 body, .panel, .qs div, .verdict, .reuse div, #theme { transition: background-color .2s, border-color .2s, color .2s; }
 * { box-sizing: border-box; }
 html, body { margin: 0; }
-body { background: var(--paper); color: var(--ink); font: 17px/1.6 var(--font-body); }
-main { max-width: 900px; margin: 0 auto; padding: 0 20px 90px; display: grid; gap: 72px; }
+body { background: var(--paper); color: var(--ink); font: 15.5px/1.55 var(--font-body); }
+main { max-width: 960px; margin: 0 auto; padding: 0 20px 72px; display: grid; gap: 52px; }
 h1, h2 { font-family: var(--font-display); font-weight: 600; text-wrap: balance; line-height: 1.12; margin: 0; }
-h1 { font-size: clamp(38px, 7vw, 64px); }
-h2 { font-size: clamp(26px, 4vw, 34px); }
-h3 { font-size: 18px; margin: 0; }
-h4 { font-size: 16px; margin: 0; }
-p { margin: 0; max-width: 66ch; }
-section { display: grid; gap: 18px; }
+h1 { font-size: clamp(34px, 5.5vw, 54px); }
+h2 { font-size: clamp(23px, 3.2vw, 29px); }
+.rh { font-size: 19px; }
+h3 { font-size: 16.5px; margin: 0; }
+h4 { font-size: 15px; margin: 0; }
+p { margin: 0; max-width: 78ch; }
+section { display: grid; gap: 14px; }
 .act { font: 500 12px var(--font-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
-.lead { font-size: 19px; max-width: 62ch; }
-.takeaway { font-size: 18px; font-weight: 600; max-width: 62ch; }
-.panel { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 20px; display: grid; gap: 12px; align-content: start; box-shadow: var(--shadow); }
-.howto { font-size: 14px; color: var(--muted); border-top: 1px dashed var(--rule); padding-top: 10px; max-width: none; }
-.howto b { color: var(--ink); }
+.lead { font-size: 17px; max-width: 72ch; }
+.takeaway { font-size: 16px; font-weight: 600; max-width: 78ch; }
+.panel { background: var(--panel); border: 1px solid var(--rule); border-radius: 10px; padding: 16px 18px; display: grid; gap: 10px; align-content: start; box-shadow: var(--shadow); }
+.caveat { border-left: 4px solid var(--warn); background: color-mix(in srgb, var(--warn) 9%, var(--panel)); border-radius: 6px; padding: 10px 14px; font-size: 14.5px; max-width: none; }
 .cols { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
 .cols3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
 @media (max-width: 720px) { .cols, .cols3 { grid-template-columns: 1fr; } }
 .muted { color: var(--muted); } .small { font-size: 14px; }
-.hero { min-height: min(100svh, 980px); display: grid; align-content: center; gap: 22px; padding: 40px 0 24px; position: relative; }
+.hero { min-height: min(100svh, 900px); display: grid; align-content: center; gap: 18px; padding: 36px 0 20px; position: relative; }
 .hero::before { content: ""; position: absolute; inset: 0 -50vw; background: var(--hero-glow); z-index: -1; pointer-events: none; }
 body { overflow-x: hidden; }
 .qs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; counter-reset: q; }
 @media (max-width: 720px) { .qs { grid-template-columns: 1fr; } }
-.qs div { counter-increment: q; background: var(--panel); border: 1px solid var(--rule); border-top: 3px solid var(--accent); border-radius: 8px; padding: 12px 14px; font-size: 15px; box-shadow: var(--shadow); }
+.qs div { counter-increment: q; background: var(--panel); border: 1px solid var(--rule); border-top: 3px solid var(--accent); border-radius: 8px; padding: 10px 13px; font-size: 14.5px; box-shadow: var(--shadow); }
 .qs div::before { content: "Q" counter(q); display: block; font: 600 13px var(--font-mono); color: var(--accent); margin-bottom: 4px; }
 .cue { font-size: 14px; color: var(--muted); }
-.verdict { border: 2px solid var(--ink); border-radius: 12px; padding: 24px; display: grid; gap: 16px; background: var(--panel); box-shadow: var(--shadow); }
-.verdict .big { font: 600 clamp(26px, 4.5vw, 40px)/1.15 var(--font-display); }
-.pt { display: grid; grid-template-columns: 28px 1fr; gap: 10px; font-size: 16px; }
+.verdict { border: 2px solid var(--ink); border-radius: 12px; padding: 20px; display: grid; gap: 16px; background: var(--panel); box-shadow: var(--shadow); }
+.verdict .big { font: 600 clamp(23px, 3.6vw, 32px)/1.15 var(--font-display); }
+.pt { display: grid; grid-template-columns: 26px 1fr; gap: 8px; font-size: 15px; }
 .pt .x { font: 600 18px var(--font-mono); color: var(--bad); } .pt .v { font: 600 18px var(--font-mono); color: var(--good); }
-.tile .big { font: 600 40px/1 var(--font-display); font-variant-numeric: tabular-nums; }
-table { border-collapse: collapse; width: 100%; font-size: 15px; }
-th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.tile .big { font: 600 34px/1 var(--font-display); font-variant-numeric: tabular-nums; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 8px 8px; border-bottom: 1px solid var(--rule); vertical-align: top; }
 th { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 600; }
 .pill { display: inline-block; white-space: nowrap; font: 600 12px var(--font-mono); padding: 3px 9px; border-radius: 999px; color: #fff; }
 .pill.held { background: var(--good); } .pill.failed { background: var(--bad); } .pill.partly { background: var(--warn); }
-.ex blockquote { margin: 0; padding: 8px 12px; border-left: 3px solid var(--rule); font-size: 15px; white-space: pre-line; }
+.ex blockquote { margin: 0; padding: 6px 12px; border-left: 3px solid var(--rule); font-size: 14px; white-space: pre-line; }
 .ex .row { display: grid; grid-template-columns: 76px 1fr; gap: 2px 10px; font-size: 14px; }
 .ok { color: var(--good); font-weight: 600; } .bad { color: var(--bad); font-weight: 600; }
-.pred { display: grid; gap: 8px; }
-.pred div { display: grid; grid-template-columns: 34px 1fr; gap: 8px; font-size: 15px; padding: 8px 10px; background: var(--sunk); border-radius: 6px; }
-.pred b { font-family: var(--font-mono); color: var(--accent); }
 svg { display: block; width: 100%; height: auto; overflow: visible; }
 svg text { fill: var(--muted); font: 12px var(--font-body); }
 svg .lbl { fill: var(--ink); font-size: 13px; }
@@ -107,9 +104,13 @@ svg .strong { fill: var(--ink); font-weight: 600; font-size: 14px; }
 .legend span::before { content: ""; display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 6px; background: var(--c); border: 1px solid var(--c2, var(--c)); vertical-align: -1px; }
 .explain { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
 @media (max-width: 720px) { .explain { grid-template-columns: 1fr; } }
-.explain .panel p { font-size: 15px; }
+.explain .panel p { font-size: 14px; }
+.chips { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+@media (max-width: 720px) { .chips { grid-template-columns: 1fr; } }
+.chips div { display: grid; grid-template-columns: 96px 1fr; gap: 10px; align-items: center; font-size: 14px; background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; padding: 8px 10px; }
+.chips .pill { justify-self: start; }
 .reuse { display: grid; gap: 10px; }
-.reuse div { display: grid; grid-template-columns: 1fr; gap: 4px; padding: 14px; background: var(--panel); border: 1px solid var(--rule); border-left: 4px solid var(--accent); border-radius: 8px; font-size: 15px; box-shadow: var(--shadow); }
+.reuse div { display: grid; grid-template-columns: 1fr; gap: 4px; padding: 14px; background: var(--panel); border: 1px solid var(--rule); border-left: 4px solid var(--accent); border-radius: 8px; font-size: 14px; box-shadow: var(--shadow); }
 code { font-family: var(--font-mono); font-size: 13.5px; }
 a { color: var(--accent); }
 a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
@@ -150,6 +151,7 @@ footer { font-size: 13px; color: var(--muted); display: grid; gap: 6px; }
     <div>Does making the model think before answering make it more trustworthy?</div>
     <div>Does it depend on the task: kind (grammar) versus wicked (judging toxicity)?</div>
   </div>
+  <p class="caveat"><b>Caveat up front: these are cheap, fast models</b> (gpt-5.4-mini, Claude Haiku 4.5, Gemini 3.5 Flash), because that's what high-volume work runs on. Frontier models weren't tested. They're likely better calibrated, so their answer could differ. <a href="#bigger">What a bigger model might change ↓</a></p>
   <div class="cue">↓ The data, what we tested, what happened, and the verdict</div>
 </section>
 
@@ -157,94 +159,75 @@ footer { font-size: 13px; color: var(--muted); display: grid; gap: 6px; }
 <section>
   <div class="act">Act 2 · The data</div>
   <h2>Three tasks, from kind to wicked</h2>
-  <p>Each task has a known correct answer for every item, so grading is automatic and nobody hand-labels anything. They were picked to sit at different points on the kind–wicked scale.</p>
-  <div class="panel"><div id="spectrum"></div>
-    <p class="howto"><b>How to read it:</b> left is "kind": one right answer, regular rules. Right is "wicked": the "right" answer is a vote among people who often disagree. Banking sits in between, with clear intents but 77 of them, and many look alike.</p>
-  </div>
+  <p>Each task has a known correct answer for every item, so grading is automatic and nobody hand-labels anything.</p>
+  <div class="panel"><div id="spectrum"></div></div>
   <div class="cols3" id="taskcards"></div>
 </section>
 
 <!-- ======================= ACT 3: WHAT WE TESTED ======================= -->
 <section>
   <div class="act">Act 3 · What we tested</div>
-  <h2>Gut versus thinking, three models, two rounds</h2>
-  <p>We used the cheap tier from three vendors, since that's what high-volume work actually runs on: <b>gpt-5.4-mini</b>, <b>Claude Haiku 4.5</b> and <b>Gemini 3.5 Flash</b>. Every item was asked twice: once in <b>gut mode</b> (thinking switched off) and once in <b>thinking mode</b> (reason first). Each time, the model returned an answer and how sure it was.</p>
-  <div class="panel"><div id="call"></div>
-    <p class="howto"><b>How to read it:</b> one "call" is one question to one model in one mode. Before starting we checked that gut mode really used <b>zero</b> thinking tokens for every model. Gemini 3.8 Flash couldn't fully switch thinking off, so we used Gemini 3.5 Flash instead.</p>
-  </div>
-  <div class="panel"><div id="timeline"></div>
-    <p class="howto"><b>How to read it:</b> round 1 was for looking around, and that's where we spotted patterns. Then we <b>wrote down exactly what we expected and saved it in git</b>, time-stamped, before round 2 existed. Round 2 then tested those predictions on fresh items. That way a pattern found by luck can't pass as a result.</p>
-  </div>
-  <div class="cols">
-    <div class="panel"><h3>What we believed before round 1</h3><div class="pred" id="pred1"></div></div>
-    <div class="panel"><h3>What round 1 made us predict for round 2</h3><div class="pred" id="pred2"></div></div>
-  </div>
+  <h2>Gut versus thinking, three models</h2>
+  <p>Every item was asked twice: once in <b>gut mode</b> (thinking switched off, checked to use zero thinking tokens) and once in <b>thinking mode</b> (reason first). Each time, the model returned an answer and how sure it was.</p>
+  <div class="panel"><div id="call"></div></div>
 </section>
 
 <!-- ======================= ACT 4: RESULTS ======================= -->
 <section>
   <div class="act">Act 4 · Results</div>
   <h2>What happened</h2>
-  <p class="muted">All numbers below come from round 2: <span class="nconf"></span> fresh items per task that played no part in setting anything up.</p>
 </section>
 
 <section>
-  <h3 style="font-size:22px">Result 1. "≥ 90% sure" does not mean 99% right</h3>
+  <h3 class="rh">Result 1. "≥ 90% sure" does not mean 99% right</h3>
   <p class="takeaway" id="r1take"></p>
   <div class="panel"><div id="rule90"></div>
-    <div class="legend"><span style="--c:var(--accent)">gut mode</span><span style="--c:transparent;--c2:var(--accent)">thinking mode</span></div>
-    <p class="howto"><b>How to read it:</b> for each model we took only the answers it gave at ≥ 90% confidence and checked how many were right. The bar is that accuracy, and the thin line is the uncertainty range. The dashed line on the right is the 99% we hoped for. The number at the end is how many of all items got ≥ 90%. This is a direct check of the starting idea. It's labelled exploratory because it wasn't one of the locked predictions.</p>
+    <div class="legend"><span style="--c:var(--accent)">gut mode</span><span style="--c:transparent;--c2:var(--accent)">thinking mode</span><span style="--c:var(--ink)">thin line: uncertainty range</span></div>
   </div>
 </section>
 
 <section>
-  <h3 style="font-size:22px">Result 2. Thinking helps on easy tasks, does nothing on judgment, and once it hurt</h3>
+  <h3 class="rh">Result 2. Thinking helps on easy tasks, does nothing on judgment, and once it hurt</h3>
   <div class="panel"><div id="gain"></div>
-    <div class="legend"><span style="--c:var(--good)">thinking clearly better</span><span style="--c:var(--muted)">no clear difference</span><span style="--c:var(--bad)">thinking clearly worse</span></div>
-    <p class="howto"><b>How to read it:</b> each row is one model on one task. The dot shows how many accuracy points thinking added (right of zero) or lost (left of zero). The bar is the uncertainty range. If the bar crosses zero, we can't tell whether thinking made any difference.</p>
+    <div class="legend"><span style="--c:var(--good)">thinking clearly better</span><span style="--c:var(--muted)">no clear difference (range crosses 0)</span><span style="--c:var(--bad)">thinking clearly worse</span></div>
   </div>
   <div class="panel"><div id="flips"></div>
     <div class="legend"><span style="--c:var(--good)">wrong → right (thinking fixed it)</span><span style="--c:var(--bad)">right → wrong (thinking broke it)</span></div>
-    <p class="howto"><b>How to read it:</b> these are the items where switching thinking on changed the answer. On grammar, fixes dwarf breaks. On moderation they're even, and for Haiku breaks outnumber fixes two to one: it "overthinks" harmless comments into toxic ones.</p>
   </div>
   <div class="cols3" id="examples"></div>
 </section>
 
 <section>
-  <h3 style="font-size:22px">Result 3. Below the top band, the models' confidence is mostly too high</h3>
-  <div class="cols" id="rel"></div>
-  <div class="legend" id="mleg"></div>
-  <p class="howto"><b>How to read it:</b> each line is one model in gut mode. Across is how sure it said it was; up is how often it was actually right. On the dashed diagonal those match. <b>Below the diagonal = overconfident.</b> Dot size is the number of items. Most answers sit in the 90–100% corner. Answers given at 70–85% are right noticeably less often than claimed.</p>
+  <h3 class="rh">Result 3. Models say they're surer than they are</h3>
+  <p class="takeaway" id="r3take"></p>
+  <div class="panel"><div id="calib"></div>
+    <div class="legend"><span style="--c:transparent;--c2:var(--ink)">average confidence the model stated</span><span style="--c:var(--ink)">how often it was actually right</span></div>
+  </div>
 </section>
 
 <section>
-  <h3 style="font-size:22px">Result 4. How much can safely skip a person depends almost entirely on the task</h3>
+  <h3 class="rh">Result 4. How much work can safely skip a person depends on the task</h3>
   <div class="cols3" id="tiles"></div>
-  <div class="panel"><div id="cost"></div>
-    <div class="legend"><span style="--c:var(--accent)">AI calls</span><span style="--c:var(--warn)">people reviewing the rest</span><span style="--c:var(--bad)">wrong answers that slipped through</span></div>
-    <p class="howto"><b>How to read it:</b> this is the cost to handle 1,000 items with the best rule that stays at least 95% right. The dashed line is "a person checks everything". The AI bill is a sliver; what matters is how much still needs a person. Assumes <span class="rc"></span> per review and <span class="ec"></span> per wrong answer let through.</p>
-  </div>
 </section>
 
 <section>
-  <h3 style="font-size:22px">Result 5. Cut-offs that looked safe at first often broke on fresh data</h3>
+  <h3 class="rh">Result 5. Cut-offs picked on 200 items often didn't hold up on 600 new ones</h3>
   <p class="takeaway" id="shrinkans"></p>
-  <div class="panel"><div id="shrink"></div>
-    <div class="legend"><span style="--c:var(--good)">still safe on fresh items</span><span style="--c:var(--bad)">broke on fresh items</span></div>
-    <p class="howto"><b>How to read it:</b> each mark is one auto-accept rule, such as "accept when model X says ≥ 95%". Across: its accuracy in round 1, where the cut-off was chosen. Up: its accuracy on round 2's fresh items. Marks on the diagonal held steady. Marks in the shaded band dropped below 95%, so they weren't safe after all.</p>
-  </div>
+  <div class="cols3" id="shrink"></div>
+  <div class="legend"><span style="--c:transparent;--c2:var(--muted)">first 200 items (cut-off picked here)</span><span style="--c:var(--good)">600 new items: still safe</span><span style="--c:var(--bad)">600 new items: not safe</span><span style="--c:var(--ink)">line: down to the pessimistic low end, which had to clear 95%</span></div>
 </section>
 
 <section>
-  <h3 style="font-size:22px">Result 6. Scorecard of the locked predictions</h3>
-  <div class="panel" style="padding:8px 14px"><div style="overflow-x:auto"><table id="score"></table></div></div>
+  <h3 class="rh" id="r6h">Result 6. Our own predictions</h3>
+  <p class="small muted" id="r6sub"></p>
+  <div class="chips" id="chips"></div>
 </section>
 
 <!-- ======================= ACT 5: CONCLUSION ======================= -->
 <section>
   <div class="act">Act 5 · Conclusion</div>
   <div class="verdict">
-    <div class="big">No. An LLM's gut can't be trusted on its own.</div>
+    <div class="big">No. A cheap model's gut can't be trusted on its own.</div>
     <div class="pt"><span class="x">✕</span><span id="c1"></span></div>
     <div class="pt"><span class="x">✕</span><span>Thinking first isn't a dependable fix. It helped on grammar, mostly did nothing on banking intents, and made one model worse at judging toxicity.</span></div>
     <div class="pt"><span class="x">✕</span><span id="c3"></span></div>
@@ -253,22 +236,38 @@ footer { font-size: 13px; color: var(--muted); display: grid; gap: 6px; }
   </div>
 </section>
 
+<!-- ======================= AFTER THE CONCLUSION: DETAILS ======================= -->
+<section id="bigger">
+  <div class="act">Details</div>
+  <h2>What a bigger model might change</h2>
+  <ul>
+    <li><b>Probably better:</b> accuracy on grammar and banking, and how closely stated confidence matches reality. Larger models tend to be better calibrated, so Result 1 is the finding most likely to move on the kind tasks.</li>
+    <li><b>Probably not much better: moderation.</b> Its "correct" label is a vote among raters who often disagree, and most model "errors" were flagging comments the majority called fine. A smarter model can't beat a shaky label.</li>
+    <li><b>Not about the model at all:</b> proving 99% needs about <span class="n99"></span> correct answers in a row above the cut-off, and cut-offs picked on a small batch drift on new data whatever model you use.</li>
+    <li><b>Cost doesn't rule them out.</b> A frontier model costs several times more per call but is still cheap next to a person's time. The next run would be one frontier model, gut and thinking, on the same 600 new items per task.</li>
+  </ul>
+</section>
+
+<section>
+  <h2>How the test was run</h2>
+  <p>Two rounds per task, with the predictions written down and committed to git in between, so a pattern found by luck in round 1 can't pass as a result.</p>
+  <div class="panel"><div id="timeline"></div></div>
+  <div class="panel" style="padding:6px 14px"><div style="overflow-x:auto"><table id="score"></table></div></div>
+</section>
+
 <!-- ======================= APPENDIX: EVERYTHING EXPLAINED ======================= -->
 <section>
-  <div class="act">Everything explained</div>
   <h2>The ideas behind the experiment, one at a time</h2>
   <div class="explain">
-    <div class="panel"><h4>Gut mode and thinking mode</h4><p>Newer models can "reason" privately before answering, which takes more time and money. Each vendor has its own switch: <code>reasoning_effort</code> for OpenAI, extended thinking for Anthropic, a thinking budget for Google. "Gut" means that switch is off, and we confirmed it by checking that the usage report showed 0 thinking tokens.</p></div>
+    <div class="panel"><h4>Gut mode and thinking mode</h4><p>Newer models can "reason" privately before answering, which takes more time and money. Each vendor has its own switch: <code>reasoning_effort</code> for OpenAI, extended thinking for Anthropic, a thinking budget for Google. "Gut" means that switch is off, and we confirmed it by checking that the usage report showed 0 thinking tokens. Gemini 3.8 Flash couldn't fully switch thinking off, so Gemini 3.5 Flash was used instead.</p></div>
     <div class="panel"><h4>Stated confidence</h4><p>The model is asked to return <code>{"answer": …, "confidence": 0–100}</code>, where confidence is "the chance you're right". It's a number the model writes down, not a measured probability. That's exactly why it has to be checked.</p></div>
     <div class="panel"><h4>Accuracy and its uncertainty range</h4><p>With a limited number of items, any accuracy is an estimate. The range shows where the true value probably lies. More items, narrower range. That's why round 2 used 600 items per task, not 200.</p><div id="ciw"></div></div>
-    <div class="panel"><h4>Calibration</h4><p>A model is <b>calibrated</b> if, among answers given at 80% confidence, about 80% are right. The reliability chart (Result 3) plots this. Points below the diagonal mean overconfidence.</p></div>
+    <div class="panel"><h4>Calibration</h4><p>A model is <b>calibrated</b> if, among answers given at 80% confidence, about 80% are right. Result 3 compares the average stated confidence with actual accuracy; the gap is the overconfidence.</p></div>
     <div class="panel"><h4>Auto-accept cut-off, coverage, precision</h4><p>A cut-off is a rule such as "auto-accept if confidence ≥ 95%". <b>Coverage</b> is the share of items it lets through without review. <b>Precision</b> is the share of those that are right. A higher cut-off usually raises precision and lowers coverage.</p></div>
-    <div class="panel"><h4>"Safe" and why 99% was out of reach</h4><p>We called a cut-off safe only if even a pessimistic estimate of its precision (the Wilson lower bound) was ≥ 95%, with at least 30 items. A 99% target needs about <span id="n99"></span> correct answers in a row above the cut-off just to be provable. With 200 or 600 items per task that was never realistic.</p><div id="wil"></div></div>
+    <div class="panel"><h4>"Safe" and why 99% was out of reach</h4><p>We called a cut-off safe only if even a pessimistic estimate of its precision (the Wilson lower bound) was ≥ 95%, with at least 30 items. A 99% target needs about <span class="n99"></span> correct answers in a row above the cut-off just to be provable. With 200 or 600 items per task that was never realistic.</p><div id="wil"></div></div>
     <div class="panel"><h4>Flips and overthinking</h4><p>Compare each item's gut answer with its thinking answer. <b>Fix</b> = wrong → right. <b>Overthinking</b> = right → wrong. We flagged "overthinking risk" when breaks were at least 3% of items or at least 30% of all changes.</p></div>
-    <div class="panel"><h4>Pre-registration</h4><p>Writing predictions and decision rules down <i>before</i> seeing the test data, and committing them to git so the timestamp proves it. It stops you from finding a pattern by chance and then telling a story about it afterwards.</p></div>
-    <div class="panel"><h4>Discovery versus confirmation</h4><p>Round 1 (discovery) is where cut-offs were chosen and patterns spotted. Round 2 (confirmation) applied them unchanged to new items. Result 5 shows why this matters: many rules looked safe in round 1 and failed in round 2.</p></div>
-    <div class="panel"><h4>Review-cost model</h4><p>Total cost per 1,000 items = AI calls + <span class="rc"></span> for each item a person reviews + <span class="ec"></span> for each wrong answer auto-accepted. These prices are assumptions, but the conclusion holds whatever you plug in, because the AI part is tiny either way.</p></div>
-    <div class="panel"><h4>Why these three tasks</h4><p><b>Grammar</b> (BLiMP) is the kind extreme. <b>Banking intents</b> (Banking77) is a realistic business routing task. <b>Moderation</b> (Civil Comments) is the wicked one: labels are crowd votes, so "truth" is itself uncertain.</p></div>
+    <div class="panel"><h4>Agreement rules</h4><p>Besides one model's own confidence, round 2 tested rules that combine models: accept only when two or three models give the same answer (each above a confidence floor), or when a majority agrees. Hover a mark in Result 5 to see which rule it is.</p></div>
+    <div class="panel"><h4>Why these three tasks</h4><p><b>Grammar</b> (BLiMP) is the kind extreme. <b>Banking intents</b> (Banking77) is a realistic business routing task: clear intents, but 77 of them and many look alike. <b>Moderation</b> (Civil Comments) is the wicked one: labels are crowd votes, so "truth" is itself uncertain.</p></div>
     <div class="panel"><h4>What it cost</h4><p>Everything ran through one OpenAI-compatible gateway, with every call cached and logged. Total API spend:</p><div id="spend"></div></div>
   </div>
 </section>
@@ -285,7 +284,7 @@ footer { font-size: 13px; color: var(--muted); display: grid; gap: 6px; }
     <li>Three cheap models, one prompt template, three public datasets that the models may have seen in training.</li>
     <li>Confidence is the model's own stated number. Token-probability confidence wasn't tried.</li>
     <li>Moderation "truth" is a crowd vote, so part of the error is disagreement about policy rather than model failure.</li>
-    <li>Review and error costs are assumptions. Gemini prices come from third-party listings.</li>
+    <li>Gemini prices come from third-party listings.</li>
     <li>The ≥ 90% check in Result 1 is exploratory. It directly tests the starting idea, but it wasn't among the locked predictions.</li>
   </ul>
 </section>
@@ -297,7 +296,7 @@ footer { font-size: 13px; color: var(--muted); display: grid; gap: 6px; }
 
 </main>
 <script>
-const D = {"rule90":[{"task":"banking77","model":"claude-haiku-4-5","mode":"gut","n":359,"correct":319,"prec":0.8885793871866295,"lb":0.8518293050528977,"cov":0.5983333333333334},{"task":"banking77","model":"claude-haiku-4-5","mode":"reasoned","n":306,"correct":287,"prec":0.9379084967320261,"lb":0.9050658006802901,"cov":0.51},{"task":"banking77","model":"gemini-3.5-flash","mode":"gut","n":547,"correct":474,"prec":0.8665447897623401,"lb":0.8354750934712976,"cov":0.9116666666666666},{"task":"banking77","model":"gemini-3.5-flash","mode":"reasoned","n":582,"correct":499,"prec":0.8573883161512027,"lb":0.8266325438760521,"cov":0.97},{"task":"banking77","model":"gpt-5.4-mini","mode":"gut","n":510,"correct":441,"prec":0.8647058823529412,"lb":0.8322801329792586,"cov":0.85},{"task":"banking77","model":"gpt-5.4-mini","mode":"reasoned","n":453,"correct":407,"prec":0.8984547461368654,"lb":0.8672046607734711,"cov":0.755},{"task":"blimp","model":"claude-haiku-4-5","mode":"gut","n":521,"correct":498,"prec":0.9558541266794626,"lb":0.9346295106532327,"cov":0.8683333333333333},{"task":"blimp","model":"claude-haiku-4-5","mode":"reasoned","n":432,"correct":432,"prec":1.0,"lb":0.9911861096668306,"cov":0.72},{"task":"blimp","model":"gemini-3.5-flash","mode":"gut","n":584,"correct":557,"prec":0.9537671232876712,"lb":0.9335695818971359,"cov":0.9733333333333334},{"task":"blimp","model":"gemini-3.5-flash","mode":"reasoned","n":598,"correct":586,"prec":0.979933110367893,"lb":0.9652552317977113,"cov":0.9966666666666667},{"task":"blimp","model":"gpt-5.4-mini","mode":"gut","n":545,"correct":495,"prec":0.908256880733945,"lb":0.8810810170627136,"cov":0.9083333333333333},{"task":"blimp","model":"gpt-5.4-mini","mode":"reasoned","n":472,"correct":466,"prec":0.9872881355932204,"lb":0.9725471673923114,"cov":0.7866666666666666},{"task":"toxicity","model":"claude-haiku-4-5","mode":"gut","n":141,"correct":133,"prec":0.9432624113475178,"lb":0.8920396844298962,"cov":0.235},{"task":"toxicity","model":"claude-haiku-4-5","mode":"reasoned","n":101,"correct":95,"prec":0.9405940594059405,"lb":0.8764089440526284,"cov":0.16833333333333333},{"task":"toxicity","model":"gemini-3.5-flash","mode":"gut","n":339,"correct":317,"prec":0.9351032448377581,"lb":0.903700084519307,"cov":0.565},{"task":"toxicity","model":"gemini-3.5-flash","mode":"reasoned","n":399,"correct":354,"prec":0.8872180451127819,"lb":0.8524157946739259,"cov":0.665},{"task":"toxicity","model":"gpt-5.4-mini","mode":"gut","n":377,"correct":301,"prec":0.7984084880636605,"lb":0.7549936978331027,"cov":0.6283333333333333},{"task":"toxicity","model":"gpt-5.4-mini","mode":"reasoned","n":413,"correct":344,"prec":0.8329297820823245,"lb":0.793919436370964,"cov":0.6883333333333334}],"repo":"https://github.com/atharva-729/llm-gut-check","n_pilot":10,"scorecard":[{"claim":"Thinking won't improve moderation","status":"held","detail":"Fast mode won for all 3 models. Haiku 4.5 got 4.5 pts worse with thinking."},{"claim":"Models are more overconfident on moderation than on grammar","status":"partly held","detail":"True for 2 of 3 models (the gap's confidence interval stays above zero)."},{"claim":"Thinking isn't worth paying for on banking intents","status":"partly held","detail":"2 of 3 models: fast mode. gpt-5.4-mini still gains +3.7 pts from thinking."},{"claim":"A model's own fast-mode confidence is enough to auto-accept safely","status":"partly held","detail":"Grammar: works for 2 of 3 models. Banking: 0 of 3."},{"claim":"Two cheap fast models agreeing beats one model's own confidence","status":"failed","detail":"Banking: no agreement rule was safe. Grammar: the best fast-mode agreement rule covered 88%, but one model thinking covered 100%."},{"claim":"Models stay just as confident on comments humans disagree about","status":"failed","detail":"Two of the three models do get a little less confident. Their accuracy drops much more, though."},{"claim":"When all 3 models agree on moderation, they're still wrong over 15% of the time","status":"failed","detail":"They agreed on 81% of comments and were right 85.6% of the time, just past the line we drew."}],"error_cost":2.5,"spend":{"probe":0.028235999999999997,"pilot":0.2909050000000001,"main":5.3607530000000025,"confirm":15.673734500000023},"n_disc":200,"n_calls_main":3600,"tasks":{"banking77":{"id":"banking77","short":"Banking intents","name":"Banking77 intent classification","what":"Route a bank customer's message to 1 of 77 intents","n":600,"target_accuracy":0.9,"configs":[{"model":"claude-haiku-4-5","mode":"gut","acc":0.7816666666666666,"ci":[0.7483333333333333,0.815],"cost":1.7736649999999998,"lat":1.567,"think":0.0,"ece":0.08713333333333327,"overconf":0.0861333333333335,"rel":[{"bin":2,"lo":0.2,"hi":0.3,"n":2,"mean_conf":0.25,"acc":0.0},{"bin":3,"lo":0.3,"hi":0.4,"n":2,"mean_conf":0.35,"acc":0.5},{"bin":4,"lo":0.4,"hi":0.5,"n":13,"mean_conf":0.43153846153846154,"acc":0.3076923076923077},{"bin":6,"lo":0.6,"hi":0.7,"n":2,"mean_conf":0.65,"acc":0.0},{"bin":7,"lo":0.7,"hi":0.8,"n":107,"mean_conf":0.755607476635514,"acc":0.5514018691588785},{"bin":8,"lo":0.8,"hi":0.9,"n":115,"mean_conf":0.8476521739130431,"acc":0.7478260869565218},{"bin":9,"lo":0.9,"hi":1.0,"n":359,"mean_conf":0.9310306406685237,"acc":0.8885793871866295}]},{"model":"claude-haiku-4-5","mode":"reasoned","acc":0.7883333333333333,"ci":[0.7566666666666667,0.8216666666666667],"cost":3.06849,"lat":4.6370000000000005,"think":257.1666666666667,"ece":0.08348333333333333,"overconf":0.08248333333333335,"rel":[{"bin":2,"lo":0.2,"hi":0.3,"n":2,"mean_conf":0.25,"acc":0.0},{"bin":3,"lo":0.3,"hi":0.4,"n":2,"mean_conf":0.35,"acc":0.5},{"bin":4,"lo":0.4,"hi":0.5,"n":3,"mean_conf":0.45,"acc":0.3333333333333333},{"bin":5,"lo":0.5,"hi":0.6,"n":2,"mean_conf":0.565,"acc":0.0},{"bin":6,"lo":0.6,"hi":0.7,"n":17,"mean_conf":0.6570588235294118,"acc":0.5882352941176471},{"bin":7,"lo":0.7,"hi":0.8,"n":122,"mean_conf":0.7495901639344261,"acc":0.5655737704918032},{"bin":8,"lo":0.8,"hi":0.9,"n":146,"mean_conf":0.8587671232876712,"acc":0.7191780821917808},{"bin":9,"lo":0.9,"hi":1.0,"n":306,"mean_conf":0.950359477124183,"acc":0.9379084967320261}]},{"model":"gemini-3.5-flash","mode":"gut","acc":0.8316666666666667,"ci":[0.8016666666666666,0.8616666666666667],"cost":1.26255,"lat":1.9155,"think":0.0,"ece":0.12533333333333352,"overconf":0.1253333333333334,"rel":[{"bin":4,"lo":0.4,"hi":0.5,"n":1,"mean_conf":0.4,"acc":0.0},{"bin":5,"lo":0.5,"hi":0.6,"n":3,"mean_conf":0.5166666666666667,"acc":0.3333333333333333},{"bin":6,"lo":0.6,"hi":0.7,"n":2,"mean_conf":0.6,"acc":0.5},{"bin":7,"lo":0.7,"hi":0.8,"n":18,"mean_conf":0.7416666666666667,"acc":0.3888888888888889},{"bin":8,"lo":0.8,"hi":0.9,"n":29,"mean_conf":0.8465517241379312,"acc":0.5517241379310345},{"bin":9,"lo":0.9,"hi":1.0,"n":547,"mean_conf":0.9746800731261428,"acc":0.8665447897623401}]},{"model":"gemini-3.5-flash","mode":"reasoned","acc":0.8416666666666667,"ci":[0.8116249999999999,0.87],"cost":3.5018100000000003,"lat":3.226,"think":248.895,"ece":0.11766666666666684,"overconf":0.1176666666666667,"rel":[{"bin":7,"lo":0.7,"hi":0.8,"n":1,"mean_conf":0.75,"acc":0.0},{"bin":8,"lo":0.8,"hi":0.9,"n":17,"mean_conf":0.85,"acc":0.35294117647058826},{"bin":9,"lo":0.9,"hi":1.0,"n":582,"mean_conf":0.9628865979381445,"acc":0.8573883161512027}]},{"model":"gpt-5.4-mini","mode":"gut","acc":0.8033333333333333,"ci":[0.7716666666666666,0.835],"cost":0.8536212499999999,"lat":1.4735,"think":0.0,"ece":0.13933333333333325,"overconf":0.1393333333333333,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":1,"mean_conf":0.55,"acc":0.0},{"bin":6,"lo":0.6,"hi":0.7,"n":4,"mean_conf":0.65,"acc":0.5},{"bin":7,"lo":0.7,"hi":0.8,"n":17,"mean_conf":0.7558823529411766,"acc":0.35294117647058826},{"bin":8,"lo":0.8,"hi":0.9,"n":68,"mean_conf":0.8576470588235294,"acc":0.4852941176470588},{"bin":9,"lo":0.9,"hi":1.0,"n":510,"mean_conf":0.9632941176470587,"acc":0.8647058823529412}]},{"model":"gpt-5.4-mini","mode":"reasoned","acc":0.84,"ci":[0.81,0.87],"cost":1.28252375,"lat":1.851,"think":89.42333333333333,"ece":0.08214999999999993,"overconf":0.08214999999999995,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":4,"mean_conf":0.5625,"acc":0.5},{"bin":6,"lo":0.6,"hi":0.7,"n":20,"mean_conf":0.6464999999999999,"acc":0.6},{"bin":7,"lo":0.7,"hi":0.8,"n":42,"mean_conf":0.7554761904761904,"acc":0.5714285714285714},{"bin":8,"lo":0.8,"hi":0.9,"n":81,"mean_conf":0.8595061728395063,"acc":0.7283950617283951},{"bin":9,"lo":0.9,"hi":1.0,"n":453,"mean_conf":0.9641501103752759,"acc":0.8984547461368654}]}],"per_model":{"claude-haiku-4-5":{"verdict":"Use fast mode","diff":0.006666666666666667,"ci":[-0.015,0.028333333333333332],"ratio":1.7300279365043572,"cpec":null,"r2w":19,"w2r":23,"overthink":true},"gemini-3.5-flash":{"verdict":"Use fast mode","diff":0.01,"ci":[-0.008333333333333333,0.028333333333333332],"ratio":2.7736010455031486,"cpec":null,"r2w":13,"w2r":19,"overthink":false},"gpt-5.4-mini":{"verdict":"Use reasoning","diff":0.03666666666666667,"ci":[0.016666666666666666,0.058333333333333334],"ratio":1.502450589181092,"cpec":0.011697340909090912,"r2w":11,"w2r":33,"overthink":false}},"best_policy":{"policy":"SELF(gemini, reasoned)","kind":"SELF","models":["gemini-3.5-flash"],"mode":"reasoned","fitted_c":100,"fitted":true,"c":100,"n_total":600,"accepted":118,"correct":117,"precision":0.9915254237288136,"precision_lower":0.953554427584598,"coverage":0.19666666666666666,"api_cost_per_1k":3.5018099999999985,"passes":true,"total_cost_per_1k":208.50181,"sensitivity":{"R=0.05,E=0.0":43.66847666666667,"R=0.05,E=2.5":47.835143333333335,"R=0.05,E=25.0":85.33514333333333,"R=0.25,E=0.0":204.33514333333335,"R=0.25,E=2.5":208.50181,"R=0.25,E=25.0":246.00181,"R=1.0,E=0.0":806.8351433333333,"R=1.0,E=2.5":811.00181,"R=1.0,E=25.0":848.50181},"discovery_at_fit":{"c":100,"n_total":200,"accepted":30,"correct":30,"precision":1.0,"precision_lower":0.8864866068260312,"coverage":0.15,"api_cost_per_1k":3.5009849999999996}},"cheapest_total":{"policy":"SELF(gemini, reasoned)","kind":"SELF","models":["gemini-3.5-flash"],"mode":"reasoned","fitted_c":100,"fitted":true,"c":100,"n_total":600,"accepted":118,"correct":117,"precision":0.9915254237288136,"precision_lower":0.953554427584598,"coverage":0.19666666666666666,"api_cost_per_1k":3.5018099999999985,"passes":true,"total_cost_per_1k":208.50181,"sensitivity":{"R=0.05,E=0.0":43.66847666666667,"R=0.05,E=2.5":47.835143333333335,"R=0.05,E=25.0":85.33514333333333,"R=0.25,E=0.0":204.33514333333335,"R=0.25,E=2.5":208.50181,"R=0.25,E=25.0":246.00181,"R=1.0,E=0.0":806.8351433333333,"R=1.0,E=2.5":811.00181,"R=1.0,E=25.0":848.50181},"discovery_at_fit":{"c":100,"n_total":200,"accepted":30,"correct":30,"precision":1.0,"precision_lower":0.8864866068260312,"coverage":0.15,"api_cost_per_1k":3.5009849999999996}},"policies":[{"name":"SELF(haiku, gut)","kind":"SELF","mode":"gut","floor":95,"cov":0.22,"prec":0.9772727272727273,"lb":0.9353108604232109,"pass":false,"api":1.7736650000000018,"total":209.273665,"disc_prec":0.975609756097561},{"name":"SELF(gemini, gut)","kind":"SELF","mode":"gut","floor":100,"cov":0.5016666666666667,"prec":0.9534883720930233,"lb":0.9234527206680234,"pass":false,"api":1.2625500000000014,"total":184.1792166666667,"disc_prec":1.0},{"name":"SELF(gemini, reasoned)","kind":"SELF","mode":"reasoned","floor":100,"cov":0.19666666666666666,"prec":0.9915254237288136,"lb":0.953554427584598,"pass":true,"api":3.5018099999999985,"total":208.50181,"disc_prec":1.0},{"name":"AGREE(gpt+haiku, gut)","kind":"AGREE","mode":"gut","floor":95,"cov":0.21666666666666667,"prec":0.9769230769230769,"lb":0.9343481004651153,"pass":false,"api":2.627286250000003,"total":210.96061958333334,"disc_prec":0.975609756097561},{"name":"AGREE(haiku+gemini, gut)","kind":"AGREE","mode":"gut","floor":95,"cov":0.21666666666666667,"prec":0.9846153846153847,"lb":0.9456415388402218,"pass":false,"api":3.036215000000003,"total":207.20288166666666,"disc_prec":1.0},{"name":"AGREE(gpt+haiku+gemini, gut)","kind":"AGREE","mode":"gut","floor":95,"cov":0.21333333333333335,"prec":0.984375,"lb":0.9448190233201827,"pass":false,"api":3.889836250000005,"total":208.88983625,"disc_prec":1.0},{"name":"AGREE(gpt+haiku, reasoned)","kind":"AGREE","mode":"reasoned","floor":90,"cov":0.485,"prec":0.9484536082474226,"lb":0.9167048964698142,"pass":false,"api":4.351013750000001,"total":195.60101375,"disc_prec":0.9753086419753086},{"name":"AGREE(gpt+gemini, reasoned)","kind":"AGREE","mode":"reasoned","floor":95,"cov":0.5916666666666667,"prec":0.9352112676056338,"lb":0.9046612359967016,"pass":false,"api":4.784333749999999,"total":202.70100041666666,"disc_prec":0.9805825242718447},{"name":"AGREE(gpt+haiku+gemini, reasoned)","kind":"AGREE","mode":"reasoned","floor":90,"cov":0.4816666666666667,"prec":0.9515570934256056,"lb":0.9203399119722064,"pass":false,"api":7.852823750000005,"total":195.76949041666668,"disc_prec":0.9875},{"name":"MAJ(gpt+haiku+gemini, reasoned)","kind":"MAJ","mode":"reasoned","floor":95,"cov":0.39666666666666667,"prec":0.9495798319327731,"lb":0.9139517676045076,"pass":false,"api":7.852823750000005,"total":208.68615708333334,"disc_prec":0.9848484848484849}]},"blimp":{"id":"blimp","short":"Grammar","name":"BLiMP grammaticality (A/B)","what":"Pick the grammatical sentence of a pair (A or B)","n":600,"target_accuracy":0.95,"configs":[{"model":"claude-haiku-4-5","mode":"gut","acc":0.9266666666666666,"ci":[0.905,0.9466666666666667],"cost":0.4131116666666666,"lat":1.5265,"think":0.0,"ece":0.013700000000000125,"overconf":0.00556666666666672,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":1,"mean_conf":0.5,"acc":1.0},{"bin":7,"lo":0.7,"hi":0.8,"n":39,"mean_conf":0.7600000000000001,"acc":0.6923076923076923},{"bin":8,"lo":0.8,"hi":0.9,"n":39,"mean_conf":0.84974358974359,"acc":0.7692307692307693},{"bin":9,"lo":0.9,"hi":1.0,"n":521,"mean_conf":0.952130518234165,"acc":0.9558541266794626}]},{"model":"claude-haiku-4-5","mode":"reasoned","acc":0.9383333333333334,"ci":[0.9183333333333333,0.9566666666666667],"cost":2.459395,"lat":6.112,"think":408.25666666666666,"ece":0.04268333333333336,"overconf":-0.03188333333333315,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":17,"mean_conf":0.543529411764706,"acc":0.35294117647058826},{"bin":6,"lo":0.6,"hi":0.7,"n":19,"mean_conf":0.6442105263157895,"acc":0.7368421052631579},{"bin":7,"lo":0.7,"hi":0.8,"n":77,"mean_conf":0.7384415584415582,"acc":0.7922077922077922},{"bin":8,"lo":0.8,"hi":0.9,"n":55,"mean_conf":0.86,"acc":0.9090909090909091},{"bin":9,"lo":0.9,"hi":1.0,"n":432,"mean_conf":0.968125,"acc":1.0}]},{"model":"gemini-3.5-flash","mode":"gut","acc":0.945,"ci":[0.9266666666666666,0.9616666666666667],"cost":0.34448,"lat":1.804,"think":0.0,"ece":0.04599999999999998,"overconf":0.04600000000000004,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":3,"mean_conf":0.5,"acc":0.3333333333333333},{"bin":8,"lo":0.8,"hi":0.9,"n":13,"mean_conf":0.8499999999999999,"acc":0.6923076923076923},{"bin":9,"lo":0.9,"hi":1.0,"n":584,"mean_conf":0.9966609589041096,"acc":0.9537671232876712}]},{"model":"gemini-3.5-flash","mode":"reasoned","acc":0.98,"ci":[0.9683333333333334,0.99],"cost":3.0994699999999997,"lat":3.2765,"think":306.2866666666667,"ece":0.011833333333333298,"overconf":0.010666666666666602,"rel":[{"bin":8,"lo":0.8,"hi":0.9,"n":2,"mean_conf":0.825,"acc":1.0},{"bin":9,"lo":0.9,"hi":1.0,"n":598,"mean_conf":0.9912207357859532,"acc":0.979933110367893}]},{"model":"gpt-5.4-mini","mode":"gut","acc":0.8733333333333333,"ci":[0.845,0.9],"cost":0.204725,"lat":1.4580000000000002,"think":0.0,"ece":0.08388333333333342,"overconf":0.0838833333333332,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":7,"mean_conf":0.5385714285714286,"acc":0.42857142857142855},{"bin":6,"lo":0.6,"hi":0.7,"n":6,"mean_conf":0.6433333333333333,"acc":0.16666666666666666},{"bin":7,"lo":0.7,"hi":0.8,"n":16,"mean_conf":0.7375,"acc":0.5},{"bin":8,"lo":0.8,"hi":0.9,"n":26,"mean_conf":0.8534615384615385,"acc":0.6538461538461539},{"bin":9,"lo":0.9,"hi":1.0,"n":545,"mean_conf":0.9774495412844038,"acc":0.908256880733945}]},{"model":"gpt-5.4-mini","mode":"reasoned","acc":0.955,"ci":[0.9366666666666666,0.97],"cost":1.7396749999999999,"lat":2.3765,"think":333.40833333333336,"ece":0.037383333333333366,"overconf":-0.037383333333333435,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":40,"mean_conf":0.55975,"acc":0.85},{"bin":6,"lo":0.6,"hi":0.7,"n":23,"mean_conf":0.6399999999999999,"acc":0.6956521739130435},{"bin":7,"lo":0.7,"hi":0.8,"n":26,"mean_conf":0.7515384615384615,"acc":0.7692307692307693},{"bin":8,"lo":0.8,"hi":0.9,"n":39,"mean_conf":0.8569230769230768,"acc":0.9487179487179487},{"bin":9,"lo":0.9,"hi":1.0,"n":472,"mean_conf":0.975635593220339,"acc":0.9872881355932204}]}],"per_model":{"claude-haiku-4-5":{"verdict":"Use fast mode","diff":0.011666666666666667,"ci":[-0.01,0.035],"ratio":5.953341913203453,"cpec":null,"r2w":18,"w2r":25,"overthink":true},"gemini-3.5-flash":{"verdict":"Use reasoning","diff":0.035,"ci":[0.018333333333333333,0.051666666666666666],"ratio":8.997532512772874,"cpec":0.07871399999999999,"r2w":4,"w2r":25,"overthink":false},"gpt-5.4-mini":{"verdict":"Use reasoning","diff":0.08166666666666667,"ci":[0.058333333333333334,0.10666666666666667],"ratio":8.49761875686897,"cpec":0.018795306122448976,"r2w":5,"w2r":54,"overthink":false}},"best_policy":{"policy":"SELF(gemini, reasoned)","kind":"SELF","models":["gemini-3.5-flash"],"mode":"reasoned","fitted_c":0,"fitted":true,"c":0,"n_total":600,"accepted":600,"correct":588,"precision":0.98,"precision_lower":0.9653699456538908,"coverage":1.0,"api_cost_per_1k":3.099469999999996,"passes":true,"total_cost_per_1k":53.09947,"sensitivity":{"R=0.05,E=0.0":3.099469999999996,"R=0.05,E=2.5":53.09947,"R=0.05,E=25.0":503.09947,"R=0.25,E=0.0":3.099469999999996,"R=0.25,E=2.5":53.09947,"R=0.25,E=25.0":503.09947,"R=1.0,E=0.0":3.099469999999996,"R=1.0,E=2.5":53.09947,"R=1.0,E=25.0":503.09947},"discovery_at_fit":{"c":0,"n_total":200,"accepted":200,"correct":195,"precision":0.975,"precision_lower":0.942821659593358,"coverage":1.0,"api_cost_per_1k":3.4140600000000005}},"cheapest_total":{"policy":"AGREE(gpt+gemini, reasoned)","kind":"AGREE","models":["gpt-5.4-mini","gemini-3.5-flash"],"mode":"reasoned","fitted_c":0,"fitted":true,"c":0,"n_total":600,"accepted":573,"correct":567,"precision":0.9895287958115183,"precision_lower":0.9773452226173158,"coverage":0.955,"api_cost_per_1k":4.839145,"passes":true,"total_cost_per_1k":41.089145,"sensitivity":{"R=0.05,E=0.0":7.089145,"R=0.05,E=2.5":32.089145,"R=0.05,E=25.0":257.089145,"R=0.25,E=0.0":16.089145000000002,"R=0.25,E=2.5":41.089145,"R=0.25,E=25.0":266.089145,"R=1.0,E=0.0":49.839145,"R=1.0,E=2.5":74.839145,"R=1.0,E=25.0":299.839145},"discovery_at_fit":{"c":0,"n_total":200,"accepted":193,"correct":190,"precision":0.9844559585492227,"precision_lower":0.9553033351151177,"coverage":0.965,"api_cost_per_1k":5.270118750000002}},"policies":[{"name":"SELF(gpt, reasoned)","kind":"SELF","mode":"reasoned","floor":80,"cov":0.8516666666666667,"prec":0.9843444227005871,"lb":0.9694148317918254,"pass":true,"api":1.7396750000000003,"total":72.15634166666668,"disc_prec":0.9766081871345029},{"name":"SELF(haiku, gut)","kind":"SELF","mode":"gut","floor":95,"cov":0.6116666666666667,"prec":0.9918256130790191,"lb":0.9762456623349125,"pass":true,"api":0.4131116666666653,"total":109.99644500000001,"disc_prec":0.9739130434782609},{"name":"SELF(haiku, reasoned)","kind":"SELF","mode":"reasoned","floor":80,"cov":0.8116666666666666,"prec":0.9897330595482546,"lb":0.9761937241466908,"pass":true,"api":2.4593949999999998,"total":70.37606166666667,"disc_prec":0.9806451612903225},{"name":"SELF(gemini, gut)","kind":"SELF","mode":"gut","floor":100,"cov":0.9316666666666666,"prec":0.9677996422182469,"lb":0.9496774078706604,"pass":false,"api":0.34448000000000084,"total":92.42781333333335,"disc_prec":0.9825581395348837},{"name":"SELF(gemini, reasoned)","kind":"SELF","mode":"reasoned","floor":0,"cov":1.0,"prec":0.98,"lb":0.9653699456538908,"pass":true,"api":3.099469999999996,"total":53.09947,"disc_prec":0.975},{"name":"AGREE(gpt+haiku, gut)","kind":"AGREE","mode":"gut","floor":95,"cov":0.575,"prec":0.9971014492753624,"lb":0.983766537455308,"pass":true,"api":0.6178366666666657,"total":111.03450333333332,"disc_prec":0.981651376146789},{"name":"AGREE(gpt+gemini, gut)","kind":"AGREE","mode":"gut","floor":95,"cov":0.7616666666666667,"prec":0.9846827133479212,"lb":0.9687241098327283,"pass":true,"api":0.5492050000000008,"total":89.299205,"disc_prec":0.9788732394366197},{"name":"AGREE(haiku+gemini, gut)","kind":"AGREE","mode":"gut","floor":80,"cov":0.8783333333333333,"prec":0.9810246679316889,"lb":0.9654264782896379,"pass":true,"api":0.7575916666666659,"total":72.840925,"disc_prec":0.9710982658959537},{"name":"AGREE(gpt+haiku+gemini, gut)","kind":"AGREE","mode":"gut","floor":90,"cov":0.755,"prec":0.9933774834437086,"lb":0.9807123628806745,"pass":true,"api":0.9623166666666672,"total":74.71231666666667,"disc_prec":0.9724137931034482},{"name":"MAJ(gpt+haiku+gemini, gut)","kind":"MAJ","mode":"gut","floor":95,"cov":0.6066666666666667,"prec":0.989010989010989,"lb":0.9720897342877888,"pass":true,"api":0.9623166666666672,"total":115.96231666666667,"disc_prec":0.9821428571428571},{"name":"AGREE(gpt+haiku, reasoned)","kind":"AGREE","mode":"reasoned","floor":0,"cov":0.94,"prec":0.975177304964539,"lb":0.9587683585022723,"pass":true,"api":4.199069999999996,"total":77.53240333333332,"disc_prec":0.9739583333333334},{"name":"AGREE(gpt+gemini, reasoned)","kind":"AGREE","mode":"reasoned","floor":0,"cov":0.955,"prec":0.9895287958115183,"lb":0.9773452226173158,"pass":true,"api":4.839145,"total":41.089145,"disc_prec":0.9844559585492227},{"name":"AGREE(haiku+gemini, reasoned)","kind":"AGREE","mode":"reasoned","floor":0,"cov":0.9416666666666667,"prec":0.9876106194690265,"lb":0.974649545686989,"pass":true,"api":5.558864999999999,"total":49.308865,"disc_prec":0.9792746113989638},{"name":"AGREE(gpt+haiku+gemini, reasoned)","kind":"AGREE","mode":"reasoned","floor":0,"cov":0.9183333333333333,"prec":0.9927404718693285,"lb":0.9814845466276649,"pass":true,"api":7.298540000000006,"total":44.381873333333345,"disc_prec":0.9841269841269841},{"name":"MAJ(gpt+haiku+gemini, reasoned)","kind":"MAJ","mode":"reasoned","floor":0,"cov":1.0,"prec":0.9683333333333334,"lb":0.9510727848694857,"pass":true,"api":7.298540000000006,"total":86.46520666666666,"disc_prec":0.97}]},"toxicity":{"id":"toxicity","short":"Moderation","name":"Toxicity (Civil Comments)","what":"Flag an online comment as toxic or not","n":600,"target_accuracy":0.9,"configs":[{"model":"claude-haiku-4-5","mode":"gut","acc":0.7883333333333333,"ci":[0.755,0.82],"cost":0.4478116666666667,"lat":1.5695000000000001,"think":0.0,"ece":0.05526666666666667,"overconf":0.02299999999999991,"rel":[{"bin":7,"lo":0.7,"hi":0.8,"n":336,"mean_conf":0.7514285714285714,"acc":0.6815476190476191},{"bin":8,"lo":0.8,"hi":0.9,"n":123,"mean_conf":0.8431707317073169,"acc":0.9024390243902439},{"bin":9,"lo":0.9,"hi":1.0,"n":141,"mean_conf":0.9263120567375888,"acc":0.9432624113475178}]},{"model":"claude-haiku-4-5","mode":"reasoned","acc":0.7433333333333333,"ci":[0.7083333333333334,0.7783333333333333],"cost":2.30642,"lat":6.124499999999999,"think":370.72,"ece":0.07451666666666676,"overconf":0.04738333333333333,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":3,"mean_conf":0.5533333333333333,"acc":1.0},{"bin":6,"lo":0.6,"hi":0.7,"n":108,"mean_conf":0.6675000000000003,"acc":0.48148148148148145},{"bin":7,"lo":0.7,"hi":0.8,"n":261,"mean_conf":0.7485823754789271,"acc":0.6896551724137931},{"bin":8,"lo":0.8,"hi":0.9,"n":127,"mean_conf":0.8598425196850391,"acc":0.9133858267716536},{"bin":9,"lo":0.9,"hi":1.0,"n":101,"mean_conf":0.9514851485148516,"acc":0.9405940594059405}]},{"model":"gemini-3.5-flash","mode":"gut","acc":0.8083333333333333,"ci":[0.7766666666666666,0.8383333333333334],"cost":0.3797425,"lat":1.911,"think":0.0,"ece":0.09058333333333322,"overconf":0.09058333333333313,"rel":[{"bin":7,"lo":0.7,"hi":0.8,"n":65,"mean_conf":0.7476923076923077,"acc":0.5692307692307692},{"bin":8,"lo":0.8,"hi":0.9,"n":196,"mean_conf":0.8413265306122445,"acc":0.6683673469387755},{"bin":9,"lo":0.9,"hi":1.0,"n":339,"mean_conf":0.9612094395280236,"acc":0.9351032448377581}]},{"model":"gemini-3.5-flash","mode":"reasoned","acc":0.8066666666666666,"ci":[0.775,0.8366666666666667],"cost":2.2269025,"lat":3.3185000000000002,"think":205.41333333333333,"ece":0.10543333333333335,"overconf":0.10543333333333338,"rel":[{"bin":6,"lo":0.6,"hi":0.7,"n":1,"mean_conf":0.65,"acc":0.0},{"bin":7,"lo":0.7,"hi":0.8,"n":23,"mean_conf":0.7456521739130434,"acc":0.5217391304347826},{"bin":8,"lo":0.8,"hi":0.9,"n":177,"mean_conf":0.8387005649717514,"acc":0.6666666666666666},{"bin":9,"lo":0.9,"hi":1.0,"n":399,"mean_conf":0.9549122807017544,"acc":0.8872180451127819}]},{"model":"gpt-5.4-mini","mode":"gut","acc":0.775,"ci":[0.7399583333333333,0.8066666666666666],"cost":0.23008125,"lat":1.4545,"think":0.0,"ece":0.1448666666666666,"overconf":0.13719999999999988,"rel":[{"bin":6,"lo":0.6,"hi":0.7,"n":4,"mean_conf":0.635,"acc":0.75},{"bin":7,"lo":0.7,"hi":0.8,"n":20,"mean_conf":0.758,"acc":0.85},{"bin":8,"lo":0.8,"hi":0.9,"n":199,"mean_conf":0.8626130653266332,"acc":0.7236180904522613},{"bin":9,"lo":0.9,"hi":1.0,"n":377,"mean_conf":0.9494960212201591,"acc":0.7984084880636605}]},{"model":"gpt-5.4-mini","mode":"reasoned","acc":0.7766666666666666,"ci":[0.7433333333333333,0.81],"cost":0.52841625,"lat":1.6435,"think":61.17333333333333,"ece":0.14256666666666673,"overconf":0.14256666666666662,"rel":[{"bin":6,"lo":0.6,"hi":0.7,"n":2,"mean_conf":0.645,"acc":0.0},{"bin":7,"lo":0.7,"hi":0.8,"n":55,"mean_conf":0.7567272727272728,"acc":0.4909090909090909},{"bin":8,"lo":0.8,"hi":0.9,"n":130,"mean_conf":0.8628461538461538,"acc":0.7307692307692307},{"bin":9,"lo":0.9,"hi":1.0,"n":413,"mean_conf":0.9599515738498791,"acc":0.8329297820823245}]}],"per_model":{"claude-haiku-4-5":{"verdict":"Use fast mode","diff":-0.045,"ci":[-0.07333333333333333,-0.018333333333333333],"ratio":5.150424099416793,"cpec":null,"r2w":53,"w2r":26,"overthink":true},"gemini-3.5-flash":{"verdict":"Use fast mode","diff":-0.0016666666666666668,"ci":[-0.023333333333333334,0.02],"ratio":5.8642435334470076,"cpec":null,"r2w":22,"w2r":21,"overthink":true},"gpt-5.4-mini":{"verdict":"Use fast mode","diff":0.0016666666666666668,"ci":[-0.025,0.02666666666666667],"ratio":2.2966506397196644,"cpec":null,"r2w":31,"w2r":32,"overthink":true}},"best_policy":null,"cheapest_total":null,"policies":[{"name":"SELF(gemini, gut)","kind":"SELF","mode":"gut","floor":100,"cov":0.23,"prec":0.9782608695652174,"lb":0.9380368800052548,"pass":false,"api":0.37974249999999926,"total":205.3797425,"disc_prec":1.0},{"name":"SELF(gemini, reasoned)","kind":"SELF","mode":"reasoned","floor":100,"cov":0.17666666666666667,"prec":0.9622641509433962,"lb":0.9069658438911791,"pass":false,"api":2.226902500000001,"total":224.7269025,"disc_prec":1.0}]}},"examples":[{"task":"blimp","short":"Grammar","model":"gpt-5.4-mini","input":"A: A lot of women hadn't learned what the lady isn't concealing.\nB: A lot of women hadn't learned that the lady isn't concealing.","gold":"A","gut":["B",98.0,false],"rea":["A",97.0,true]},{"task":"banking77","short":"Banking intents","model":"gpt-5.4-mini","input":"Payments from my disposable virtual card don't work","gold":"virtual_card_not_working","gut":["disposable_card_limits",89.0,false],"rea":["virtual_card_not_working",95.0,true]},{"task":"toxicity","short":"Moderation","model":"claude-haiku-4-5","input":"Let me see if I understand this correctly - we will be using electricity generated from oil to create hydrogen to replace oil.  Can someone explain the laws of thermodynamics to those designing this project?","gold":"NO","gut":["NO",82.0,true],"rea":["YES",68.0,false]}],"review_cost":0.25,"n_calls_confirm":10800,"spend_total":21.353628499999967,"spend_confirm":15.673734500000023,"hyp":{"H4":"NOT SUPPORTED","H5":"NOT SUPPORTED","H6":"NOT SUPPORTED","H7":"SUPPORTED"},"h6":{"share":0.8116666666666666,"prec":0.8562628336755647},"shrink":{"fitted":27,"failed":12,"b77_fitted":10,"b77_failed":9}};
+const D = {"rule90":[{"task":"banking77","model":"claude-haiku-4-5","mode":"gut","n":359,"correct":319,"prec":0.8885793871866295,"lb":0.8518293050528977,"cov":0.5983333333333334},{"task":"banking77","model":"claude-haiku-4-5","mode":"reasoned","n":306,"correct":287,"prec":0.9379084967320261,"lb":0.9050658006802901,"cov":0.51},{"task":"banking77","model":"gemini-3.5-flash","mode":"gut","n":547,"correct":474,"prec":0.8665447897623401,"lb":0.8354750934712976,"cov":0.9116666666666666},{"task":"banking77","model":"gemini-3.5-flash","mode":"reasoned","n":582,"correct":499,"prec":0.8573883161512027,"lb":0.8266325438760521,"cov":0.97},{"task":"banking77","model":"gpt-5.4-mini","mode":"gut","n":510,"correct":441,"prec":0.8647058823529412,"lb":0.8322801329792586,"cov":0.85},{"task":"banking77","model":"gpt-5.4-mini","mode":"reasoned","n":453,"correct":407,"prec":0.8984547461368654,"lb":0.8672046607734711,"cov":0.755},{"task":"blimp","model":"claude-haiku-4-5","mode":"gut","n":521,"correct":498,"prec":0.9558541266794626,"lb":0.9346295106532327,"cov":0.8683333333333333},{"task":"blimp","model":"claude-haiku-4-5","mode":"reasoned","n":432,"correct":432,"prec":1.0,"lb":0.9911861096668306,"cov":0.72},{"task":"blimp","model":"gemini-3.5-flash","mode":"gut","n":584,"correct":557,"prec":0.9537671232876712,"lb":0.9335695818971359,"cov":0.9733333333333334},{"task":"blimp","model":"gemini-3.5-flash","mode":"reasoned","n":598,"correct":586,"prec":0.979933110367893,"lb":0.9652552317977113,"cov":0.9966666666666667},{"task":"blimp","model":"gpt-5.4-mini","mode":"gut","n":545,"correct":495,"prec":0.908256880733945,"lb":0.8810810170627136,"cov":0.9083333333333333},{"task":"blimp","model":"gpt-5.4-mini","mode":"reasoned","n":472,"correct":466,"prec":0.9872881355932204,"lb":0.9725471673923114,"cov":0.7866666666666666},{"task":"toxicity","model":"claude-haiku-4-5","mode":"gut","n":141,"correct":133,"prec":0.9432624113475178,"lb":0.8920396844298962,"cov":0.235},{"task":"toxicity","model":"claude-haiku-4-5","mode":"reasoned","n":101,"correct":95,"prec":0.9405940594059405,"lb":0.8764089440526284,"cov":0.16833333333333333},{"task":"toxicity","model":"gemini-3.5-flash","mode":"gut","n":339,"correct":317,"prec":0.9351032448377581,"lb":0.903700084519307,"cov":0.565},{"task":"toxicity","model":"gemini-3.5-flash","mode":"reasoned","n":399,"correct":354,"prec":0.8872180451127819,"lb":0.8524157946739259,"cov":0.665},{"task":"toxicity","model":"gpt-5.4-mini","mode":"gut","n":377,"correct":301,"prec":0.7984084880636605,"lb":0.7549936978331027,"cov":0.6283333333333333},{"task":"toxicity","model":"gpt-5.4-mini","mode":"reasoned","n":413,"correct":344,"prec":0.8329297820823245,"lb":0.793919436370964,"cov":0.6883333333333334}],"repo":"https://github.com/atharva-729/llm-gut-check","n_pilot":10,"scorecard":[{"claim":"Models are more overconfident on moderation than on grammar","status":"partly held","detail":"True for 2 of 3 models (the gap's confidence interval stays above zero).","id":"H1","when":"before round 1"},{"claim":"Thinking isn't worth paying for on banking intents","status":"partly held","detail":"2 of 3 models: fast mode. gpt-5.4-mini still gains +3.7 pts from thinking.","id":"H2","when":"before round 1"},{"claim":"A model's own fast-mode confidence is enough to auto-accept safely","status":"partly held","detail":"Grammar: works for 2 of 3 models. Banking: 0 of 3.","id":"H3","when":"before round 1"},{"claim":"Two cheap fast models agreeing beats one model's own confidence","status":"failed","detail":"Banking: no agreement rule was safe. Grammar: the best fast-mode agreement rule covered 88%, but one model thinking covered 100%.","id":"H4","when":"after round 1"},{"claim":"Models stay just as confident on comments humans disagree about","status":"failed","detail":"Two of the three models do get a little less confident. Their accuracy drops much more, though.","id":"H5","when":"after round 1"},{"claim":"When all 3 models agree on moderation, they're still wrong over 15% of the time","status":"failed","detail":"They agreed on 81% of comments and were right 85.6% of the time, just past the line we drew.","id":"H6","when":"after round 1"},{"claim":"Thinking won't improve moderation","status":"held","detail":"Fast mode won for all 3 models. Haiku 4.5 got 4.5 pts worse with thinking.","id":"H7","when":"after round 1"}],"error_cost":2.5,"spend":{"probe":0.028235999999999997,"pilot":0.2909050000000001,"main":5.3607530000000025,"confirm":15.673734500000023},"n_disc":200,"n_calls_main":3600,"tasks":{"banking77":{"id":"banking77","short":"Banking intents","name":"Banking77 intent classification","what":"Route a bank customer's message to 1 of 77 intents","n":600,"target_accuracy":0.9,"configs":[{"model":"claude-haiku-4-5","mode":"gut","acc":0.7816666666666666,"ci":[0.7483333333333333,0.815],"cost":1.7736649999999998,"lat":1.567,"think":0.0,"ece":0.08713333333333327,"overconf":0.0861333333333335,"rel":[{"bin":2,"lo":0.2,"hi":0.3,"n":2,"mean_conf":0.25,"acc":0.0},{"bin":3,"lo":0.3,"hi":0.4,"n":2,"mean_conf":0.35,"acc":0.5},{"bin":4,"lo":0.4,"hi":0.5,"n":13,"mean_conf":0.43153846153846154,"acc":0.3076923076923077},{"bin":6,"lo":0.6,"hi":0.7,"n":2,"mean_conf":0.65,"acc":0.0},{"bin":7,"lo":0.7,"hi":0.8,"n":107,"mean_conf":0.755607476635514,"acc":0.5514018691588785},{"bin":8,"lo":0.8,"hi":0.9,"n":115,"mean_conf":0.8476521739130431,"acc":0.7478260869565218},{"bin":9,"lo":0.9,"hi":1.0,"n":359,"mean_conf":0.9310306406685237,"acc":0.8885793871866295}]},{"model":"claude-haiku-4-5","mode":"reasoned","acc":0.7883333333333333,"ci":[0.7566666666666667,0.8216666666666667],"cost":3.06849,"lat":4.6370000000000005,"think":257.1666666666667,"ece":0.08348333333333333,"overconf":0.08248333333333335,"rel":[{"bin":2,"lo":0.2,"hi":0.3,"n":2,"mean_conf":0.25,"acc":0.0},{"bin":3,"lo":0.3,"hi":0.4,"n":2,"mean_conf":0.35,"acc":0.5},{"bin":4,"lo":0.4,"hi":0.5,"n":3,"mean_conf":0.45,"acc":0.3333333333333333},{"bin":5,"lo":0.5,"hi":0.6,"n":2,"mean_conf":0.565,"acc":0.0},{"bin":6,"lo":0.6,"hi":0.7,"n":17,"mean_conf":0.6570588235294118,"acc":0.5882352941176471},{"bin":7,"lo":0.7,"hi":0.8,"n":122,"mean_conf":0.7495901639344261,"acc":0.5655737704918032},{"bin":8,"lo":0.8,"hi":0.9,"n":146,"mean_conf":0.8587671232876712,"acc":0.7191780821917808},{"bin":9,"lo":0.9,"hi":1.0,"n":306,"mean_conf":0.950359477124183,"acc":0.9379084967320261}]},{"model":"gemini-3.5-flash","mode":"gut","acc":0.8316666666666667,"ci":[0.8016666666666666,0.8616666666666667],"cost":1.26255,"lat":1.9155,"think":0.0,"ece":0.12533333333333352,"overconf":0.1253333333333334,"rel":[{"bin":4,"lo":0.4,"hi":0.5,"n":1,"mean_conf":0.4,"acc":0.0},{"bin":5,"lo":0.5,"hi":0.6,"n":3,"mean_conf":0.5166666666666667,"acc":0.3333333333333333},{"bin":6,"lo":0.6,"hi":0.7,"n":2,"mean_conf":0.6,"acc":0.5},{"bin":7,"lo":0.7,"hi":0.8,"n":18,"mean_conf":0.7416666666666667,"acc":0.3888888888888889},{"bin":8,"lo":0.8,"hi":0.9,"n":29,"mean_conf":0.8465517241379312,"acc":0.5517241379310345},{"bin":9,"lo":0.9,"hi":1.0,"n":547,"mean_conf":0.9746800731261428,"acc":0.8665447897623401}]},{"model":"gemini-3.5-flash","mode":"reasoned","acc":0.8416666666666667,"ci":[0.8116249999999999,0.87],"cost":3.5018100000000003,"lat":3.226,"think":248.895,"ece":0.11766666666666684,"overconf":0.1176666666666667,"rel":[{"bin":7,"lo":0.7,"hi":0.8,"n":1,"mean_conf":0.75,"acc":0.0},{"bin":8,"lo":0.8,"hi":0.9,"n":17,"mean_conf":0.85,"acc":0.35294117647058826},{"bin":9,"lo":0.9,"hi":1.0,"n":582,"mean_conf":0.9628865979381445,"acc":0.8573883161512027}]},{"model":"gpt-5.4-mini","mode":"gut","acc":0.8033333333333333,"ci":[0.7716666666666666,0.835],"cost":0.8536212499999999,"lat":1.4735,"think":0.0,"ece":0.13933333333333325,"overconf":0.1393333333333333,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":1,"mean_conf":0.55,"acc":0.0},{"bin":6,"lo":0.6,"hi":0.7,"n":4,"mean_conf":0.65,"acc":0.5},{"bin":7,"lo":0.7,"hi":0.8,"n":17,"mean_conf":0.7558823529411766,"acc":0.35294117647058826},{"bin":8,"lo":0.8,"hi":0.9,"n":68,"mean_conf":0.8576470588235294,"acc":0.4852941176470588},{"bin":9,"lo":0.9,"hi":1.0,"n":510,"mean_conf":0.9632941176470587,"acc":0.8647058823529412}]},{"model":"gpt-5.4-mini","mode":"reasoned","acc":0.84,"ci":[0.81,0.87],"cost":1.28252375,"lat":1.851,"think":89.42333333333333,"ece":0.08214999999999993,"overconf":0.08214999999999995,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":4,"mean_conf":0.5625,"acc":0.5},{"bin":6,"lo":0.6,"hi":0.7,"n":20,"mean_conf":0.6464999999999999,"acc":0.6},{"bin":7,"lo":0.7,"hi":0.8,"n":42,"mean_conf":0.7554761904761904,"acc":0.5714285714285714},{"bin":8,"lo":0.8,"hi":0.9,"n":81,"mean_conf":0.8595061728395063,"acc":0.7283950617283951},{"bin":9,"lo":0.9,"hi":1.0,"n":453,"mean_conf":0.9641501103752759,"acc":0.8984547461368654}]}],"per_model":{"claude-haiku-4-5":{"verdict":"Use fast mode","diff":0.006666666666666667,"ci":[-0.015,0.028333333333333332],"ratio":1.7300279365043572,"cpec":null,"r2w":19,"w2r":23,"overthink":true},"gemini-3.5-flash":{"verdict":"Use fast mode","diff":0.01,"ci":[-0.008333333333333333,0.028333333333333332],"ratio":2.7736010455031486,"cpec":null,"r2w":13,"w2r":19,"overthink":false},"gpt-5.4-mini":{"verdict":"Use reasoning","diff":0.03666666666666667,"ci":[0.016666666666666666,0.058333333333333334],"ratio":1.502450589181092,"cpec":0.011697340909090912,"r2w":11,"w2r":33,"overthink":false}},"best_policy":{"policy":"SELF(gemini, reasoned)","kind":"SELF","models":["gemini-3.5-flash"],"mode":"reasoned","fitted_c":100,"fitted":true,"c":100,"n_total":600,"accepted":118,"correct":117,"precision":0.9915254237288136,"precision_lower":0.953554427584598,"coverage":0.19666666666666666,"api_cost_per_1k":3.5018099999999985,"passes":true,"total_cost_per_1k":208.50181,"sensitivity":{"R=0.05,E=0.0":43.66847666666667,"R=0.05,E=2.5":47.835143333333335,"R=0.05,E=25.0":85.33514333333333,"R=0.25,E=0.0":204.33514333333335,"R=0.25,E=2.5":208.50181,"R=0.25,E=25.0":246.00181,"R=1.0,E=0.0":806.8351433333333,"R=1.0,E=2.5":811.00181,"R=1.0,E=25.0":848.50181},"discovery_at_fit":{"c":100,"n_total":200,"accepted":30,"correct":30,"precision":1.0,"precision_lower":0.8864866068260312,"coverage":0.15,"api_cost_per_1k":3.5009849999999996}},"cheapest_total":{"policy":"SELF(gemini, reasoned)","kind":"SELF","models":["gemini-3.5-flash"],"mode":"reasoned","fitted_c":100,"fitted":true,"c":100,"n_total":600,"accepted":118,"correct":117,"precision":0.9915254237288136,"precision_lower":0.953554427584598,"coverage":0.19666666666666666,"api_cost_per_1k":3.5018099999999985,"passes":true,"total_cost_per_1k":208.50181,"sensitivity":{"R=0.05,E=0.0":43.66847666666667,"R=0.05,E=2.5":47.835143333333335,"R=0.05,E=25.0":85.33514333333333,"R=0.25,E=0.0":204.33514333333335,"R=0.25,E=2.5":208.50181,"R=0.25,E=25.0":246.00181,"R=1.0,E=0.0":806.8351433333333,"R=1.0,E=2.5":811.00181,"R=1.0,E=25.0":848.50181},"discovery_at_fit":{"c":100,"n_total":200,"accepted":30,"correct":30,"precision":1.0,"precision_lower":0.8864866068260312,"coverage":0.15,"api_cost_per_1k":3.5009849999999996}},"policies":[{"name":"SELF(haiku, gut)","kind":"SELF","mode":"gut","floor":95,"cov":0.22,"prec":0.9772727272727273,"lb":0.9353108604232109,"pass":false,"api":1.7736650000000018,"total":209.273665,"disc_prec":0.975609756097561},{"name":"SELF(gemini, gut)","kind":"SELF","mode":"gut","floor":100,"cov":0.5016666666666667,"prec":0.9534883720930233,"lb":0.9234527206680234,"pass":false,"api":1.2625500000000014,"total":184.1792166666667,"disc_prec":1.0},{"name":"SELF(gemini, reasoned)","kind":"SELF","mode":"reasoned","floor":100,"cov":0.19666666666666666,"prec":0.9915254237288136,"lb":0.953554427584598,"pass":true,"api":3.5018099999999985,"total":208.50181,"disc_prec":1.0},{"name":"AGREE(gpt+haiku, gut)","kind":"AGREE","mode":"gut","floor":95,"cov":0.21666666666666667,"prec":0.9769230769230769,"lb":0.9343481004651153,"pass":false,"api":2.627286250000003,"total":210.96061958333334,"disc_prec":0.975609756097561},{"name":"AGREE(haiku+gemini, gut)","kind":"AGREE","mode":"gut","floor":95,"cov":0.21666666666666667,"prec":0.9846153846153847,"lb":0.9456415388402218,"pass":false,"api":3.036215000000003,"total":207.20288166666666,"disc_prec":1.0},{"name":"AGREE(gpt+haiku+gemini, gut)","kind":"AGREE","mode":"gut","floor":95,"cov":0.21333333333333335,"prec":0.984375,"lb":0.9448190233201827,"pass":false,"api":3.889836250000005,"total":208.88983625,"disc_prec":1.0},{"name":"AGREE(gpt+haiku, reasoned)","kind":"AGREE","mode":"reasoned","floor":90,"cov":0.485,"prec":0.9484536082474226,"lb":0.9167048964698142,"pass":false,"api":4.351013750000001,"total":195.60101375,"disc_prec":0.9753086419753086},{"name":"AGREE(gpt+gemini, reasoned)","kind":"AGREE","mode":"reasoned","floor":95,"cov":0.5916666666666667,"prec":0.9352112676056338,"lb":0.9046612359967016,"pass":false,"api":4.784333749999999,"total":202.70100041666666,"disc_prec":0.9805825242718447},{"name":"AGREE(gpt+haiku+gemini, reasoned)","kind":"AGREE","mode":"reasoned","floor":90,"cov":0.4816666666666667,"prec":0.9515570934256056,"lb":0.9203399119722064,"pass":false,"api":7.852823750000005,"total":195.76949041666668,"disc_prec":0.9875},{"name":"MAJ(gpt+haiku+gemini, reasoned)","kind":"MAJ","mode":"reasoned","floor":95,"cov":0.39666666666666667,"prec":0.9495798319327731,"lb":0.9139517676045076,"pass":false,"api":7.852823750000005,"total":208.68615708333334,"disc_prec":0.9848484848484849}]},"blimp":{"id":"blimp","short":"Grammar","name":"BLiMP grammaticality (A/B)","what":"Pick the grammatical sentence of a pair (A or B)","n":600,"target_accuracy":0.95,"configs":[{"model":"claude-haiku-4-5","mode":"gut","acc":0.9266666666666666,"ci":[0.905,0.9466666666666667],"cost":0.4131116666666666,"lat":1.5265,"think":0.0,"ece":0.013700000000000125,"overconf":0.00556666666666672,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":1,"mean_conf":0.5,"acc":1.0},{"bin":7,"lo":0.7,"hi":0.8,"n":39,"mean_conf":0.7600000000000001,"acc":0.6923076923076923},{"bin":8,"lo":0.8,"hi":0.9,"n":39,"mean_conf":0.84974358974359,"acc":0.7692307692307693},{"bin":9,"lo":0.9,"hi":1.0,"n":521,"mean_conf":0.952130518234165,"acc":0.9558541266794626}]},{"model":"claude-haiku-4-5","mode":"reasoned","acc":0.9383333333333334,"ci":[0.9183333333333333,0.9566666666666667],"cost":2.459395,"lat":6.112,"think":408.25666666666666,"ece":0.04268333333333336,"overconf":-0.03188333333333315,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":17,"mean_conf":0.543529411764706,"acc":0.35294117647058826},{"bin":6,"lo":0.6,"hi":0.7,"n":19,"mean_conf":0.6442105263157895,"acc":0.7368421052631579},{"bin":7,"lo":0.7,"hi":0.8,"n":77,"mean_conf":0.7384415584415582,"acc":0.7922077922077922},{"bin":8,"lo":0.8,"hi":0.9,"n":55,"mean_conf":0.86,"acc":0.9090909090909091},{"bin":9,"lo":0.9,"hi":1.0,"n":432,"mean_conf":0.968125,"acc":1.0}]},{"model":"gemini-3.5-flash","mode":"gut","acc":0.945,"ci":[0.9266666666666666,0.9616666666666667],"cost":0.34448,"lat":1.804,"think":0.0,"ece":0.04599999999999998,"overconf":0.04600000000000004,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":3,"mean_conf":0.5,"acc":0.3333333333333333},{"bin":8,"lo":0.8,"hi":0.9,"n":13,"mean_conf":0.8499999999999999,"acc":0.6923076923076923},{"bin":9,"lo":0.9,"hi":1.0,"n":584,"mean_conf":0.9966609589041096,"acc":0.9537671232876712}]},{"model":"gemini-3.5-flash","mode":"reasoned","acc":0.98,"ci":[0.9683333333333334,0.99],"cost":3.0994699999999997,"lat":3.2765,"think":306.2866666666667,"ece":0.011833333333333298,"overconf":0.010666666666666602,"rel":[{"bin":8,"lo":0.8,"hi":0.9,"n":2,"mean_conf":0.825,"acc":1.0},{"bin":9,"lo":0.9,"hi":1.0,"n":598,"mean_conf":0.9912207357859532,"acc":0.979933110367893}]},{"model":"gpt-5.4-mini","mode":"gut","acc":0.8733333333333333,"ci":[0.845,0.9],"cost":0.204725,"lat":1.4580000000000002,"think":0.0,"ece":0.08388333333333342,"overconf":0.0838833333333332,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":7,"mean_conf":0.5385714285714286,"acc":0.42857142857142855},{"bin":6,"lo":0.6,"hi":0.7,"n":6,"mean_conf":0.6433333333333333,"acc":0.16666666666666666},{"bin":7,"lo":0.7,"hi":0.8,"n":16,"mean_conf":0.7375,"acc":0.5},{"bin":8,"lo":0.8,"hi":0.9,"n":26,"mean_conf":0.8534615384615385,"acc":0.6538461538461539},{"bin":9,"lo":0.9,"hi":1.0,"n":545,"mean_conf":0.9774495412844038,"acc":0.908256880733945}]},{"model":"gpt-5.4-mini","mode":"reasoned","acc":0.955,"ci":[0.9366666666666666,0.97],"cost":1.7396749999999999,"lat":2.3765,"think":333.40833333333336,"ece":0.037383333333333366,"overconf":-0.037383333333333435,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":40,"mean_conf":0.55975,"acc":0.85},{"bin":6,"lo":0.6,"hi":0.7,"n":23,"mean_conf":0.6399999999999999,"acc":0.6956521739130435},{"bin":7,"lo":0.7,"hi":0.8,"n":26,"mean_conf":0.7515384615384615,"acc":0.7692307692307693},{"bin":8,"lo":0.8,"hi":0.9,"n":39,"mean_conf":0.8569230769230768,"acc":0.9487179487179487},{"bin":9,"lo":0.9,"hi":1.0,"n":472,"mean_conf":0.975635593220339,"acc":0.9872881355932204}]}],"per_model":{"claude-haiku-4-5":{"verdict":"Use fast mode","diff":0.011666666666666667,"ci":[-0.01,0.035],"ratio":5.953341913203453,"cpec":null,"r2w":18,"w2r":25,"overthink":true},"gemini-3.5-flash":{"verdict":"Use reasoning","diff":0.035,"ci":[0.018333333333333333,0.051666666666666666],"ratio":8.997532512772874,"cpec":0.07871399999999999,"r2w":4,"w2r":25,"overthink":false},"gpt-5.4-mini":{"verdict":"Use reasoning","diff":0.08166666666666667,"ci":[0.058333333333333334,0.10666666666666667],"ratio":8.49761875686897,"cpec":0.018795306122448976,"r2w":5,"w2r":54,"overthink":false}},"best_policy":{"policy":"SELF(gemini, reasoned)","kind":"SELF","models":["gemini-3.5-flash"],"mode":"reasoned","fitted_c":0,"fitted":true,"c":0,"n_total":600,"accepted":600,"correct":588,"precision":0.98,"precision_lower":0.9653699456538908,"coverage":1.0,"api_cost_per_1k":3.099469999999996,"passes":true,"total_cost_per_1k":53.09947,"sensitivity":{"R=0.05,E=0.0":3.099469999999996,"R=0.05,E=2.5":53.09947,"R=0.05,E=25.0":503.09947,"R=0.25,E=0.0":3.099469999999996,"R=0.25,E=2.5":53.09947,"R=0.25,E=25.0":503.09947,"R=1.0,E=0.0":3.099469999999996,"R=1.0,E=2.5":53.09947,"R=1.0,E=25.0":503.09947},"discovery_at_fit":{"c":0,"n_total":200,"accepted":200,"correct":195,"precision":0.975,"precision_lower":0.942821659593358,"coverage":1.0,"api_cost_per_1k":3.4140600000000005}},"cheapest_total":{"policy":"AGREE(gpt+gemini, reasoned)","kind":"AGREE","models":["gpt-5.4-mini","gemini-3.5-flash"],"mode":"reasoned","fitted_c":0,"fitted":true,"c":0,"n_total":600,"accepted":573,"correct":567,"precision":0.9895287958115183,"precision_lower":0.9773452226173158,"coverage":0.955,"api_cost_per_1k":4.839145,"passes":true,"total_cost_per_1k":41.089145,"sensitivity":{"R=0.05,E=0.0":7.089145,"R=0.05,E=2.5":32.089145,"R=0.05,E=25.0":257.089145,"R=0.25,E=0.0":16.089145000000002,"R=0.25,E=2.5":41.089145,"R=0.25,E=25.0":266.089145,"R=1.0,E=0.0":49.839145,"R=1.0,E=2.5":74.839145,"R=1.0,E=25.0":299.839145},"discovery_at_fit":{"c":0,"n_total":200,"accepted":193,"correct":190,"precision":0.9844559585492227,"precision_lower":0.9553033351151177,"coverage":0.965,"api_cost_per_1k":5.270118750000002}},"policies":[{"name":"SELF(gpt, reasoned)","kind":"SELF","mode":"reasoned","floor":80,"cov":0.8516666666666667,"prec":0.9843444227005871,"lb":0.9694148317918254,"pass":true,"api":1.7396750000000003,"total":72.15634166666668,"disc_prec":0.9766081871345029},{"name":"SELF(haiku, gut)","kind":"SELF","mode":"gut","floor":95,"cov":0.6116666666666667,"prec":0.9918256130790191,"lb":0.9762456623349125,"pass":true,"api":0.4131116666666653,"total":109.99644500000001,"disc_prec":0.9739130434782609},{"name":"SELF(haiku, reasoned)","kind":"SELF","mode":"reasoned","floor":80,"cov":0.8116666666666666,"prec":0.9897330595482546,"lb":0.9761937241466908,"pass":true,"api":2.4593949999999998,"total":70.37606166666667,"disc_prec":0.9806451612903225},{"name":"SELF(gemini, gut)","kind":"SELF","mode":"gut","floor":100,"cov":0.9316666666666666,"prec":0.9677996422182469,"lb":0.9496774078706604,"pass":false,"api":0.34448000000000084,"total":92.42781333333335,"disc_prec":0.9825581395348837},{"name":"SELF(gemini, reasoned)","kind":"SELF","mode":"reasoned","floor":0,"cov":1.0,"prec":0.98,"lb":0.9653699456538908,"pass":true,"api":3.099469999999996,"total":53.09947,"disc_prec":0.975},{"name":"AGREE(gpt+haiku, gut)","kind":"AGREE","mode":"gut","floor":95,"cov":0.575,"prec":0.9971014492753624,"lb":0.983766537455308,"pass":true,"api":0.6178366666666657,"total":111.03450333333332,"disc_prec":0.981651376146789},{"name":"AGREE(gpt+gemini, gut)","kind":"AGREE","mode":"gut","floor":95,"cov":0.7616666666666667,"prec":0.9846827133479212,"lb":0.9687241098327283,"pass":true,"api":0.5492050000000008,"total":89.299205,"disc_prec":0.9788732394366197},{"name":"AGREE(haiku+gemini, gut)","kind":"AGREE","mode":"gut","floor":80,"cov":0.8783333333333333,"prec":0.9810246679316889,"lb":0.9654264782896379,"pass":true,"api":0.7575916666666659,"total":72.840925,"disc_prec":0.9710982658959537},{"name":"AGREE(gpt+haiku+gemini, gut)","kind":"AGREE","mode":"gut","floor":90,"cov":0.755,"prec":0.9933774834437086,"lb":0.9807123628806745,"pass":true,"api":0.9623166666666672,"total":74.71231666666667,"disc_prec":0.9724137931034482},{"name":"MAJ(gpt+haiku+gemini, gut)","kind":"MAJ","mode":"gut","floor":95,"cov":0.6066666666666667,"prec":0.989010989010989,"lb":0.9720897342877888,"pass":true,"api":0.9623166666666672,"total":115.96231666666667,"disc_prec":0.9821428571428571},{"name":"AGREE(gpt+haiku, reasoned)","kind":"AGREE","mode":"reasoned","floor":0,"cov":0.94,"prec":0.975177304964539,"lb":0.9587683585022723,"pass":true,"api":4.199069999999996,"total":77.53240333333332,"disc_prec":0.9739583333333334},{"name":"AGREE(gpt+gemini, reasoned)","kind":"AGREE","mode":"reasoned","floor":0,"cov":0.955,"prec":0.9895287958115183,"lb":0.9773452226173158,"pass":true,"api":4.839145,"total":41.089145,"disc_prec":0.9844559585492227},{"name":"AGREE(haiku+gemini, reasoned)","kind":"AGREE","mode":"reasoned","floor":0,"cov":0.9416666666666667,"prec":0.9876106194690265,"lb":0.974649545686989,"pass":true,"api":5.558864999999999,"total":49.308865,"disc_prec":0.9792746113989638},{"name":"AGREE(gpt+haiku+gemini, reasoned)","kind":"AGREE","mode":"reasoned","floor":0,"cov":0.9183333333333333,"prec":0.9927404718693285,"lb":0.9814845466276649,"pass":true,"api":7.298540000000006,"total":44.381873333333345,"disc_prec":0.9841269841269841},{"name":"MAJ(gpt+haiku+gemini, reasoned)","kind":"MAJ","mode":"reasoned","floor":0,"cov":1.0,"prec":0.9683333333333334,"lb":0.9510727848694857,"pass":true,"api":7.298540000000006,"total":86.46520666666666,"disc_prec":0.97}]},"toxicity":{"id":"toxicity","short":"Moderation","name":"Toxicity (Civil Comments)","what":"Flag an online comment as toxic or not","n":600,"target_accuracy":0.9,"configs":[{"model":"claude-haiku-4-5","mode":"gut","acc":0.7883333333333333,"ci":[0.755,0.82],"cost":0.4478116666666667,"lat":1.5695000000000001,"think":0.0,"ece":0.05526666666666667,"overconf":0.02299999999999991,"rel":[{"bin":7,"lo":0.7,"hi":0.8,"n":336,"mean_conf":0.7514285714285714,"acc":0.6815476190476191},{"bin":8,"lo":0.8,"hi":0.9,"n":123,"mean_conf":0.8431707317073169,"acc":0.9024390243902439},{"bin":9,"lo":0.9,"hi":1.0,"n":141,"mean_conf":0.9263120567375888,"acc":0.9432624113475178}]},{"model":"claude-haiku-4-5","mode":"reasoned","acc":0.7433333333333333,"ci":[0.7083333333333334,0.7783333333333333],"cost":2.30642,"lat":6.124499999999999,"think":370.72,"ece":0.07451666666666676,"overconf":0.04738333333333333,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":3,"mean_conf":0.5533333333333333,"acc":1.0},{"bin":6,"lo":0.6,"hi":0.7,"n":108,"mean_conf":0.6675000000000003,"acc":0.48148148148148145},{"bin":7,"lo":0.7,"hi":0.8,"n":261,"mean_conf":0.7485823754789271,"acc":0.6896551724137931},{"bin":8,"lo":0.8,"hi":0.9,"n":127,"mean_conf":0.8598425196850391,"acc":0.9133858267716536},{"bin":9,"lo":0.9,"hi":1.0,"n":101,"mean_conf":0.9514851485148516,"acc":0.9405940594059405}]},{"model":"gemini-3.5-flash","mode":"gut","acc":0.8083333333333333,"ci":[0.7766666666666666,0.8383333333333334],"cost":0.3797425,"lat":1.911,"think":0.0,"ece":0.09058333333333322,"overconf":0.09058333333333313,"rel":[{"bin":7,"lo":0.7,"hi":0.8,"n":65,"mean_conf":0.7476923076923077,"acc":0.5692307692307692},{"bin":8,"lo":0.8,"hi":0.9,"n":196,"mean_conf":0.8413265306122445,"acc":0.6683673469387755},{"bin":9,"lo":0.9,"hi":1.0,"n":339,"mean_conf":0.9612094395280236,"acc":0.9351032448377581}]},{"model":"gemini-3.5-flash","mode":"reasoned","acc":0.8066666666666666,"ci":[0.775,0.8366666666666667],"cost":2.2269025,"lat":3.3185000000000002,"think":205.41333333333333,"ece":0.10543333333333335,"overconf":0.10543333333333338,"rel":[{"bin":6,"lo":0.6,"hi":0.7,"n":1,"mean_conf":0.65,"acc":0.0},{"bin":7,"lo":0.7,"hi":0.8,"n":23,"mean_conf":0.7456521739130434,"acc":0.5217391304347826},{"bin":8,"lo":0.8,"hi":0.9,"n":177,"mean_conf":0.8387005649717514,"acc":0.6666666666666666},{"bin":9,"lo":0.9,"hi":1.0,"n":399,"mean_conf":0.9549122807017544,"acc":0.8872180451127819}]},{"model":"gpt-5.4-mini","mode":"gut","acc":0.775,"ci":[0.7399583333333333,0.8066666666666666],"cost":0.23008125,"lat":1.4545,"think":0.0,"ece":0.1448666666666666,"overconf":0.13719999999999988,"rel":[{"bin":6,"lo":0.6,"hi":0.7,"n":4,"mean_conf":0.635,"acc":0.75},{"bin":7,"lo":0.7,"hi":0.8,"n":20,"mean_conf":0.758,"acc":0.85},{"bin":8,"lo":0.8,"hi":0.9,"n":199,"mean_conf":0.8626130653266332,"acc":0.7236180904522613},{"bin":9,"lo":0.9,"hi":1.0,"n":377,"mean_conf":0.9494960212201591,"acc":0.7984084880636605}]},{"model":"gpt-5.4-mini","mode":"reasoned","acc":0.7766666666666666,"ci":[0.7433333333333333,0.81],"cost":0.52841625,"lat":1.6435,"think":61.17333333333333,"ece":0.14256666666666673,"overconf":0.14256666666666662,"rel":[{"bin":6,"lo":0.6,"hi":0.7,"n":2,"mean_conf":0.645,"acc":0.0},{"bin":7,"lo":0.7,"hi":0.8,"n":55,"mean_conf":0.7567272727272728,"acc":0.4909090909090909},{"bin":8,"lo":0.8,"hi":0.9,"n":130,"mean_conf":0.8628461538461538,"acc":0.7307692307692307},{"bin":9,"lo":0.9,"hi":1.0,"n":413,"mean_conf":0.9599515738498791,"acc":0.8329297820823245}]}],"per_model":{"claude-haiku-4-5":{"verdict":"Use fast mode","diff":-0.045,"ci":[-0.07333333333333333,-0.018333333333333333],"ratio":5.150424099416793,"cpec":null,"r2w":53,"w2r":26,"overthink":true},"gemini-3.5-flash":{"verdict":"Use fast mode","diff":-0.0016666666666666668,"ci":[-0.023333333333333334,0.02],"ratio":5.8642435334470076,"cpec":null,"r2w":22,"w2r":21,"overthink":true},"gpt-5.4-mini":{"verdict":"Use fast mode","diff":0.0016666666666666668,"ci":[-0.025,0.02666666666666667],"ratio":2.2966506397196644,"cpec":null,"r2w":31,"w2r":32,"overthink":true}},"best_policy":null,"cheapest_total":null,"policies":[{"name":"SELF(gemini, gut)","kind":"SELF","mode":"gut","floor":100,"cov":0.23,"prec":0.9782608695652174,"lb":0.9380368800052548,"pass":false,"api":0.37974249999999926,"total":205.3797425,"disc_prec":1.0},{"name":"SELF(gemini, reasoned)","kind":"SELF","mode":"reasoned","floor":100,"cov":0.17666666666666667,"prec":0.9622641509433962,"lb":0.9069658438911791,"pass":false,"api":2.226902500000001,"total":224.7269025,"disc_prec":1.0}]}},"examples":[{"task":"blimp","short":"Grammar","model":"gpt-5.4-mini","input":"A: A lot of women hadn't learned what the lady isn't concealing.\nB: A lot of women hadn't learned that the lady isn't concealing.","gold":"A","gut":["B",98.0,false],"rea":["A",97.0,true]},{"task":"banking77","short":"Banking intents","model":"gpt-5.4-mini","input":"Payments from my disposable virtual card don't work","gold":"virtual_card_not_working","gut":["disposable_card_limits",89.0,false],"rea":["virtual_card_not_working",95.0,true]},{"task":"toxicity","short":"Moderation","model":"claude-haiku-4-5","input":"Let me see if I understand this correctly - we will be using electricity generated from oil to create hydrogen to replace oil.  Can someone explain the laws of thermodynamics to those designing this project?","gold":"NO","gut":["NO",82.0,true],"rea":["YES",68.0,false]}],"review_cost":0.25,"n_calls_confirm":10800,"spend_total":21.353628499999967,"spend_confirm":15.673734500000023,"hyp":{"H4":"NOT SUPPORTED","H5":"NOT SUPPORTED","H6":"NOT SUPPORTED","H7":"SUPPORTED"},"h6":{"share":0.8116666666666666,"prec":0.8562628336755647},"shrink":{"fitted":27,"failed":12,"b77_fitted":10,"b77_failed":9}};
 const MODELS = ["gpt-5.4-mini", "claude-haiku-4-5", "gemini-3.5-flash"];
 const MC = { "gpt-5.4-mini": "var(--m1)", "claude-haiku-4-5": "var(--m2)", "gemini-3.5-flash": "var(--m3)" };
 const SH = { "gpt-5.4-mini": "gpt-5.4-mini", "claude-haiku-4-5": "Haiku 4.5", "gemini-3.5-flash": "Gemini 3.5 Flash" };
@@ -332,9 +331,6 @@ function arrow(s, id, x1, y1, x2, y2, label) {
 }
 function wilson(k, n) { const z = 1.96, p = k / n, d = 1 + z * z / n; return (p + z * z / (2 * n) - z * Math.sqrt(p * (1 - p) / n + z * z / (4 * n * n))) / d; }
 const tint = (c, p) => `color-mix(in srgb, ${c} ${p}%, var(--panel))`;
-document.querySelectorAll(".rc").forEach(e => e.textContent = usd(D.review_cost));
-document.querySelectorAll(".ec").forEach(e => e.textContent = usd(D.error_cost));
-document.querySelectorAll(".nconf").forEach(e => e.textContent = T.blimp.n);
 const spendTotal = D.spend.main + D.spend.confirm + D.spend.pilot + D.spend.probe;
 const callsTotal = D.n_calls_main + D.n_calls_confirm;
 
@@ -407,7 +403,7 @@ for (const t of ORDER) {
     ["Look for patterns", "e.g. \"two models agreeing", "might be a safe signal\""],
     ["Lock predictions", "written + saved in git", "before round 2 existed"],
     ["Round 2", `${T.blimp.n} fresh items per task`, `${D.n_calls_confirm.toLocaleString()} calls`],
-    ["Score them", "held / partly / failed", "(Result 6)"],
+    ["Score them", "held / partly / failed", "(table below)"],
   ];
   const w = 152, gap = (W - 5 * w) / 4;
   steps.forEach(([a, b, c], i) => {
@@ -419,17 +415,6 @@ for (const t of ORDER) {
     if (i < 4) arrow(s, id, x + w + 2, 68, x + w + gap - 2, 68);
   });
 })();
-[["pred1", [
-  ["H1", "Models' gut confidence is more inflated on the wicked task (moderation) than on the kind one (grammar)."],
-  ["H2", "On simple classification (moderation, banking), thinking adds little accuracy for its cost."],
-  ["H3", "On grammar and banking, the gut's own confidence is good enough to auto-accept a good share safely."]]],
- ["pred2", [
-  ["H4", "Two cheap gut answers that agree are a better auto-accept signal than one model's own confidence."],
-  ["H5", "On moderation, models stay just as confident on comments that human raters disagreed about."],
-  ["H6", "When all three models agree on moderation, they're still wrong over 15% of the time."],
-  ["H7", "Thinking won't improve moderation for any of the three models."]]]].forEach(([id, rows]) => {
-  for (const [k, v] of rows) { const d = document.createElement("div"); d.innerHTML = `<b></b><span></span>`; d.children[0].textContent = k; d.children[1].textContent = v; $(id).appendChild(d); }
-});
 
 // ================= RESULT 1: >= 90% rule
 (function () {
@@ -439,7 +424,7 @@ for (const t of ORDER) {
   const hit = rows.filter(r => r.n > 0 && r.prec >= 0.99);
   $("r1take").textContent = `When a model's gut said "≥ 90% sure", it was right between ${pct(lo)} and ${pct(hi)} of the time, depending on task and model. Never 99%.` +
     (hit.length ? ` The only case that reached 99%: ${hit.map(r => SH[r.model] + " thinking on " + T[r.task].short.toLowerCase()).join(", ")}.` : "");
-  const W = 860, rh = 24, gh = 3 * 2 * rh + 34, H = 40 + ORDER.length * gh + 30, m = { l: 150, r: 130 };
+  const W = 860, rh = 20, gh = 3 * 2 * rh + 30, H = 40 + ORDER.length * gh + 30, m = { l: 150, r: 130 };
   const s = svg(W, H, $("rule90"));
   const x = lin(0.6, 1.0, m.l, W - m.r);
   for (const v of [0.6, 0.7, 0.8, 0.9, 0.95, 0.99, 1.0]) {
@@ -448,7 +433,8 @@ for (const t of ORDER) {
     if (!sp) el("text", { x: x(v), y: H - 8, "text-anchor": "middle" }, s, pct(v));
   }
   el("text", { x: x(0.99) - 6, y: 18, "text-anchor": "end", class: "strong" }, s, "the hoped-for 99% →");
-  el("text", { x: W, y: 18, "text-anchor": "end", class: "lbl" }, s, "items at ≥ 90%");
+  el("text", { x: x(1.0) + 8, y: 18, class: "lbl" }, s, "right");
+  el("text", { x: W, y: 18, "text-anchor": "end", class: "lbl" }, s, "items ≥ 90%");
   ORDER.forEach((t, gi) => {
     const y0 = 40 + gi * gh;
     el("text", { x: 0, y: y0 + 14, class: "strong" }, s, T[t].short);
@@ -456,14 +442,13 @@ for (const t of ORDER) {
       ["gut", "reasoned"].forEach((mo, oi) => {
         const r = rows.find(q => q.task === t && q.model === mm && q.mode === mo);
         const y = y0 + 22 + (mi * 2 + oi) * rh;
-        if (oi === 0) el("text", { x: m.l - 12, y: y + 14, "text-anchor": "end", class: "lbl" }, s, SH[mm]);
-        el("text", { x: m.l - 12, y: y + 14 + (oi ? 0 : 0), "text-anchor": "end", dy: oi ? 0 : 0 }, s, "");
+        if (oi === 0) el("text", { x: m.l - 12, y: y + 13, "text-anchor": "end", class: "lbl" }, s, SH[mm]);
         if (!r || !r.n) return;
         const col = MC[mm];
         el("rect", { x: x(0.6), y: y + 3, width: Math.max(1, x(r.prec) - x(0.6)), height: rh - 8, rx: 3, fill: mo === "gut" ? col : "transparent", stroke: col, "stroke-width": 1.5, opacity: mo === "gut" ? .9 : 1 }, s);
         el("line", { x1: x(Math.max(0.6, r.lb)), x2: x(r.prec), y1: y + rh / 2 - 1, y2: y + rh / 2 - 1, stroke: "var(--ink)", "stroke-width": 1.2 }, s);
-        el("text", { x: x(1.0) + 8, y: y + 15, class: mo === "gut" ? "strong" : "lbl" }, s, pct(r.prec, 1));
-        el("text", { x: W, y: y + 15, "text-anchor": "end" }, s, pct(r.cov));
+        el("text", { x: x(1.0) + 8, y: y + 13, class: mo === "gut" ? "strong" : "lbl" }, s, pct(r.prec, 1));
+        el("text", { x: W, y: y + 13, "text-anchor": "end" }, s, pct(r.cov));
       });
     });
   });
@@ -521,106 +506,116 @@ for (const e of D.examples) {
   $("examples").appendChild(d);
 }
 
-// ================= RESULT 3
-$("mleg").innerHTML = MODELS.map(mm => `<span style="--c:${MC[mm]}">${SH[mm]} (gut)</span>`).join("");
-for (const t of ["blimp", "toxicity"]) {
-  const host = document.createElement("div"); host.className = "panel";
-  host.innerHTML = `<h3></h3><div></div>`; host.querySelector("h3").textContent = T[t].short + (t === "blimp" ? " (kind)" : " (wicked)"); $("rel").appendChild(host);
-  const W = 420, H = 360, m = { l: 46, r: 12, t: 10, b: 44 };
-  const s = svg(W, H, host.querySelector("div"));
-  const x = lin(0.5, 1, m.l, W - m.r), y = lin(0.3, 1, H - m.b, m.t);
-  el("path", { d: `M${x(0.5)},${y(0.5)}L${x(1)},${y(1)}L${x(1)},${y(0.3)}L${x(0.5)},${y(0.3)}z`, fill: "var(--bad)", opacity: .06 }, s);
-  for (const v of [0.3, 0.5, 0.7, 0.9, 1.0]) { el("line", { x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: "var(--rule)" }, s); el("text", { x: m.l - 6, y: y(v) + 4, "text-anchor": "end" }, s, pct(v)); }
-  for (const v of [0.5, 0.6, 0.7, 0.8, 0.9, 1.0]) el("text", { x: x(v), y: H - m.b + 16, "text-anchor": "middle" }, s, pct(v));
-  el("text", { x: (m.l + W - m.r) / 2, y: H - 6, "text-anchor": "middle" }, s, "model says it's this sure →");
-  el("text", { x: 12, y: (m.t + H - m.b) / 2, "text-anchor": "middle", transform: `rotate(-90 12 ${(m.t + H - m.b) / 2})` }, s, "actually right →");
-  el("line", { x1: x(0.5), y1: y(0.5), x2: x(1), y2: y(1), stroke: "var(--ink)", "stroke-dasharray": "4 4", opacity: .5 }, s);
-  el("text", { x: x(0.55), y: y(0.55) - 8, class: "lbl", transform: `rotate(-36 ${x(0.55)} ${y(0.55) - 8})` }, s, "honest");
-  el("text", { x: x(0.8), y: y(0.36), class: "lbl" }, s, "overconfident zone");
-  for (const c of T[t].configs.filter(c => c.mode === "gut")) {
-    const bins = c.rel.filter(b => b.n >= 5 && b.mean_conf >= 0.5);
-    el("polyline", { points: bins.map(b => `${x(b.mean_conf)},${y(Math.max(0.3, b.acc))}`).join(" "), fill: "none", stroke: MC[c.model], "stroke-width": 2 }, s);
-    for (const b of bins) { const d = el("circle", { cx: x(b.mean_conf), cy: y(Math.max(0.3, b.acc)), r: Math.max(3, Math.min(11, Math.sqrt(b.n))), fill: MC[c.model], "fill-opacity": .85 }, s);
-      el("title", {}, d, `${SH[c.model]}: says ${pct(b.mean_conf)}, right ${pct(b.acc)} (${b.n} items)`); }
+// ================= RESULT 3: stated confidence vs actual accuracy (gut mode)
+(function () {
+  const rows = []; for (const t of ORDER) for (const mm of MODELS) rows.push([t, mm, T[t].configs.find(c => c.model === mm && c.mode === "gut")]);
+  const gaps = rows.map(r => r[2].overconf);
+  const avg = ORDER.map(t => [t, rows.filter(r => r[0] === t).reduce((a, r) => a + r[2].overconf, 0) / 3]).sort((a, b) => a[1] - b[1]);
+  $("r3take").textContent = `In gut mode, every model on every task claimed more confidence than it earned, by ${(Math.min(...gaps) * 100).toFixed(1)} to ${(Math.max(...gaps) * 100).toFixed(1)} points. Averaged over the three models: ` +
+    avg.map(([t, v]) => `${T[t].short.toLowerCase()} +${(v * 100).toFixed(1)}`).join(", ") + ".";
+  const W = 860, rh = 30, top = 34, H = top + rows.length * rh + 34, m = { l: 250, r: 110 };
+  const s = svg(W, H, $("calib"));
+  const x = lin(0.7, 1.0, m.l, W - m.r);
+  for (const v of [0.7, 0.8, 0.9, 1.0]) {
+    el("line", { x1: x(v), x2: x(v), y1: top - 8, y2: H - 30, stroke: "var(--rule)" }, s);
+    el("text", { x: x(v), y: H - 12, "text-anchor": "middle" }, s, pct(v));
   }
-}
+  el("text", { x: W, y: 16, "text-anchor": "end", class: "lbl" }, s, "overconfident by");
+  rows.forEach(([t, mm, c], i) => {
+    const y = top + i * rh + rh / 2, conf = c.acc + c.overconf, col = MC[mm];
+    if (i % 3 === 0) { el("text", { x: 0, y: y + 4, class: "strong" }, s, T[t].short); if (i) el("line", { x1: 0, x2: W, y1: y - rh / 2, y2: y - rh / 2, stroke: "var(--rule)" }, s); }
+    el("text", { x: m.l - 14, y: y + 4, "text-anchor": "end", class: "lbl" }, s, SH[mm]);
+    el("line", { x1: x(c.acc), x2: x(conf), y1: y, y2: y, stroke: "var(--bad)", "stroke-width": 3, opacity: .55 }, s);
+    el("circle", { cx: x(conf), cy: y, r: 6, fill: "var(--panel)", stroke: col, "stroke-width": 2 }, s);
+    el("circle", { cx: x(c.acc), cy: y, r: 6, fill: col }, s);
+    el("text", { x: x(c.acc) - 10, y: y + 4, "text-anchor": "end" }, s, pct(c.acc));
+    el("text", { x: x(conf) + 10, y: y + 4 }, s, "says " + pct(conf));
+    el("text", { x: W, y: y + 4, "text-anchor": "end", class: "strong" }, s, "+" + (c.overconf * 100).toFixed(1) + " pts");
+  });
+})();
 
-// ================= RESULT 4
+// ================= RESULT 4: tiles (rule with the highest safe coverage)
+const MN = { gpt: "gpt-5.4-mini", haiku: "Haiku 4.5", gemini: "Gemini 3.5 Flash" };
+function ruleName(name, floor) {
+  const mt = name.match(/^(\w+)\(([^,]+), (\w+)\)$/);
+  if (!mt) return name;
+  const who = mt[2].split("+").map(k => MN[k] || k).join(" + "), mode = mt[3] === "gut" ? "gut" : "thinking";
+  const fl = floor > 0 ? `, confidence ≥ ${floor}` : ", any confidence";
+  return mt[1] === "SELF" ? `${who} (${mode})${fl}` : mt[1] === "AGREE" ? `${who} agree (${mode})${fl}` : `majority of ${who} (${mode})${fl}`;
+}
 for (const t of ORDER) {
-  const k = T[t], c = k.cheapest_total, d = document.createElement("div"); d.className = "panel tile";
-  d.innerHTML = `<h3></h3><div class="big">${c ? pct(c.coverage) : "0%"}</div><div class="small muted">${c ? `of items could safely skip a person (${pct(c.precision, 1)} of those were right)` : "No rule was safe. Every item needs a person."}</div>`;
+  const k = T[t], c = k.best_policy, d = document.createElement("div"); d.className = "panel tile";
+  d.innerHTML = `<h3></h3><div class="big"></div><div class="small"></div><div class="small muted"></div>`;
   d.querySelector("h3").textContent = k.short;
+  d.querySelector(".big").textContent = c ? pct(c.coverage) : "0%";
+  d.children[2].textContent = c ? `of items could safely skip a person. ${pct(c.precision, 1)} of those were right (pessimistic low end ${pct(c.precision_lower, 1)}).` : "No rule was provably safe. Every item needs a person.";
+  d.children[3].textContent = c ? "Rule: " + ruleName(c.policy, c.fitted_c) : "";
   $("tiles").appendChild(d);
 }
-(function () {
-  const W = 860, rh = 56, H = 30 + ORDER.length * rh + 30, m = { l: 150, r: 70 };
-  const s = svg(W, H, $("cost"));
-  const all = D.review_cost * 1000, x = lin(0, all * 1.05, m.l, W - m.r);
-  for (const v of [0, 50, 100, 150, 200, 250]) { el("line", { x1: x(v), x2: x(v), y1: 20, y2: H - 28, stroke: "var(--rule)" }, s); el("text", { x: x(v), y: H - 10, "text-anchor": "middle" }, s, "$" + v); }
-  ORDER.forEach((t, i) => {
-    const c = T[t].cheapest_total, y = 30 + i * rh;
-    el("text", { x: m.l - 12, y: y + 24, "text-anchor": "end", class: "strong" }, s, T[t].short);
-    let parts;
-    if (c) {
-      const api = c.api_cost_per_1k, rev = D.review_cost * (c.n_total - c.accepted) / c.n_total * 1000, err = D.error_cost * (c.accepted - c.correct) / c.n_total * 1000;
-      parts = [[api, "var(--accent)", "AI calls " + usd(api)], [rev, "var(--warn)", "review " + usd(rev, 0)], [err, "var(--bad)", "wrong answers " + usd(err, 0)]];
-    } else parts = [[all, "var(--warn)", "review " + usd(all, 0)]];
-    let x0 = 0;
-    for (const [v, col, lab] of parts) { const r = el("rect", { x: x(x0), y: y + 4, width: Math.max(2, x(x0 + v) - x(x0)), height: 30, fill: col, rx: 3 }, s); el("title", {}, r, lab); x0 += v; }
-    el("text", { x: x(x0) + 8, y: y + 24, class: "strong" }, s, usd(x0, 0));
-  });
-  el("line", { x1: x(all), x2: x(all), y1: 16, y2: H - 28, stroke: "var(--ink)", "stroke-dasharray": "5 4" }, s);
-  el("text", { x: x(all), y: 12, "text-anchor": "middle", class: "lbl" }, s, "a person checks everything: " + usd(all, 0));
-})();
 
-// ================= RESULT 5
+// ================= RESULT 5: round 1 vs new items, per rule
 (function () {
   const sh = D.shrink;
-  $("shrinkans").textContent = `${sh.failed} of ${sh.fitted} cut-offs that were at least 97% right in round 1 fell below the 95% safety bar on fresh items. On banking intents, ${sh.b77_failed} of ${sh.b77_fitted} did.`;
-  const pts = []; for (const t of ORDER) for (const p of T[t].policies) pts.push({ ...p, task: t });
-  const W = 860, H = 380, m = { l: 56, r: 150, t: 14, b: 46 };
-  const s = svg(W, H, $("shrink"));
-  const x = lin(0.965, 1.003, m.l, W - m.r), y = lin(0.88, 1.0, H - m.b, m.t);
-  el("rect", { x: m.l, y: y(0.95), width: W - m.r - m.l, height: y(0.88) - y(0.95), fill: "var(--bad)", opacity: .08 }, s);
-  for (const v of [0.88, 0.92, 0.96, 1.0]) { el("line", { x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: "var(--rule)" }, s); el("text", { x: m.l - 6, y: y(v) + 4, "text-anchor": "end" }, s, pct(v)); }
-  for (const v of [0.97, 0.98, 0.99, 1.0]) el("text", { x: x(v), y: H - m.b + 16, "text-anchor": "middle" }, s, pct(v));
-  el("text", { x: (m.l + W - m.r) / 2, y: H - 6, "text-anchor": "middle" }, s, "accuracy in round 1, where the cut-off was chosen →");
-  el("text", { x: 12, y: (m.t + H - m.b) / 2, "text-anchor": "middle", transform: `rotate(-90 12 ${(m.t + H - m.b) / 2})` }, s, "accuracy on fresh items →");
-  el("line", { x1: x(0.965), y1: y(0.965), x2: x(1), y2: y(1), stroke: "var(--ink)", "stroke-dasharray": "4 4", opacity: .5 }, s);
-  el("text", { x: x(0.968), y: y(0.968) - 10, class: "lbl" }, s, "held steady");
-  el("line", { x1: m.l, x2: W - m.r, y1: y(0.95), y2: y(0.95), stroke: "var(--bad)", "stroke-width": 1.5 }, s);
-  el("text", { x: W - m.r + 10, y: y(0.95) + 4, class: "lbl" }, s, "95% safety bar");
-  el("text", { x: W - m.r + 10, y: y(0.915), class: "lbl" }, s, "shaded = unsafe");
-  const shp = { banking77: "M-6,-6h12v12h-12z", blimp: "M0,-7L7,0L0,7L-7,0z", toxicity: "M0,-7L7,6H-7z" };
-  const seen = {};
-  for (const p of pts) {
-    const px = x(Math.max(0.965, p.disc_prec)), py = y(Math.max(0.88, p.prec));
-    const key = Math.round(px / 6) + "," + Math.round(py / 6); seen[key] = (seen[key] || 0) + 1;
-    const gEl = el("path", { d: shp[p.task], transform: `translate(${px - (seen[key] - 1) * 10},${py})`, fill: p.pass ? "var(--good)" : "var(--bad)", "fill-opacity": .85 }, s);
-    el("title", {}, gEl, `${T[p.task].short}: ${pct(p.disc_prec, 1)} in round 1 → ${pct(p.prec, 1)} on fresh items`);
+  const per = ORDER.map(t => ({ t, ps: T[t].policies, fail: T[t].policies.filter(p => !p.pass).length }));
+  $("shrinkans").textContent = `${sh.fitted} auto-accept rules were at least 97% right on the first ${D.n_disc} items. On ${T.blimp.n} new items, ${sh.failed} of them could no longer be shown to clear 95%: ` +
+    per.map(o => `${o.fail} of ${o.ps.length} on ${T[o.t].short.toLowerCase()}`).join(", ") + ".";
+  for (const { t, ps } of per) {
+    const host = document.createElement("div"); host.className = "panel";
+    const safe = ps.filter(p => p.pass).length;
+    host.innerHTML = `<h3></h3><div></div>`; host.querySelector("h3").textContent = `${T[t].short} · ${safe} of ${ps.length} safe`;
+    $("shrink").appendChild(host);
+    const W = 300, H = 270, m = { l: 40, r: 8, t: 12, b: 26 };
+    const s = svg(W, H, host.querySelector("div"));
+    const y = lin(0.88, 1.0, H - m.b, m.t);
+    el("rect", { x: m.l, y: y(0.95), width: W - m.l - m.r, height: y(0.88) - y(0.95), fill: "var(--bad)", opacity: .06 }, s);
+    for (const v of [0.88, 0.9, 0.95, 1.0]) {
+      el("line", { x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: v === 0.95 ? "var(--bad)" : "var(--rule)", "stroke-width": v === 0.95 ? 1.5 : 1 }, s);
+      el("text", { x: m.l - 6, y: y(v) + 4, "text-anchor": "end", class: v === 0.95 ? "lbl" : "", style: v === 0.95 ? "fill: var(--bad); font-weight: 600" : "" }, s, pct(v));
+    }
+    const sorted = [...ps].sort((a, b) => (b.pass - a.pass) || (b.lb - a.lb));
+    const step = Math.min(40, (W - m.l - m.r) / sorted.length), x0 = m.l + ((W - m.l - m.r) - step * sorted.length) / 2;
+    sorted.forEach((p, i) => {
+      const cx = x0 + step * (i + 0.5), col = p.pass ? "var(--good)" : "var(--bad)";
+      const g = el("g", {}, s);
+      el("title", {}, g, `${ruleName(p.name, p.floor)}\nfirst ${D.n_disc} items: ${pct(p.disc_prec, 1)} right\n${T.blimp.n} new items: ${pct(p.prec, 1)} right, pessimistic low end ${pct(p.lb, 1)}, covers ${pct(p.cov)} of items`);
+      el("line", { x1: cx - 3, x2: cx + 3, y1: y(p.disc_prec), y2: y(p.prec), stroke: "var(--muted)", "stroke-width": 1, opacity: .6 }, g);
+      el("line", { x1: cx + 3, x2: cx + 3, y1: y(Math.max(0.88, p.lb)), y2: y(p.prec), stroke: col, "stroke-width": 2 }, g);
+      el("circle", { cx: cx - 3, cy: y(p.disc_prec), r: 3.5, fill: "var(--panel)", stroke: "var(--muted)", "stroke-width": 1.5 }, g);
+      el("circle", { cx: cx + 3, cy: y(p.prec), r: 4, fill: col }, g);
+      el("rect", { x: cx - step / 2, y: m.t, width: step, height: H - m.t - m.b, fill: "transparent" }, g);
+    });
+    el("text", { x: (m.l + W - m.r) / 2, y: H - 6, "text-anchor": "middle" }, s, "one column per rule (hover for which)");
   }
-  ORDER.forEach((t, i) => {
-    el("path", { d: shp[t], transform: `translate(${x(0.9665)},${y(0.905) + i * 22})`, fill: "var(--muted)" }, s);
-    el("text", { x: x(0.9665) + 14, y: y(0.905) + 4 + i * 22, class: "lbl" }, s, T[t].short);
-  });
 })();
 
-// ================= RESULT 6
-$("score").innerHTML = `<thead><tr><th>Locked prediction</th><th>Result</th><th>What actually happened</th></tr></thead><tbody></tbody>`;
-for (const r of D.scorecard) {
-  const tr = document.createElement("tr");
-  const cls = r.status === "held" ? "held" : r.status === "failed" ? "failed" : "partly";
-  tr.innerHTML = `<td></td><td><span class="pill ${cls}"></span></td><td class="small"></td>`;
-  tr.children[0].textContent = r.claim; tr.querySelector(".pill").textContent = r.status; tr.children[2].textContent = r.detail;
-  $("score").tBodies[0].appendChild(tr);
-}
+// ================= RESULT 6 (bite-sized) + full table after the conclusion
+(function () {
+  const sc = D.scorecard, cnt = st => sc.filter(r => r.status === st).length;
+  const cls = st => st === "held" ? "held" : st === "failed" ? "failed" : "partly";
+  $("r6h").textContent = `Result 6. Our own predictions: ${cnt("held")} of ${sc.length} fully held`;
+  $("r6sub").textContent = `${sc.length} predictions were written down and committed to git before the ${T.blimp.n} new items per task were run. ${cnt("held")} held, ${cnt("partly held")} partly held, ${cnt("failed")} failed. Details after the conclusion.`;
+  for (const r of sc) {
+    const d = document.createElement("div");
+    d.innerHTML = `<span class="pill ${cls(r.status)}"></span><span></span>`;
+    d.children[0].textContent = r.status; d.children[1].textContent = r.claim;
+    $("chips").appendChild(d);
+  }
+  $("score").innerHTML = `<thead><tr><th></th><th>Prediction</th><th>Made</th><th>Result</th><th>What actually happened</th></tr></thead><tbody></tbody>`;
+  for (const r of sc) {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td><b></b></td><td></td><td class="small muted"></td><td><span class="pill ${cls(r.status)}"></span></td><td class="small"></td>`;
+    tr.querySelector("b").textContent = r.id; tr.children[1].textContent = r.claim; tr.children[2].textContent = r.when;
+    tr.querySelector(".pill").textContent = r.status; tr.children[4].textContent = r.detail;
+    $("score").tBodies[0].appendChild(tr);
+  }
+})();
 
 // ================= CONCLUSION
 (function () {
   const gut = D.rule90.filter(r => r.mode === "gut" && r.n > 0);
   $("c1").textContent = `The idea fails. When the gut said "≥ 90% sure", it was right ${pct(Math.min(...gut.map(r => r.prec)))}–${pct(Math.max(...gut.map(r => r.prec)))} of the time, not 99%. Not good enough to skip a person.`;
-  const g = T.blimp.cheapest_total, b = T.banking77.cheapest_total;
-  $("c3").textContent = `Even with careful, tested cut-offs, the work that could safely skip a person was ${pct(g.coverage)} on grammar but only ${b ? pct(b.coverage) : "0%"} on banking intents and 0% on moderation. ${D.shrink.failed} of ${D.shrink.fitted} cut-offs that looked safe at first broke on fresh data.`;
+  const cov = t => T[t].best_policy ? pct(T[t].best_policy.coverage) : "0%";
+  $("c3").textContent = `How much work can safely skip a person depends almost entirely on the task: ${cov("blimp")} of grammar, ${cov("banking77")} of banking intents, ${cov("toxicity")} of moderation. And ${D.shrink.failed} of ${D.shrink.fitted} cut-offs picked on the first batch couldn't be shown safe on new items.`;
 })();
 
 // ================= APPENDIX charts
@@ -638,10 +633,10 @@ for (const r of D.scorecard) {
 })();
 (function () {
   let n99 = 1; while (wilson(n99, n99) < 0.99) n99++;
-  $("n99").textContent = n99;
+  document.querySelectorAll(".n99").forEach(e => e.textContent = n99);
   const W = 400, H = 140, s = svg(W, H, $("wil"));
   const targets = [0.9, 0.95, 0.97, 0.99].map(t => { let n = 1; while (wilson(n, n) < t) n++; return [t, n]; });
-  const x = lin(0, n99 * 1.1, 70, W - 20);
+  const x = lin(0, n99 * 1.75, 70, W - 10);
   targets.forEach(([t, n], i) => {
     const y = 18 + i * 28;
     el("text", { x: 60, y: y + 5, "text-anchor": "end", class: "lbl" }, s, `${pct(t)} target`);
@@ -656,7 +651,8 @@ for (const r of D.scorecard) {
   let x0 = 0;
   parts.forEach(([lab, v, col], i) => {
     el("rect", { x: x(x0), y: 10, width: Math.max(2, x(v) - 1), height: 34, fill: col, rx: 3 }, s);
-    el("text", { x: Math.min(W - 10, x(x0) + 4), y: 64 + i * 18, class: "lbl", "text-anchor": i === 0 ? "start" : "start" }, s, `${lab}: ${usd(v)}`);
+    el("rect", { x: 0, y: 55 + i * 18, width: 10, height: 10, rx: 2, fill: col }, s);
+    el("text", { x: 16, y: 64 + i * 18, class: "lbl" }, s, `${lab}: ${usd(v)}`);
     x0 += v;
   });
   el("text", { x: W, y: 64, "text-anchor": "end", class: "strong" }, s, `total ${usd(spendTotal)}`);
@@ -667,7 +663,6 @@ const REUSE = [
   ["Lock predictions, then test on fresh data", "Explore on one batch, commit the predictions and decision rules to git, then score them on a held-back batch. It works for any model evaluation, prompt change or vendor comparison.", "PREREG.md, src/gch/agreement.py"],
   ["A provable auto-accept cut-off", "Pick the lowest confidence where a pessimistic (Wilson) estimate of accuracy still clears the target, with a minimum number of items. It drops into any human-in-the-loop pipeline.", "src/gch/threshold.py"],
   ["Count \"fixes\" and \"breaks\" separately", "When you change model, mode or prompt, report right→wrong next to wrong→right instead of only the net accuracy. Two changes with the same net score can behave very differently.", "src/gch/metrics.py"],
-  ["Price the human, not just the API", "Total cost = AI + review + errors let through. It moves the conversation from \"which model is cheapest\" to \"how much work can safely skip a person\".", "src/gch/agreement.py"],
   ["A cheap, restartable test bench", "Every call is cached by prompt hash, jobs run in random order from a restartable queue, and a budget planner estimates cost from a small pilot and refuses to overspend. The whole study cost about $" + Math.round(spendTotal) + ".", "src/gch/llm.py, queue.py, budget.py"],
 ];
 for (const [h, p, f] of REUSE) {
