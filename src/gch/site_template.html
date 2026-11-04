@@ -162,9 +162,6 @@ footer { font-size: 13px; color: var(--muted); display: grid; gap: 6px; }
     <p class="howto"><b>How to read it:</b> left is "kind": one right answer, regular rules. Right is "wicked": the "right" answer is a vote among people who often disagree. Banking sits in between, with clear intents but 77 of them, and many look alike.</p>
   </div>
   <div class="cols3" id="taskcards"></div>
-  <div class="panel"><div id="sizes"></div>
-    <p class="howto"><b>How to read it:</b> each task was split into three batches that never overlap. A tiny <b>pilot</b> batch checks the plumbing. <b>Round 1</b> is for exploring. <b>Round 2</b> is fresh data, kept untouched until the predictions were written down.</p>
-  </div>
 </section>
 
 <!-- ======================= ACT 3: WHAT WE TESTED ======================= -->
@@ -388,20 +385,6 @@ for (const t of ORDER) {
   d.children[4].textContent = EX[t][2];
   $("taskcards").appendChild(d);
 }
-(function () {
-  const W = 860, H = 120, s = svg(W, H, $("sizes"));
-  const parts = [["pilot", D.n_pilot, "var(--muted)", "check the plumbing"], ["round 1", D.n_disc, "var(--accent)", "explore + set cut-offs"], ["round 2", T.blimp.n, "var(--good)", "fresh test, after predictions locked"]];
-  const tot = parts.reduce((a, p) => a + p[1], 0), x = lin(0, tot, 0, W);
-  let x0 = 0;
-  el("text", { x: 0, y: 14, class: "lbl" }, s, "items per task (same split for all three tasks)");
-  parts.forEach(([lab, n, col, sub]) => {
-    el("rect", { x: x(x0) + 1, y: 26, width: x(n) - 2, height: 40, rx: 4, fill: col, opacity: .85 }, s);
-    const cx = x(x0) + x(n) / 2;
-    if (lab === "pilot") { el("text", { x: 0, y: 86, class: "strong" }, s, `${lab}: ${n}`); el("text", { x: 0, y: 104 }, s, sub); }
-    else { el("text", { x: Math.max(cx, 180), y: 86, "text-anchor": "middle", class: "strong" }, s, `${lab}: ${n}`); el("text", { x: Math.max(cx, 180), y: 104, "text-anchor": "middle" }, s, sub); }
-    x0 += n;
-  });
-})();
 
 // ================= ACT 3
 (function () {
