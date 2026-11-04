@@ -76,9 +76,51 @@ def build_data() -> dict:
                          "rea": [r["answer"], r["confidence"], r["correct"]]})
 
     h = conf["hypotheses"]
+    rep = conf["replications"]
+    models = conf["models"]
+    pm = lambda t, m: tasks[t]["per_model"][m]
+
+    def status(k, n):
+        return "held" if k == n else ("partly held" if k > 0 else "failed")
+
+    h1k = sum(1 for m in models if rep["H1_overconf_tox_minus_blimp"][m]["ci"][0] > 0)
+    h2k = sum(1 for m in models if rep["H2_mode_verdicts"]["banking77"][m] == "Use fast mode")
+    h3g = sum(1 for m in models if rep["H3_gut_conf_usable"]["blimp"][m])
+    h3b = sum(1 for m in models if rep["H3_gut_conf_usable"]["banking77"][m])
+    nice = {"gpt-5.4-mini": "gpt-5.4-mini", "claude-haiku-4-5": "Haiku 4.5", "gemini-3.5-flash": "Gemini 3.5 Flash"}
+    worst = min(models, key=lambda m: pm("toxicity", m)["diff"])
+    h4 = conf["tasks"]
+    scorecard = [
+        {"claim": "Thinking won't improve moderation",
+         "status": "held" if h["H7"]["result"] == "SUPPORTED" else "failed",
+         "detail": f"Fast mode won for all 3 models. {nice[worst]} got {abs(pm('toxicity', worst)['diff']) * 100:.1f} pts "
+                   f"worse with thinking."},
+        {"claim": "Models are more overconfident on moderation than on grammar", "status": status(h1k, 3),
+         "detail": f"True for {h1k} of 3 models (the gap's confidence interval stays above zero)."},
+        {"claim": "Thinking isn't worth paying for on banking intents", "status": status(h2k, 3),
+         "detail": f"{h2k} of 3 models: fast mode. gpt-5.4-mini still gains "
+                   f"{pm('banking77', 'gpt-5.4-mini')['diff'] * 100:+.1f} pts from thinking."},
+        {"claim": "A model's own fast-mode confidence is enough to auto-accept safely", "status": status(h3g + h3b, 6),
+         "detail": f"Grammar: works for {h3g} of 3 models. Banking: {h3b} of 3."},
+        {"claim": "Two cheap fast models agreeing beats one model's own confidence",
+         "status": "failed" if h["H4"]["result"] == "NOT SUPPORTED" else "partly held",
+         "detail": f"Banking: no agreement rule was safe. Grammar: the best fast-mode agreement rule covered "
+                   f"{h4['blimp']['h4']['best_gut_agree_coverage'] * 100:.0f}%, but one model thinking covered "
+                   f"{h4['blimp']['h4']['best_self_coverage'] * 100:.0f}%."},
+        {"claim": "Models stay just as confident on comments humans disagree about",
+         "status": "failed" if h["H5"]["result"] == "NOT SUPPORTED" else "held",
+         "detail": "Two of the three models do get a little less confident. Their accuracy drops much more, though."},
+        {"claim": "When all 3 models agree on moderation, they're still wrong over 15% of the time",
+         "status": "failed" if h["H6"]["result"] == "NOT SUPPORTED" else "held",
+         "detail": f"They agreed on {h['H6']['unanimous_share'] * 100:.0f}% of comments and were right "
+                   f"{h['H6']['precision_when_unanimous'] * 100:.1f}% of the time, just past the line we drew."},
+    ]
     n_fit = sum(len(tasks[t]["policies"]) for t in TASKS)
     n_fail = sum(1 for t in TASKS for p in tasks[t]["policies"] if not p["pass"])
     return {
+        "scorecard": scorecard, "error_cost": 2.50, "spend": spend["by_split"],
+        "n_disc": len(load("banking77").items("main")),
+        "n_calls_main": len(_jl(ROOT / "runs/results_main.jsonl")),
         "tasks": tasks, "examples": examples, "review_cost": REVIEW_COST,
         "n_calls_confirm": len(res), "spend_total": spend["total_usd"],
         "spend_confirm": spend["by_split"].get("confirm", 0.0),

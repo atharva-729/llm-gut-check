@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Gut-Check: Fast or Thinking Mode</title>
+<title>Gut-Check: Should LLMs Think First?</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Fraunces:opsz,wght@9..144,600&display=swap" rel="stylesheet">
 <style>
-/* Layout idea: an audit report. One narrow reading column, findings as numbered exhibits, charts full column width. */
+/* Layout idea: a short illustrated story. One reading column; each chapter = question, one-line answer, chart, how-to-read. */
 :root {
   --paper: #f5f6f4;
   --panel: #ffffff;
@@ -18,6 +18,7 @@
   --accent: #1f5f8b;
   --good: #2c7a4b;
   --bad: #b1432f;
+  --warn: #a8761a;
   --m1: #1f5f8b;   /* gpt-5.4-mini */
   --m2: #c27a1a;   /* claude-haiku-4-5 */
   --m3: #6b4fa0;   /* gemini-3.5-flash */
@@ -29,188 +30,203 @@
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --paper: #12161b; --panel: #1a2027; --ink: #e6e9ec; --muted: #9aa5b1; --rule: #2d353e;
-    --accent: #6fb0dc; --good: #5cbf85; --bad: #e07a62; --m1: #6fb0dc; --m2: #e8a64a; --m3: #a78bdb;
+    --accent: #6fb0dc; --good: #5cbf85; --bad: #e07a62; --warn: #e0b14f; --m1: #6fb0dc; --m2: #e8a64a; --m3: #a78bdb;
     color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --paper: #12161b; --panel: #1a2027; --ink: #e6e9ec; --muted: #9aa5b1; --rule: #2d353e;
-  --accent: #6fb0dc; --good: #5cbf85; --bad: #e07a62; --m1: #6fb0dc; --m2: #e8a64a; --m3: #a78bdb;
+  --accent: #6fb0dc; --good: #5cbf85; --bad: #e07a62; --warn: #e0b14f; --m1: #6fb0dc; --m2: #e8a64a; --m3: #a78bdb;
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
 html, body { margin: 0; }
-body { background: var(--paper); color: var(--ink); font: 16px/1.6 var(--font-body); }
-main { max-width: 920px; margin: 0 auto; padding: 40px 20px 80px; display: grid; gap: 56px; }
+body { background: var(--paper); color: var(--ink); font: 17px/1.6 var(--font-body); }
+main { max-width: 880px; margin: 0 auto; padding: 44px 20px 90px; display: grid; gap: 64px; }
 h1, h2 { font-family: var(--font-display); font-weight: 600; text-wrap: balance; line-height: 1.15; margin: 0; }
-h1 { font-size: clamp(30px, 5vw, 44px); }
-h2 { font-size: 26px; }
+h1 { font-size: clamp(32px, 5.5vw, 48px); }
+h2 { font-size: clamp(24px, 3.5vw, 30px); }
 h3 { font-size: 17px; margin: 0; }
-p { margin: 0; max-width: 66ch; }
-.lede { font-size: 19px; color: var(--muted); }
+p { margin: 0; max-width: 64ch; }
 section { display: grid; gap: 16px; }
-.exhibit { font: 500 12px var(--font-mono); letter-spacing: .08em; text-transform: uppercase; color: var(--accent); }
-.panel { background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 20px; }
-.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
-@media (max-width: 760px) { .grid3 { grid-template-columns: 1fr; } }
-.tile { display: grid; gap: 6px; align-content: start; }
-.tile .big { font: 600 34px/1 var(--font-display); font-variant-numeric: tabular-nums; }
-.tile .sub { color: var(--muted); font-size: 14px; }
-.chip { display: inline-block; font: 500 12px var(--font-mono); padding: 2px 8px; border-radius: 999px; border: 1px solid currentColor; }
-.chip.good { color: var(--good); } .chip.bad { color: var(--bad); } .chip.neutral { color: var(--muted); }
-table { border-collapse: collapse; width: 100%; font-size: 14px; font-variant-numeric: tabular-nums; }
-th, td { text-align: left; padding: 7px 8px; border-bottom: 1px solid var(--rule); vertical-align: top; }
-th { font-weight: 600; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
-.scroll { overflow-x: auto; }
-.mono { font-family: var(--font-mono); font-size: 13px; }
+.ch { font: 500 12px var(--font-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.answer { font-size: 19px; font-weight: 500; max-width: 60ch; }
+.panel { background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; padding: 20px; display: grid; gap: 12px; }
+.howto { font-size: 14px; color: var(--muted); border-top: 1px dashed var(--rule); padding-top: 10px; max-width: none; }
+.howto b { color: var(--ink); }
+.verdict { border: 2px solid var(--ink); border-radius: 10px; padding: 22px; display: grid; gap: 14px; background: var(--panel); }
+.verdict .big { font: 600 clamp(22px, 3.4vw, 28px)/1.25 var(--font-display); }
+.cols { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.cols3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 720px) { .cols, .cols3 { grid-template-columns: 1fr; } }
+.yes, .no { display: grid; gap: 6px; padding: 14px; border-radius: 8px; border-left: 4px solid; background: var(--paper); font-size: 15px; align-content: start; }
+.yes { border-color: var(--good); } .no { border-color: var(--bad); }
+.yes > b:first-child { color: var(--good); } .no > b:first-child { color: var(--bad); }
+.tile .big { font: 600 40px/1 var(--font-display); font-variant-numeric: tabular-nums; }
 .muted { color: var(--muted); }
-.tabs { display: flex; gap: 6px; flex-wrap: wrap; }
-.tabs button { font: 500 14px var(--font-body); padding: 7px 14px; border-radius: 999px; border: 1px solid var(--rule);
-  background: var(--panel); color: var(--ink); cursor: pointer; }
-.tabs button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-.tabs button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-a { color: var(--accent); }
-.ex { display: grid; gap: 10px; }
-.ex blockquote { margin: 0; padding: 10px 14px; border-left: 3px solid var(--rule); font-size: 15px; white-space: pre-line; }
-.ans { display: grid; grid-template-columns: 110px 1fr; gap: 4px 10px; font-size: 14px; }
-.ans .k { color: var(--muted); }
-.ok { color: var(--good); font-weight: 600; } .no { color: var(--bad); font-weight: 600; }
+.small { font-size: 14px; }
+table { border-collapse: collapse; width: 100%; font-size: 15px; }
+th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+th { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); font-weight: 600; }
+.pill { display: inline-block; white-space: nowrap; font: 600 12px var(--font-mono); padding: 3px 9px; border-radius: 999px; color: #fff; }
+.pill.held { background: var(--good); } .pill.failed { background: var(--bad); } .pill.partly { background: var(--warn); }
+.ex blockquote { margin: 0; padding: 8px 12px; border-left: 3px solid var(--rule); font-size: 15px; white-space: pre-line; }
+.ex .row { display: grid; grid-template-columns: 76px 1fr; gap: 2px 10px; font-size: 14px; }
+.ok { color: var(--good); font-weight: 600; } .bad { color: var(--bad); font-weight: 600; }
 svg { display: block; width: 100%; height: auto; overflow: visible; }
-svg text { fill: var(--muted); font: 11px var(--font-body); }
-svg .lbl { fill: var(--ink); font-size: 12px; }
+svg text { fill: var(--muted); font: 12px var(--font-body); }
+svg .lbl { fill: var(--ink); font-size: 13px; }
+svg .strong { fill: var(--ink); font-weight: 600; font-size: 14px; }
 .legend { display: flex; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
-.legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; background: var(--c); vertical-align: -1px; }
-.steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; counter-reset: s; }
-@media (max-width: 760px) { .steps { grid-template-columns: 1fr 1fr; } }
-.steps div { counter-increment: s; border-top: 3px solid var(--accent); padding-top: 10px; font-size: 14px; }
-.steps div::before { content: counter(s); font: 600 22px var(--font-display); display: block; color: var(--accent); }
-ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; max-width: 70ch; }
-code { font-family: var(--font-mono); font-size: 13px; background: var(--panel); border: 1px solid var(--rule); padding: 1px 5px; border-radius: 4px; }
-pre { margin: 0; font: 13px/1.6 var(--font-mono); background: var(--panel); border: 1px solid var(--rule); border-radius: 6px; padding: 14px; overflow-x: auto; }
-footer { font-size: 13px; color: var(--muted); display: grid; gap: 8px; }
+.legend span::before { content: ""; display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 6px; background: var(--c); vertical-align: -1px; }
+details { background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; padding: 14px 18px; }
+summary { cursor: pointer; font-weight: 600; }
+summary:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; max-width: 68ch; }
+a { color: var(--accent); }
+code { font-family: var(--font-mono); font-size: 14px; }
+footer { font-size: 13px; color: var(--muted); display: grid; gap: 6px; }
 </style>
 </head>
 <body>
 <main>
 
-<header style="display:grid;gap:14px">
-  <div class="exhibit">Gut-Check Harness · audit results</div>
-  <h1>Should your LLM pipeline think first, and how much can skip human review?</h1>
-  <p class="lede" id="lede"></p>
+<header style="display:grid;gap:16px">
+  <div class="ch">A small experiment, told as a story</div>
+  <h1>Should a cheap AI model think before it answers, and can we trust it when it says "I'm sure"?</h1>
+  <p class="answer" id="hook"></p>
 </header>
 
 <section>
-  <div class="exhibit">Finding 1</div>
-  <h2>The same three models give three different answers, depending on the task</h2>
-  <p>For each task we found the cheapest auto-accept rule (API plus human review) that stays at least 95% correct (by a conservative lower bound). Rules were set on 200 items and tested unchanged on new ones. Total cost counts the API plus <span id="rc"></span> per human review of every item the rule doesn't accept.</p>
-  <div class="grid3" id="tiles"></div>
-</section>
-
-<section>
-  <div class="exhibit">Finding 2</div>
-  <h2>Paying for thinking makes moderation worse, not better</h2>
-  <p>A "flip" is an item where turning thinking on changed the answer. Green bars are fixes (wrong → right). Red bars are overthinking (right → wrong). On grammar, thinking mostly fixes. On moderation, it breaks about as much as it fixes, and Haiku breaks twice as much.</p>
-  <div class="panel"><div id="flips"></div>
-    <div class="legend" style="margin-top:8px"><span style="--c:var(--good)">wrong → right (fixed)</span><span style="--c:var(--bad)">right → wrong (overthinking)</span></div>
-  </div>
-</section>
-
-<section>
-  <div class="exhibit">Finding 3</div>
-  <h2>A confidence cut-off that looks safe on a small sample often isn't</h2>
-  <p id="shrinktext"></p>
-  <div class="panel"><div id="shrink"></div>
-    <div class="legend" style="margin-top:8px"><span style="--c:var(--good)">still ≥ 95% on new data</span><span style="--c:var(--bad)">failed on new data</span></div>
-  </div>
-</section>
-
-<section>
-  <div class="exhibit">Fast vs thinking, in practice</div>
-  <h2>Three real items from the test set</h2>
-  <div class="grid3" id="examples"></div>
-</section>
-
-<section>
-  <div class="exhibit">Verdict card</div>
-  <h2>What one task's audit looks like</h2>
-  <div class="tabs" role="group" aria-label="Choose task" id="tasktabs"></div>
-  <div class="panel" style="display:grid;gap:18px">
-    <div id="verdict" style="display:grid;gap:10px"></div>
-    <div class="scroll"><table id="cfgtable"></table></div>
-    <div>
-      <h3>Cost vs accuracy</h3>
-      <p class="muted" style="font-size:14px">Each point is one model in one mode. Bars show the 95% confidence interval. Dotted line: this task's target accuracy.</p>
-      <div id="frontier"></div>
-      <div class="legend" id="mlegend"></div>
+  <div class="verdict">
+    <div class="ch" style="color:var(--ink)">The short answer</div>
+    <div class="big">Partly. Testing it on your own task works. The shortcuts don't.</div>
+    <div class="cols3">
+      <div class="yes"><b>Works</b><span>Measuring each task tells you exactly how much work can safely skip a human. On grammar that was <span id="v-gram"></span>.</span></div>
+      <div class="no"><b>Doesn't work</b><span>"Thinking mode is better" isn't a safe default. On moderation it never helped, and for one model it hurt.</span></div>
+      <div class="no"><b>Doesn't work</b><span>Trusting a cut-off on the model's "I'm sure" without re-checking it. <span id="v-shrink"></span></span></div>
     </div>
   </div>
 </section>
 
 <section>
-  <div class="exhibit">Can you trust "I'm 90% sure"?</div>
-  <h2>Stated confidence vs reality, fast mode</h2>
-  <p>On the dashed diagonal, a model that says 90% is right 90% of the time; points below it are overconfident. Marker size shows how many items fall in each band, and most items sit in the top band. In both tasks, answers the models give at 70–85% confidence are right less often than claimed. That's why a confidence cut-off has to be measured per task, never read off the model's own number.</p>
-  <div class="grid3" style="grid-template-columns:1fr 1fr" id="rel"></div>
-  <div class="legend" id="mlegend2"></div>
-</section>
-
-<section>
-  <div class="exhibit">The method</div>
-  <h2>What a client gets</h2>
-  <div class="steps">
-    <div><b>Probe.</b> Check that each model's fast mode really does no hidden thinking, and that its answers parse.</div>
-    <div><b>Pre-register.</b> Write the predictions and decision rules down and commit them before any test item is run.</div>
-    <div><b>Discover, then confirm.</b> Set thresholds on one sample, then test them unchanged on fresh items.</div>
-    <div><b>Verdict card.</b> Which mode, which model, which cut-off, how much review it saves, with confidence intervals.</div>
+  <div class="ch">Chapter 1 · The question</div>
+  <h2>Every AI answer either goes straight through or waits for a person</h2>
+  <p>Companies use cheap AI models for high-volume work: sorting customer messages, checking text, flagging comments. Each answer comes with the model's own confidence. If it's high enough, the answer is accepted automatically; if not, a person checks it. People are the expensive part.</p>
+  <div class="panel"><div id="flow"></div>
+    <p class="howto"><b>How to read it:</b> one item goes to the model, in <b>fast mode</b> (answer immediately) or <b>thinking mode</b> (reason first, costs more). The model returns an answer plus "I'm X% sure". Above a cut-off the answer is auto-accepted; below it a person reviews it, at an assumed <span class="rc"></span> per item.</p>
   </div>
-<pre>gch probe            # does "fast" really mean no thinking?
-gch pilot            # parse health + real token cost
-gch run --split confirm
-gch analyse --split confirm && gch confirm-report</pre>
-  <p class="muted" style="font-size:14px">Planned next: <code>gch new-task --csv</code> to turn a client's own labelled data into a task pack, and <code>gch rerun</code> for drift checks when a provider updates a model.</p>
+  <p>So there are two questions: <b>does thinking mode give better answers?</b> and <b>at what confidence can we stop checking?</b></p>
 </section>
 
 <section>
-  <div class="exhibit">Uses</div>
-  <ul>
-    <li><b>Mode advisor for LLM pipelines.</b> Fast or thinking, per task, with the cost of each extra correct answer.</li>
-    <li><b>Sizing human review in ops contracts.</b> The share of volume that can be auto-accepted at a stated precision.</li>
-    <li><b>Model-risk evidence for regulated clients.</b> Pre-registered, out-of-sample, with intervals.</li>
-    <li><b>Drift monitoring.</b> Re-run the same items when a provider ships a new version.</li>
-  </ul>
+  <div class="ch">Chapter 2 · The plan</div>
+  <h2>Three tasks, three models, two rounds</h2>
+  <div class="cols3" id="tasks"></div>
+  <p>Each item has a known right answer, so grading is automatic. We used the cheap tier from three vendors: gpt-5.4-mini, Claude Haiku 4.5 and Gemini 3.5 Flash. Each answered every item twice, fast and thinking.</p>
+  <div class="panel"><div id="timeline"></div>
+    <p class="howto"><b>How to read it:</b> round 1 was for exploring, and that's where we spotted patterns. Before round 2 we <b>wrote our predictions down and saved them</b> (time-stamped in git). Then we tested them on items no model had seen in this study. That way, a pattern we found by chance can't pass as a result.</p>
+  </div>
 </section>
 
 <section>
-  <div class="exhibit">Limits</div>
-  <ul>
-    <li>Stated confidence is the model's own number, not a true probability.</li>
-    <li>Three cheap-tier models and one prompt template. Results are about these tasks, not a model leaderboard.</li>
-    <li>Public datasets (Banking77, BLiMP, Civil Comments) may be in the models' training data.</li>
-    <li>Moderation labels are "at least half of annotators said toxic". Part of the moderation error is policy mismatch, not model failure.</li>
-    <li>Review and error costs are assumptions. Gemini prices come from third-party listings.</li>
-    <li id="hyplimit"></li>
-  </ul>
+  <div class="ch">Chapter 3 · Does thinking help?</div>
+  <h2>Sometimes a lot, sometimes not at all, and once it hurt</h2>
+  <p class="answer">Thinking clearly helped on grammar. On moderation it made no difference, and one model got worse.</p>
+  <div class="panel"><div id="gain"></div>
+    <div class="legend"><span style="--c:var(--good)">thinking clearly better</span><span style="--c:var(--muted)">no clear difference</span><span style="--c:var(--bad)">thinking clearly worse</span></div>
+    <p class="howto"><b>How to read it:</b> each row is one model on one task. The dot is how many accuracy points thinking added (right of the line) or lost (left). The bar is the uncertainty range. If the bar crosses zero, we can't tell whether thinking made any difference.</p>
+  </div>
+  <div class="panel"><div id="flips"></div>
+    <div class="legend"><span style="--c:var(--good)">wrong → right (thinking fixed it)</span><span style="--c:var(--bad)">right → wrong (thinking broke it)</span></div>
+    <p class="howto"><b>How to read it:</b> these are the items where turning thinking on changed the answer. On grammar the green bars dwarf the red: thinking mostly fixes. On moderation they're about equal, and for Haiku the red is twice the green. It "overthinks" harmless comments into toxic ones.</p>
+  </div>
+  <div class="cols3" id="examples"></div>
+</section>
+
+<section>
+  <div class="ch">Chapter 4 · Can we trust "I'm sure"?</div>
+  <h2>The models are confident even when they shouldn't be</h2>
+  <p class="answer">Below 90%, their confidence means little: answers given at 70–85% are usually right less often than claimed, on both tasks. Only the very top band comes close to honest.</p>
+  <div class="cols" id="rel"></div>
+  <div class="legend" id="mleg"></div>
+  <p class="howto"><b>How to read it:</b> the dashed diagonal is an honest model: says 70%, right 70% of the time. A point <b>below</b> the line means overconfident. Bigger dots hold more items. Most answers sit in the top-right corner, where models say 90–100%. The trouble is the answers they give at 70–85%.</p>
+</section>
+
+<section>
+  <div class="ch">Chapter 5 · How much can skip a human?</div>
+  <h2>Same models, very different answers depending on the task</h2>
+  <p class="answer">The safe share of auto-accepted work ranged from almost all of it to none.</p>
+  <div class="cols3" id="tiles"></div>
+  <div class="panel"><div id="cost"></div>
+    <div class="legend"><span style="--c:var(--accent)">AI calls</span><span style="--c:var(--warn)">human review of the rest</span><span style="--c:var(--bad)">cost of wrong auto-accepts</span></div>
+    <p class="howto"><b>How to read it:</b> the cost to process 1,000 items with the best safe rule for each task. The dashed line is sending everything to people (<span class="all"></span>). The AI bill is a sliver. Nearly all the cost is whatever still needs a person. So the useful question is how much can safely skip review, not which model is cheapest. Assumes <span class="rc"></span> per review and <span class="ec"></span> per wrong answer that slips through.</p>
+  </div>
+</section>
+
+<section>
+  <div class="ch">Chapter 6 · Do the rules hold up on new data?</div>
+  <h2>Many cut-offs that looked safe at first broke on new items</h2>
+  <p class="answer" id="shrinkans"></p>
+  <div class="panel"><div id="shrink"></div>
+    <div class="legend"><span style="--c:var(--good)">still safe on new items</span><span style="--c:var(--bad)">broke on new items</span></div>
+    <p class="howto"><b>How to read it:</b> each mark is one auto-accept rule (for example, "accept when model X says at least 95%"). Across: how accurate it was on round-1 items, where we set it. Up: how accurate it was on new round-2 items. Marks on the diagonal held steady. Marks in the shaded band fell below 95% correct, so they weren't safe after all. Banking intents (squares) mostly fell.</p>
+  </div>
+</section>
+
+<section>
+  <div class="ch">Chapter 7 · Our predictions vs reality</div>
+  <h2>We wrote down seven predictions before round 2. Here's how they did</h2>
+  <div class="panel" style="padding:8px 14px"><div style="overflow-x:auto"><table id="score"></table></div></div>
+  <p>Several of our own predictions failed, and that's the point. They came from patterns in round 1 that looked exciting. Without testing them on fresh data, we would have believed them.</p>
+</section>
+
+<section>
+  <div class="ch">Conclusion</div>
+  <h2>So, does it work?</h2>
+  <div class="cols">
+    <div class="yes"><b>Yes: the testing method works</b><span>Run your real task through each model in both modes, set the cut-off on one batch, and check it on a fresh batch. That gives a defensible answer: which mode, which model, and how much work can skip a person. Here that was <span id="c-gram"></span> on grammar, <span id="c-bank"></span> on banking intents, and none on moderation.</span></div>
+    <div class="no"><b>No: there's no universal shortcut</b><span>"Turn on thinking", "trust 90% confidence" and "if two models agree, it's right" all failed somewhere. Thinking backfired on moderation. Cut-offs that looked safe broke on new items. Agreement between models didn't beat a single model.</span></div>
+  </div>
+  <div class="verdict">
+    <div class="big">Bottom line: don't pick the mode or the cut-off by rule of thumb. Measure it on your own task, on data held back for testing, before you remove the human.</div>
+  </div>
+</section>
+
+<section>
+  <details>
+    <summary>Limits of this study</summary>
+    <ul style="margin-top:10px">
+      <li>Three cheap models, one prompt, three public datasets that the models may have seen during training.</li>
+      <li>"Confidence" is the number the model states, not a true probability.</li>
+      <li>Moderation labels come from crowd votes ("at least half the raters said toxic"), so some "errors" are really disagreements about policy.</li>
+      <li>Review and error costs are assumptions. Gemini prices come from third-party listings.</li>
+    </ul>
+  </details>
+  <details>
+    <summary>Method details and code</summary>
+    <ul style="margin-top:10px">
+      <li>Fast mode was checked to use zero thinking tokens for every model. Gemini 3.8 Flash was swapped for 3.5 Flash because 3.8 couldn't fully stop thinking.</li>
+      <li>"Safe" means the conservative lower bound (Wilson, 95%) on the share correct is at least 95%, with at least 30 items accepted.</li>
+      <li>Cut-offs were set on round 1 at ≥ 97% observed accuracy, then applied unchanged to round 2.</li>
+      <li>Everything on this page is generated from the run logs by <code>gch site</code>. The predictions are in <code>PREREG.md</code>, committed before the data existed.</li>
+    </ul>
+  </details>
 </section>
 
 <footer>
   <div id="foot"></div>
-  <div>Data: Banking77 (PolyAI, CC BY 4.0) · BLiMP (Warstadt et al. 2020, CC BY) · Civil Comments (Jigsaw / Google, CC0). Models called through an OpenAI-compatible gateway.</div>
+  <div>Data: Banking77 (PolyAI, CC BY 4.0) · BLiMP (Warstadt et al. 2020, CC BY) · Civil Comments (Jigsaw / Google, CC0).</div>
 </footer>
 
 </main>
 <script>
-const D = {"tasks":{"banking77":{"id":"banking77","short":"Banking intents","name":"Banking77 intent classification","what":"Route a bank customer's message to 1 of 77 intents","n":600,"target_accuracy":0.9,"configs":[{"model":"claude-haiku-4-5","mode":"gut","acc":0.7816666666666666,"ci":[0.7483333333333333,0.815],"cost":1.7736649999999998,"lat":1.567,"think":0.0,"ece":0.08713333333333327,"overconf":0.0861333333333335,"rel":[{"bin":2,"lo":0.2,"hi":0.3,"n":2,"mean_conf":0.25,"acc":0.0},{"bin":3,"lo":0.3,"hi":0.4,"n":2,"mean_conf":0.35,"acc":0.5},{"bin":4,"lo":0.4,"hi":0.5,"n":13,"mean_conf":0.43153846153846154,"acc":0.3076923076923077},{"bin":6,"lo":0.6,"hi":0.7,"n":2,"mean_conf":0.65,"acc":0.0},{"bin":7,"lo":0.7,"hi":0.8,"n":107,"mean_conf":0.755607476635514,"acc":0.5514018691588785},{"bin":8,"lo":0.8,"hi":0.9,"n":115,"mean_conf":0.8476521739130431,"acc":0.7478260869565218},{"bin":9,"lo":0.9,"hi":1.0,"n":359,"mean_conf":0.9310306406685237,"acc":0.8885793871866295}]},{"model":"claude-haiku-4-5","mode":"reasoned","acc":0.7883333333333333,"ci":[0.7566666666666667,0.8216666666666667],"cost":3.06849,"lat":4.6370000000000005,"think":257.1666666666667,"ece":0.08348333333333333,"overconf":0.08248333333333335,"rel":[{"bin":2,"lo":0.2,"hi":0.3,"n":2,"mean_conf":0.25,"acc":0.0},{"bin":3,"lo":0.3,"hi":0.4,"n":2,"mean_conf":0.35,"acc":0.5},{"bin":4,"lo":0.4,"hi":0.5,"n":3,"mean_conf":0.45,"acc":0.3333333333333333},{"bin":5,"lo":0.5,"hi":0.6,"n":2,"mean_conf":0.565,"acc":0.0},{"bin":6,"lo":0.6,"hi":0.7,"n":17,"mean_conf":0.6570588235294118,"acc":0.5882352941176471},{"bin":7,"lo":0.7,"hi":0.8,"n":122,"mean_conf":0.7495901639344261,"acc":0.5655737704918032},{"bin":8,"lo":0.8,"hi":0.9,"n":146,"mean_conf":0.8587671232876712,"acc":0.7191780821917808},{"bin":9,"lo":0.9,"hi":1.0,"n":306,"mean_conf":0.950359477124183,"acc":0.9379084967320261}]},{"model":"gemini-3.5-flash","mode":"gut","acc":0.8316666666666667,"ci":[0.8016666666666666,0.8616666666666667],"cost":1.26255,"lat":1.9155,"think":0.0,"ece":0.12533333333333352,"overconf":0.1253333333333334,"rel":[{"bin":4,"lo":0.4,"hi":0.5,"n":1,"mean_conf":0.4,"acc":0.0},{"bin":5,"lo":0.5,"hi":0.6,"n":3,"mean_conf":0.5166666666666667,"acc":0.3333333333333333},{"bin":6,"lo":0.6,"hi":0.7,"n":2,"mean_conf":0.6,"acc":0.5},{"bin":7,"lo":0.7,"hi":0.8,"n":18,"mean_conf":0.7416666666666667,"acc":0.3888888888888889},{"bin":8,"lo":0.8,"hi":0.9,"n":29,"mean_conf":0.8465517241379312,"acc":0.5517241379310345},{"bin":9,"lo":0.9,"hi":1.0,"n":547,"mean_conf":0.9746800731261428,"acc":0.8665447897623401}]},{"model":"gemini-3.5-flash","mode":"reasoned","acc":0.8416666666666667,"ci":[0.8116249999999999,0.87],"cost":3.5018100000000003,"lat":3.226,"think":248.895,"ece":0.11766666666666684,"overconf":0.1176666666666667,"rel":[{"bin":7,"lo":0.7,"hi":0.8,"n":1,"mean_conf":0.75,"acc":0.0},{"bin":8,"lo":0.8,"hi":0.9,"n":17,"mean_conf":0.85,"acc":0.35294117647058826},{"bin":9,"lo":0.9,"hi":1.0,"n":582,"mean_conf":0.9628865979381445,"acc":0.8573883161512027}]},{"model":"gpt-5.4-mini","mode":"gut","acc":0.8033333333333333,"ci":[0.7716666666666666,0.835],"cost":0.8536212499999999,"lat":1.4735,"think":0.0,"ece":0.13933333333333325,"overconf":0.1393333333333333,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":1,"mean_conf":0.55,"acc":0.0},{"bin":6,"lo":0.6,"hi":0.7,"n":4,"mean_conf":0.65,"acc":0.5},{"bin":7,"lo":0.7,"hi":0.8,"n":17,"mean_conf":0.7558823529411766,"acc":0.35294117647058826},{"bin":8,"lo":0.8,"hi":0.9,"n":68,"mean_conf":0.8576470588235294,"acc":0.4852941176470588},{"bin":9,"lo":0.9,"hi":1.0,"n":510,"mean_conf":0.9632941176470587,"acc":0.8647058823529412}]},{"model":"gpt-5.4-mini","mode":"reasoned","acc":0.84,"ci":[0.81,0.87],"cost":1.28252375,"lat":1.851,"think":89.42333333333333,"ece":0.08214999999999993,"overconf":0.08214999999999995,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":4,"mean_conf":0.5625,"acc":0.5},{"bin":6,"lo":0.6,"hi":0.7,"n":20,"mean_conf":0.6464999999999999,"acc":0.6},{"bin":7,"lo":0.7,"hi":0.8,"n":42,"mean_conf":0.7554761904761904,"acc":0.5714285714285714},{"bin":8,"lo":0.8,"hi":0.9,"n":81,"mean_conf":0.8595061728395063,"acc":0.7283950617283951},{"bin":9,"lo":0.9,"hi":1.0,"n":453,"mean_conf":0.9641501103752759,"acc":0.8984547461368654}]}],"per_model":{"claude-haiku-4-5":{"verdict":"Use fast mode","diff":0.006666666666666667,"ci":[-0.015,0.028333333333333332],"ratio":1.7300279365043572,"cpec":null,"r2w":19,"w2r":23,"overthink":true},"gemini-3.5-flash":{"verdict":"Use fast mode","diff":0.01,"ci":[-0.008333333333333333,0.028333333333333332],"ratio":2.7736010455031486,"cpec":null,"r2w":13,"w2r":19,"overthink":false},"gpt-5.4-mini":{"verdict":"Use reasoning","diff":0.03666666666666667,"ci":[0.016666666666666666,0.058333333333333334],"ratio":1.502450589181092,"cpec":0.011697340909090912,"r2w":11,"w2r":33,"overthink":false}},"best_policy":{"policy":"SELF(gemini, reasoned)","kind":"SELF","models":["gemini-3.5-flash"],"mode":"reasoned","fitted_c":100,"fitted":true,"c":100,"n_total":600,"accepted":118,"correct":117,"precision":0.9915254237288136,"precision_lower":0.953554427584598,"coverage":0.19666666666666666,"api_cost_per_1k":3.5018099999999985,"passes":true,"total_cost_per_1k":208.50181,"sensitivity":{"R=0.05,E=0.0":43.66847666666667,"R=0.05,E=2.5":47.835143333333335,"R=0.05,E=25.0":85.33514333333333,"R=0.25,E=0.0":204.33514333333335,"R=0.25,E=2.5":208.50181,"R=0.25,E=25.0":246.00181,"R=1.0,E=0.0":806.8351433333333,"R=1.0,E=2.5":811.00181,"R=1.0,E=25.0":848.50181},"discovery_at_fit":{"c":100,"n_total":200,"accepted":30,"correct":30,"precision":1.0,"precision_lower":0.8864866068260312,"coverage":0.15,"api_cost_per_1k":3.5009849999999996}},"cheapest_total":{"policy":"SELF(gemini, reasoned)","kind":"SELF","models":["gemini-3.5-flash"],"mode":"reasoned","fitted_c":100,"fitted":true,"c":100,"n_total":600,"accepted":118,"correct":117,"precision":0.9915254237288136,"precision_lower":0.953554427584598,"coverage":0.19666666666666666,"api_cost_per_1k":3.5018099999999985,"passes":true,"total_cost_per_1k":208.50181,"sensitivity":{"R=0.05,E=0.0":43.66847666666667,"R=0.05,E=2.5":47.835143333333335,"R=0.05,E=25.0":85.33514333333333,"R=0.25,E=0.0":204.33514333333335,"R=0.25,E=2.5":208.50181,"R=0.25,E=25.0":246.00181,"R=1.0,E=0.0":806.8351433333333,"R=1.0,E=2.5":811.00181,"R=1.0,E=25.0":848.50181},"discovery_at_fit":{"c":100,"n_total":200,"accepted":30,"correct":30,"precision":1.0,"precision_lower":0.8864866068260312,"coverage":0.15,"api_cost_per_1k":3.5009849999999996}},"policies":[{"name":"SELF(haiku, gut)","kind":"SELF","mode":"gut","floor":95,"cov":0.22,"prec":0.9772727272727273,"lb":0.9353108604232109,"pass":false,"api":1.7736650000000018,"total":209.273665,"disc_prec":0.975609756097561},{"name":"SELF(gemini, gut)","kind":"SELF","mode":"gut","floor":100,"cov":0.5016666666666667,"prec":0.9534883720930233,"lb":0.9234527206680234,"pass":false,"api":1.2625500000000014,"total":184.1792166666667,"disc_prec":1.0},{"name":"SELF(gemini, reasoned)","kind":"SELF","mode":"reasoned","floor":100,"cov":0.19666666666666666,"prec":0.9915254237288136,"lb":0.953554427584598,"pass":true,"api":3.5018099999999985,"total":208.50181,"disc_prec":1.0},{"name":"AGREE(gpt+haiku, gut)","kind":"AGREE","mode":"gut","floor":95,"cov":0.21666666666666667,"prec":0.9769230769230769,"lb":0.9343481004651153,"pass":false,"api":2.627286250000003,"total":210.96061958333334,"disc_prec":0.975609756097561},{"name":"AGREE(haiku+gemini, gut)","kind":"AGREE","mode":"gut","floor":95,"cov":0.21666666666666667,"prec":0.9846153846153847,"lb":0.9456415388402218,"pass":false,"api":3.036215000000003,"total":207.20288166666666,"disc_prec":1.0},{"name":"AGREE(gpt+haiku+gemini, gut)","kind":"AGREE","mode":"gut","floor":95,"cov":0.21333333333333335,"prec":0.984375,"lb":0.9448190233201827,"pass":false,"api":3.889836250000005,"total":208.88983625,"disc_prec":1.0},{"name":"AGREE(gpt+haiku, reasoned)","kind":"AGREE","mode":"reasoned","floor":90,"cov":0.485,"prec":0.9484536082474226,"lb":0.9167048964698142,"pass":false,"api":4.351013750000001,"total":195.60101375,"disc_prec":0.9753086419753086},{"name":"AGREE(gpt+gemini, reasoned)","kind":"AGREE","mode":"reasoned","floor":95,"cov":0.5916666666666667,"prec":0.9352112676056338,"lb":0.9046612359967016,"pass":false,"api":4.784333749999999,"total":202.70100041666666,"disc_prec":0.9805825242718447},{"name":"AGREE(gpt+haiku+gemini, reasoned)","kind":"AGREE","mode":"reasoned","floor":90,"cov":0.4816666666666667,"prec":0.9515570934256056,"lb":0.9203399119722064,"pass":false,"api":7.852823750000005,"total":195.76949041666668,"disc_prec":0.9875},{"name":"MAJ(gpt+haiku+gemini, reasoned)","kind":"MAJ","mode":"reasoned","floor":95,"cov":0.39666666666666667,"prec":0.9495798319327731,"lb":0.9139517676045076,"pass":false,"api":7.852823750000005,"total":208.68615708333334,"disc_prec":0.9848484848484849}]},"blimp":{"id":"blimp","short":"Grammar","name":"BLiMP grammaticality (A/B)","what":"Pick the grammatical sentence of a pair (A or B)","n":600,"target_accuracy":0.95,"configs":[{"model":"claude-haiku-4-5","mode":"gut","acc":0.9266666666666666,"ci":[0.905,0.9466666666666667],"cost":0.4131116666666666,"lat":1.5265,"think":0.0,"ece":0.013700000000000125,"overconf":0.00556666666666672,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":1,"mean_conf":0.5,"acc":1.0},{"bin":7,"lo":0.7,"hi":0.8,"n":39,"mean_conf":0.7600000000000001,"acc":0.6923076923076923},{"bin":8,"lo":0.8,"hi":0.9,"n":39,"mean_conf":0.84974358974359,"acc":0.7692307692307693},{"bin":9,"lo":0.9,"hi":1.0,"n":521,"mean_conf":0.952130518234165,"acc":0.9558541266794626}]},{"model":"claude-haiku-4-5","mode":"reasoned","acc":0.9383333333333334,"ci":[0.9183333333333333,0.9566666666666667],"cost":2.459395,"lat":6.112,"think":408.25666666666666,"ece":0.04268333333333336,"overconf":-0.03188333333333315,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":17,"mean_conf":0.543529411764706,"acc":0.35294117647058826},{"bin":6,"lo":0.6,"hi":0.7,"n":19,"mean_conf":0.6442105263157895,"acc":0.7368421052631579},{"bin":7,"lo":0.7,"hi":0.8,"n":77,"mean_conf":0.7384415584415582,"acc":0.7922077922077922},{"bin":8,"lo":0.8,"hi":0.9,"n":55,"mean_conf":0.86,"acc":0.9090909090909091},{"bin":9,"lo":0.9,"hi":1.0,"n":432,"mean_conf":0.968125,"acc":1.0}]},{"model":"gemini-3.5-flash","mode":"gut","acc":0.945,"ci":[0.9266666666666666,0.9616666666666667],"cost":0.34448,"lat":1.804,"think":0.0,"ece":0.04599999999999998,"overconf":0.04600000000000004,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":3,"mean_conf":0.5,"acc":0.3333333333333333},{"bin":8,"lo":0.8,"hi":0.9,"n":13,"mean_conf":0.8499999999999999,"acc":0.6923076923076923},{"bin":9,"lo":0.9,"hi":1.0,"n":584,"mean_conf":0.9966609589041096,"acc":0.9537671232876712}]},{"model":"gemini-3.5-flash","mode":"reasoned","acc":0.98,"ci":[0.9683333333333334,0.99],"cost":3.0994699999999997,"lat":3.2765,"think":306.2866666666667,"ece":0.011833333333333298,"overconf":0.010666666666666602,"rel":[{"bin":8,"lo":0.8,"hi":0.9,"n":2,"mean_conf":0.825,"acc":1.0},{"bin":9,"lo":0.9,"hi":1.0,"n":598,"mean_conf":0.9912207357859532,"acc":0.979933110367893}]},{"model":"gpt-5.4-mini","mode":"gut","acc":0.8733333333333333,"ci":[0.845,0.9],"cost":0.204725,"lat":1.4580000000000002,"think":0.0,"ece":0.08388333333333342,"overconf":0.0838833333333332,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":7,"mean_conf":0.5385714285714286,"acc":0.42857142857142855},{"bin":6,"lo":0.6,"hi":0.7,"n":6,"mean_conf":0.6433333333333333,"acc":0.16666666666666666},{"bin":7,"lo":0.7,"hi":0.8,"n":16,"mean_conf":0.7375,"acc":0.5},{"bin":8,"lo":0.8,"hi":0.9,"n":26,"mean_conf":0.8534615384615385,"acc":0.6538461538461539},{"bin":9,"lo":0.9,"hi":1.0,"n":545,"mean_conf":0.9774495412844038,"acc":0.908256880733945}]},{"model":"gpt-5.4-mini","mode":"reasoned","acc":0.955,"ci":[0.9366666666666666,0.97],"cost":1.7396749999999999,"lat":2.3765,"think":333.40833333333336,"ece":0.037383333333333366,"overconf":-0.037383333333333435,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":40,"mean_conf":0.55975,"acc":0.85},{"bin":6,"lo":0.6,"hi":0.7,"n":23,"mean_conf":0.6399999999999999,"acc":0.6956521739130435},{"bin":7,"lo":0.7,"hi":0.8,"n":26,"mean_conf":0.7515384615384615,"acc":0.7692307692307693},{"bin":8,"lo":0.8,"hi":0.9,"n":39,"mean_conf":0.8569230769230768,"acc":0.9487179487179487},{"bin":9,"lo":0.9,"hi":1.0,"n":472,"mean_conf":0.975635593220339,"acc":0.9872881355932204}]}],"per_model":{"claude-haiku-4-5":{"verdict":"Use fast mode","diff":0.011666666666666667,"ci":[-0.01,0.035],"ratio":5.953341913203453,"cpec":null,"r2w":18,"w2r":25,"overthink":true},"gemini-3.5-flash":{"verdict":"Use reasoning","diff":0.035,"ci":[0.018333333333333333,0.051666666666666666],"ratio":8.997532512772874,"cpec":0.07871399999999999,"r2w":4,"w2r":25,"overthink":false},"gpt-5.4-mini":{"verdict":"Use reasoning","diff":0.08166666666666667,"ci":[0.058333333333333334,0.10666666666666667],"ratio":8.49761875686897,"cpec":0.018795306122448976,"r2w":5,"w2r":54,"overthink":false}},"best_policy":{"policy":"SELF(gemini, reasoned)","kind":"SELF","models":["gemini-3.5-flash"],"mode":"reasoned","fitted_c":0,"fitted":true,"c":0,"n_total":600,"accepted":600,"correct":588,"precision":0.98,"precision_lower":0.9653699456538908,"coverage":1.0,"api_cost_per_1k":3.099469999999996,"passes":true,"total_cost_per_1k":53.09947,"sensitivity":{"R=0.05,E=0.0":3.099469999999996,"R=0.05,E=2.5":53.09947,"R=0.05,E=25.0":503.09947,"R=0.25,E=0.0":3.099469999999996,"R=0.25,E=2.5":53.09947,"R=0.25,E=25.0":503.09947,"R=1.0,E=0.0":3.099469999999996,"R=1.0,E=2.5":53.09947,"R=1.0,E=25.0":503.09947},"discovery_at_fit":{"c":0,"n_total":200,"accepted":200,"correct":195,"precision":0.975,"precision_lower":0.942821659593358,"coverage":1.0,"api_cost_per_1k":3.4140600000000005}},"cheapest_total":{"policy":"AGREE(gpt+gemini, reasoned)","kind":"AGREE","models":["gpt-5.4-mini","gemini-3.5-flash"],"mode":"reasoned","fitted_c":0,"fitted":true,"c":0,"n_total":600,"accepted":573,"correct":567,"precision":0.9895287958115183,"precision_lower":0.9773452226173158,"coverage":0.955,"api_cost_per_1k":4.839145,"passes":true,"total_cost_per_1k":41.089145,"sensitivity":{"R=0.05,E=0.0":7.089145,"R=0.05,E=2.5":32.089145,"R=0.05,E=25.0":257.089145,"R=0.25,E=0.0":16.089145000000002,"R=0.25,E=2.5":41.089145,"R=0.25,E=25.0":266.089145,"R=1.0,E=0.0":49.839145,"R=1.0,E=2.5":74.839145,"R=1.0,E=25.0":299.839145},"discovery_at_fit":{"c":0,"n_total":200,"accepted":193,"correct":190,"precision":0.9844559585492227,"precision_lower":0.9553033351151177,"coverage":0.965,"api_cost_per_1k":5.270118750000002}},"policies":[{"name":"SELF(gpt, reasoned)","kind":"SELF","mode":"reasoned","floor":80,"cov":0.8516666666666667,"prec":0.9843444227005871,"lb":0.9694148317918254,"pass":true,"api":1.7396750000000003,"total":72.15634166666668,"disc_prec":0.9766081871345029},{"name":"SELF(haiku, gut)","kind":"SELF","mode":"gut","floor":95,"cov":0.6116666666666667,"prec":0.9918256130790191,"lb":0.9762456623349125,"pass":true,"api":0.4131116666666653,"total":109.99644500000001,"disc_prec":0.9739130434782609},{"name":"SELF(haiku, reasoned)","kind":"SELF","mode":"reasoned","floor":80,"cov":0.8116666666666666,"prec":0.9897330595482546,"lb":0.9761937241466908,"pass":true,"api":2.4593949999999998,"total":70.37606166666667,"disc_prec":0.9806451612903225},{"name":"SELF(gemini, gut)","kind":"SELF","mode":"gut","floor":100,"cov":0.9316666666666666,"prec":0.9677996422182469,"lb":0.9496774078706604,"pass":false,"api":0.34448000000000084,"total":92.42781333333335,"disc_prec":0.9825581395348837},{"name":"SELF(gemini, reasoned)","kind":"SELF","mode":"reasoned","floor":0,"cov":1.0,"prec":0.98,"lb":0.9653699456538908,"pass":true,"api":3.099469999999996,"total":53.09947,"disc_prec":0.975},{"name":"AGREE(gpt+haiku, gut)","kind":"AGREE","mode":"gut","floor":95,"cov":0.575,"prec":0.9971014492753624,"lb":0.983766537455308,"pass":true,"api":0.6178366666666657,"total":111.03450333333332,"disc_prec":0.981651376146789},{"name":"AGREE(gpt+gemini, gut)","kind":"AGREE","mode":"gut","floor":95,"cov":0.7616666666666667,"prec":0.9846827133479212,"lb":0.9687241098327283,"pass":true,"api":0.5492050000000008,"total":89.299205,"disc_prec":0.9788732394366197},{"name":"AGREE(haiku+gemini, gut)","kind":"AGREE","mode":"gut","floor":80,"cov":0.8783333333333333,"prec":0.9810246679316889,"lb":0.9654264782896379,"pass":true,"api":0.7575916666666659,"total":72.840925,"disc_prec":0.9710982658959537},{"name":"AGREE(gpt+haiku+gemini, gut)","kind":"AGREE","mode":"gut","floor":90,"cov":0.755,"prec":0.9933774834437086,"lb":0.9807123628806745,"pass":true,"api":0.9623166666666672,"total":74.71231666666667,"disc_prec":0.9724137931034482},{"name":"MAJ(gpt+haiku+gemini, gut)","kind":"MAJ","mode":"gut","floor":95,"cov":0.6066666666666667,"prec":0.989010989010989,"lb":0.9720897342877888,"pass":true,"api":0.9623166666666672,"total":115.96231666666667,"disc_prec":0.9821428571428571},{"name":"AGREE(gpt+haiku, reasoned)","kind":"AGREE","mode":"reasoned","floor":0,"cov":0.94,"prec":0.975177304964539,"lb":0.9587683585022723,"pass":true,"api":4.199069999999996,"total":77.53240333333332,"disc_prec":0.9739583333333334},{"name":"AGREE(gpt+gemini, reasoned)","kind":"AGREE","mode":"reasoned","floor":0,"cov":0.955,"prec":0.9895287958115183,"lb":0.9773452226173158,"pass":true,"api":4.839145,"total":41.089145,"disc_prec":0.9844559585492227},{"name":"AGREE(haiku+gemini, reasoned)","kind":"AGREE","mode":"reasoned","floor":0,"cov":0.9416666666666667,"prec":0.9876106194690265,"lb":0.974649545686989,"pass":true,"api":5.558864999999999,"total":49.308865,"disc_prec":0.9792746113989638},{"name":"AGREE(gpt+haiku+gemini, reasoned)","kind":"AGREE","mode":"reasoned","floor":0,"cov":0.9183333333333333,"prec":0.9927404718693285,"lb":0.9814845466276649,"pass":true,"api":7.298540000000006,"total":44.381873333333345,"disc_prec":0.9841269841269841},{"name":"MAJ(gpt+haiku+gemini, reasoned)","kind":"MAJ","mode":"reasoned","floor":0,"cov":1.0,"prec":0.9683333333333334,"lb":0.9510727848694857,"pass":true,"api":7.298540000000006,"total":86.46520666666666,"disc_prec":0.97}]},"toxicity":{"id":"toxicity","short":"Moderation","name":"Toxicity (Civil Comments)","what":"Flag an online comment as toxic or not","n":600,"target_accuracy":0.9,"configs":[{"model":"claude-haiku-4-5","mode":"gut","acc":0.7883333333333333,"ci":[0.755,0.82],"cost":0.4478116666666667,"lat":1.5695000000000001,"think":0.0,"ece":0.05526666666666667,"overconf":0.02299999999999991,"rel":[{"bin":7,"lo":0.7,"hi":0.8,"n":336,"mean_conf":0.7514285714285714,"acc":0.6815476190476191},{"bin":8,"lo":0.8,"hi":0.9,"n":123,"mean_conf":0.8431707317073169,"acc":0.9024390243902439},{"bin":9,"lo":0.9,"hi":1.0,"n":141,"mean_conf":0.9263120567375888,"acc":0.9432624113475178}]},{"model":"claude-haiku-4-5","mode":"reasoned","acc":0.7433333333333333,"ci":[0.7083333333333334,0.7783333333333333],"cost":2.30642,"lat":6.124499999999999,"think":370.72,"ece":0.07451666666666676,"overconf":0.04738333333333333,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":3,"mean_conf":0.5533333333333333,"acc":1.0},{"bin":6,"lo":0.6,"hi":0.7,"n":108,"mean_conf":0.6675000000000003,"acc":0.48148148148148145},{"bin":7,"lo":0.7,"hi":0.8,"n":261,"mean_conf":0.7485823754789271,"acc":0.6896551724137931},{"bin":8,"lo":0.8,"hi":0.9,"n":127,"mean_conf":0.8598425196850391,"acc":0.9133858267716536},{"bin":9,"lo":0.9,"hi":1.0,"n":101,"mean_conf":0.9514851485148516,"acc":0.9405940594059405}]},{"model":"gemini-3.5-flash","mode":"gut","acc":0.8083333333333333,"ci":[0.7766666666666666,0.8383333333333334],"cost":0.3797425,"lat":1.911,"think":0.0,"ece":0.09058333333333322,"overconf":0.09058333333333313,"rel":[{"bin":7,"lo":0.7,"hi":0.8,"n":65,"mean_conf":0.7476923076923077,"acc":0.5692307692307692},{"bin":8,"lo":0.8,"hi":0.9,"n":196,"mean_conf":0.8413265306122445,"acc":0.6683673469387755},{"bin":9,"lo":0.9,"hi":1.0,"n":339,"mean_conf":0.9612094395280236,"acc":0.9351032448377581}]},{"model":"gemini-3.5-flash","mode":"reasoned","acc":0.8066666666666666,"ci":[0.775,0.8366666666666667],"cost":2.2269025,"lat":3.3185000000000002,"think":205.41333333333333,"ece":0.10543333333333335,"overconf":0.10543333333333338,"rel":[{"bin":6,"lo":0.6,"hi":0.7,"n":1,"mean_conf":0.65,"acc":0.0},{"bin":7,"lo":0.7,"hi":0.8,"n":23,"mean_conf":0.7456521739130434,"acc":0.5217391304347826},{"bin":8,"lo":0.8,"hi":0.9,"n":177,"mean_conf":0.8387005649717514,"acc":0.6666666666666666},{"bin":9,"lo":0.9,"hi":1.0,"n":399,"mean_conf":0.9549122807017544,"acc":0.8872180451127819}]},{"model":"gpt-5.4-mini","mode":"gut","acc":0.775,"ci":[0.7399583333333333,0.8066666666666666],"cost":0.23008125,"lat":1.4545,"think":0.0,"ece":0.1448666666666666,"overconf":0.13719999999999988,"rel":[{"bin":6,"lo":0.6,"hi":0.7,"n":4,"mean_conf":0.635,"acc":0.75},{"bin":7,"lo":0.7,"hi":0.8,"n":20,"mean_conf":0.758,"acc":0.85},{"bin":8,"lo":0.8,"hi":0.9,"n":199,"mean_conf":0.8626130653266332,"acc":0.7236180904522613},{"bin":9,"lo":0.9,"hi":1.0,"n":377,"mean_conf":0.9494960212201591,"acc":0.7984084880636605}]},{"model":"gpt-5.4-mini","mode":"reasoned","acc":0.7766666666666666,"ci":[0.7433333333333333,0.81],"cost":0.52841625,"lat":1.6435,"think":61.17333333333333,"ece":0.14256666666666673,"overconf":0.14256666666666662,"rel":[{"bin":6,"lo":0.6,"hi":0.7,"n":2,"mean_conf":0.645,"acc":0.0},{"bin":7,"lo":0.7,"hi":0.8,"n":55,"mean_conf":0.7567272727272728,"acc":0.4909090909090909},{"bin":8,"lo":0.8,"hi":0.9,"n":130,"mean_conf":0.8628461538461538,"acc":0.7307692307692307},{"bin":9,"lo":0.9,"hi":1.0,"n":413,"mean_conf":0.9599515738498791,"acc":0.8329297820823245}]}],"per_model":{"claude-haiku-4-5":{"verdict":"Use fast mode","diff":-0.045,"ci":[-0.07333333333333333,-0.018333333333333333],"ratio":5.150424099416793,"cpec":null,"r2w":53,"w2r":26,"overthink":true},"gemini-3.5-flash":{"verdict":"Use fast mode","diff":-0.0016666666666666668,"ci":[-0.023333333333333334,0.02],"ratio":5.8642435334470076,"cpec":null,"r2w":22,"w2r":21,"overthink":true},"gpt-5.4-mini":{"verdict":"Use fast mode","diff":0.0016666666666666668,"ci":[-0.025,0.02666666666666667],"ratio":2.2966506397196644,"cpec":null,"r2w":31,"w2r":32,"overthink":true}},"best_policy":null,"cheapest_total":null,"policies":[{"name":"SELF(gemini, gut)","kind":"SELF","mode":"gut","floor":100,"cov":0.23,"prec":0.9782608695652174,"lb":0.9380368800052548,"pass":false,"api":0.37974249999999926,"total":205.3797425,"disc_prec":1.0},{"name":"SELF(gemini, reasoned)","kind":"SELF","mode":"reasoned","floor":100,"cov":0.17666666666666667,"prec":0.9622641509433962,"lb":0.9069658438911791,"pass":false,"api":2.226902500000001,"total":224.7269025,"disc_prec":1.0}]}},"examples":[{"task":"blimp","short":"Grammar","model":"gpt-5.4-mini","input":"A: A lot of women hadn't learned what the lady isn't concealing.\nB: A lot of women hadn't learned that the lady isn't concealing.","gold":"A","gut":["B",98.0,false],"rea":["A",97.0,true]},{"task":"banking77","short":"Banking intents","model":"gpt-5.4-mini","input":"Payments from my disposable virtual card don't work","gold":"virtual_card_not_working","gut":["disposable_card_limits",89.0,false],"rea":["virtual_card_not_working",95.0,true]},{"task":"toxicity","short":"Moderation","model":"claude-haiku-4-5","input":"Let me see if I understand this correctly - we will be using electricity generated from oil to create hydrogen to replace oil.  Can someone explain the laws of thermodynamics to those designing this project?","gold":"NO","gut":["NO",82.0,true],"rea":["YES",68.0,false]}],"review_cost":0.25,"n_calls_confirm":10800,"spend_total":21.353628499999967,"spend_confirm":15.673734500000023,"hyp":{"H4":"NOT SUPPORTED","H5":"NOT SUPPORTED","H6":"NOT SUPPORTED","H7":"SUPPORTED"},"h6":{"share":0.8116666666666666,"prec":0.8562628336755647},"shrink":{"fitted":27,"failed":12,"b77_fitted":10,"b77_failed":9}};
+const D = {"scorecard":[{"claim":"Thinking won't improve moderation","status":"held","detail":"Fast mode won for all 3 models. Haiku 4.5 got 4.5 pts worse with thinking."},{"claim":"Models are more overconfident on moderation than on grammar","status":"partly held","detail":"True for 2 of 3 models (the gap's confidence interval stays above zero)."},{"claim":"Thinking isn't worth paying for on banking intents","status":"partly held","detail":"2 of 3 models: fast mode. gpt-5.4-mini still gains +3.7 pts from thinking."},{"claim":"A model's own fast-mode confidence is enough to auto-accept safely","status":"partly held","detail":"Grammar: works for 2 of 3 models. Banking: 0 of 3."},{"claim":"Two cheap fast models agreeing beats one model's own confidence","status":"failed","detail":"Banking: no agreement rule was safe. Grammar: the best fast-mode agreement rule covered 88%, but one model thinking covered 100%."},{"claim":"Models stay just as confident on comments humans disagree about","status":"failed","detail":"Two of the three models do get a little less confident. Their accuracy drops much more, though."},{"claim":"When all 3 models agree on moderation, they're still wrong over 15% of the time","status":"failed","detail":"They agreed on 81% of comments and were right 85.6% of the time, just past the line we drew."}],"error_cost":2.5,"spend":{"probe":0.028235999999999997,"pilot":0.2909050000000001,"main":5.3607530000000025,"confirm":15.673734500000023},"n_disc":200,"n_calls_main":3600,"tasks":{"banking77":{"id":"banking77","short":"Banking intents","name":"Banking77 intent classification","what":"Route a bank customer's message to 1 of 77 intents","n":600,"target_accuracy":0.9,"configs":[{"model":"claude-haiku-4-5","mode":"gut","acc":0.7816666666666666,"ci":[0.7483333333333333,0.815],"cost":1.7736649999999998,"lat":1.567,"think":0.0,"ece":0.08713333333333327,"overconf":0.0861333333333335,"rel":[{"bin":2,"lo":0.2,"hi":0.3,"n":2,"mean_conf":0.25,"acc":0.0},{"bin":3,"lo":0.3,"hi":0.4,"n":2,"mean_conf":0.35,"acc":0.5},{"bin":4,"lo":0.4,"hi":0.5,"n":13,"mean_conf":0.43153846153846154,"acc":0.3076923076923077},{"bin":6,"lo":0.6,"hi":0.7,"n":2,"mean_conf":0.65,"acc":0.0},{"bin":7,"lo":0.7,"hi":0.8,"n":107,"mean_conf":0.755607476635514,"acc":0.5514018691588785},{"bin":8,"lo":0.8,"hi":0.9,"n":115,"mean_conf":0.8476521739130431,"acc":0.7478260869565218},{"bin":9,"lo":0.9,"hi":1.0,"n":359,"mean_conf":0.9310306406685237,"acc":0.8885793871866295}]},{"model":"claude-haiku-4-5","mode":"reasoned","acc":0.7883333333333333,"ci":[0.7566666666666667,0.8216666666666667],"cost":3.06849,"lat":4.6370000000000005,"think":257.1666666666667,"ece":0.08348333333333333,"overconf":0.08248333333333335,"rel":[{"bin":2,"lo":0.2,"hi":0.3,"n":2,"mean_conf":0.25,"acc":0.0},{"bin":3,"lo":0.3,"hi":0.4,"n":2,"mean_conf":0.35,"acc":0.5},{"bin":4,"lo":0.4,"hi":0.5,"n":3,"mean_conf":0.45,"acc":0.3333333333333333},{"bin":5,"lo":0.5,"hi":0.6,"n":2,"mean_conf":0.565,"acc":0.0},{"bin":6,"lo":0.6,"hi":0.7,"n":17,"mean_conf":0.6570588235294118,"acc":0.5882352941176471},{"bin":7,"lo":0.7,"hi":0.8,"n":122,"mean_conf":0.7495901639344261,"acc":0.5655737704918032},{"bin":8,"lo":0.8,"hi":0.9,"n":146,"mean_conf":0.8587671232876712,"acc":0.7191780821917808},{"bin":9,"lo":0.9,"hi":1.0,"n":306,"mean_conf":0.950359477124183,"acc":0.9379084967320261}]},{"model":"gemini-3.5-flash","mode":"gut","acc":0.8316666666666667,"ci":[0.8016666666666666,0.8616666666666667],"cost":1.26255,"lat":1.9155,"think":0.0,"ece":0.12533333333333352,"overconf":0.1253333333333334,"rel":[{"bin":4,"lo":0.4,"hi":0.5,"n":1,"mean_conf":0.4,"acc":0.0},{"bin":5,"lo":0.5,"hi":0.6,"n":3,"mean_conf":0.5166666666666667,"acc":0.3333333333333333},{"bin":6,"lo":0.6,"hi":0.7,"n":2,"mean_conf":0.6,"acc":0.5},{"bin":7,"lo":0.7,"hi":0.8,"n":18,"mean_conf":0.7416666666666667,"acc":0.3888888888888889},{"bin":8,"lo":0.8,"hi":0.9,"n":29,"mean_conf":0.8465517241379312,"acc":0.5517241379310345},{"bin":9,"lo":0.9,"hi":1.0,"n":547,"mean_conf":0.9746800731261428,"acc":0.8665447897623401}]},{"model":"gemini-3.5-flash","mode":"reasoned","acc":0.8416666666666667,"ci":[0.8116249999999999,0.87],"cost":3.5018100000000003,"lat":3.226,"think":248.895,"ece":0.11766666666666684,"overconf":0.1176666666666667,"rel":[{"bin":7,"lo":0.7,"hi":0.8,"n":1,"mean_conf":0.75,"acc":0.0},{"bin":8,"lo":0.8,"hi":0.9,"n":17,"mean_conf":0.85,"acc":0.35294117647058826},{"bin":9,"lo":0.9,"hi":1.0,"n":582,"mean_conf":0.9628865979381445,"acc":0.8573883161512027}]},{"model":"gpt-5.4-mini","mode":"gut","acc":0.8033333333333333,"ci":[0.7716666666666666,0.835],"cost":0.8536212499999999,"lat":1.4735,"think":0.0,"ece":0.13933333333333325,"overconf":0.1393333333333333,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":1,"mean_conf":0.55,"acc":0.0},{"bin":6,"lo":0.6,"hi":0.7,"n":4,"mean_conf":0.65,"acc":0.5},{"bin":7,"lo":0.7,"hi":0.8,"n":17,"mean_conf":0.7558823529411766,"acc":0.35294117647058826},{"bin":8,"lo":0.8,"hi":0.9,"n":68,"mean_conf":0.8576470588235294,"acc":0.4852941176470588},{"bin":9,"lo":0.9,"hi":1.0,"n":510,"mean_conf":0.9632941176470587,"acc":0.8647058823529412}]},{"model":"gpt-5.4-mini","mode":"reasoned","acc":0.84,"ci":[0.81,0.87],"cost":1.28252375,"lat":1.851,"think":89.42333333333333,"ece":0.08214999999999993,"overconf":0.08214999999999995,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":4,"mean_conf":0.5625,"acc":0.5},{"bin":6,"lo":0.6,"hi":0.7,"n":20,"mean_conf":0.6464999999999999,"acc":0.6},{"bin":7,"lo":0.7,"hi":0.8,"n":42,"mean_conf":0.7554761904761904,"acc":0.5714285714285714},{"bin":8,"lo":0.8,"hi":0.9,"n":81,"mean_conf":0.8595061728395063,"acc":0.7283950617283951},{"bin":9,"lo":0.9,"hi":1.0,"n":453,"mean_conf":0.9641501103752759,"acc":0.8984547461368654}]}],"per_model":{"claude-haiku-4-5":{"verdict":"Use fast mode","diff":0.006666666666666667,"ci":[-0.015,0.028333333333333332],"ratio":1.7300279365043572,"cpec":null,"r2w":19,"w2r":23,"overthink":true},"gemini-3.5-flash":{"verdict":"Use fast mode","diff":0.01,"ci":[-0.008333333333333333,0.028333333333333332],"ratio":2.7736010455031486,"cpec":null,"r2w":13,"w2r":19,"overthink":false},"gpt-5.4-mini":{"verdict":"Use reasoning","diff":0.03666666666666667,"ci":[0.016666666666666666,0.058333333333333334],"ratio":1.502450589181092,"cpec":0.011697340909090912,"r2w":11,"w2r":33,"overthink":false}},"best_policy":{"policy":"SELF(gemini, reasoned)","kind":"SELF","models":["gemini-3.5-flash"],"mode":"reasoned","fitted_c":100,"fitted":true,"c":100,"n_total":600,"accepted":118,"correct":117,"precision":0.9915254237288136,"precision_lower":0.953554427584598,"coverage":0.19666666666666666,"api_cost_per_1k":3.5018099999999985,"passes":true,"total_cost_per_1k":208.50181,"sensitivity":{"R=0.05,E=0.0":43.66847666666667,"R=0.05,E=2.5":47.835143333333335,"R=0.05,E=25.0":85.33514333333333,"R=0.25,E=0.0":204.33514333333335,"R=0.25,E=2.5":208.50181,"R=0.25,E=25.0":246.00181,"R=1.0,E=0.0":806.8351433333333,"R=1.0,E=2.5":811.00181,"R=1.0,E=25.0":848.50181},"discovery_at_fit":{"c":100,"n_total":200,"accepted":30,"correct":30,"precision":1.0,"precision_lower":0.8864866068260312,"coverage":0.15,"api_cost_per_1k":3.5009849999999996}},"cheapest_total":{"policy":"SELF(gemini, reasoned)","kind":"SELF","models":["gemini-3.5-flash"],"mode":"reasoned","fitted_c":100,"fitted":true,"c":100,"n_total":600,"accepted":118,"correct":117,"precision":0.9915254237288136,"precision_lower":0.953554427584598,"coverage":0.19666666666666666,"api_cost_per_1k":3.5018099999999985,"passes":true,"total_cost_per_1k":208.50181,"sensitivity":{"R=0.05,E=0.0":43.66847666666667,"R=0.05,E=2.5":47.835143333333335,"R=0.05,E=25.0":85.33514333333333,"R=0.25,E=0.0":204.33514333333335,"R=0.25,E=2.5":208.50181,"R=0.25,E=25.0":246.00181,"R=1.0,E=0.0":806.8351433333333,"R=1.0,E=2.5":811.00181,"R=1.0,E=25.0":848.50181},"discovery_at_fit":{"c":100,"n_total":200,"accepted":30,"correct":30,"precision":1.0,"precision_lower":0.8864866068260312,"coverage":0.15,"api_cost_per_1k":3.5009849999999996}},"policies":[{"name":"SELF(haiku, gut)","kind":"SELF","mode":"gut","floor":95,"cov":0.22,"prec":0.9772727272727273,"lb":0.9353108604232109,"pass":false,"api":1.7736650000000018,"total":209.273665,"disc_prec":0.975609756097561},{"name":"SELF(gemini, gut)","kind":"SELF","mode":"gut","floor":100,"cov":0.5016666666666667,"prec":0.9534883720930233,"lb":0.9234527206680234,"pass":false,"api":1.2625500000000014,"total":184.1792166666667,"disc_prec":1.0},{"name":"SELF(gemini, reasoned)","kind":"SELF","mode":"reasoned","floor":100,"cov":0.19666666666666666,"prec":0.9915254237288136,"lb":0.953554427584598,"pass":true,"api":3.5018099999999985,"total":208.50181,"disc_prec":1.0},{"name":"AGREE(gpt+haiku, gut)","kind":"AGREE","mode":"gut","floor":95,"cov":0.21666666666666667,"prec":0.9769230769230769,"lb":0.9343481004651153,"pass":false,"api":2.627286250000003,"total":210.96061958333334,"disc_prec":0.975609756097561},{"name":"AGREE(haiku+gemini, gut)","kind":"AGREE","mode":"gut","floor":95,"cov":0.21666666666666667,"prec":0.9846153846153847,"lb":0.9456415388402218,"pass":false,"api":3.036215000000003,"total":207.20288166666666,"disc_prec":1.0},{"name":"AGREE(gpt+haiku+gemini, gut)","kind":"AGREE","mode":"gut","floor":95,"cov":0.21333333333333335,"prec":0.984375,"lb":0.9448190233201827,"pass":false,"api":3.889836250000005,"total":208.88983625,"disc_prec":1.0},{"name":"AGREE(gpt+haiku, reasoned)","kind":"AGREE","mode":"reasoned","floor":90,"cov":0.485,"prec":0.9484536082474226,"lb":0.9167048964698142,"pass":false,"api":4.351013750000001,"total":195.60101375,"disc_prec":0.9753086419753086},{"name":"AGREE(gpt+gemini, reasoned)","kind":"AGREE","mode":"reasoned","floor":95,"cov":0.5916666666666667,"prec":0.9352112676056338,"lb":0.9046612359967016,"pass":false,"api":4.784333749999999,"total":202.70100041666666,"disc_prec":0.9805825242718447},{"name":"AGREE(gpt+haiku+gemini, reasoned)","kind":"AGREE","mode":"reasoned","floor":90,"cov":0.4816666666666667,"prec":0.9515570934256056,"lb":0.9203399119722064,"pass":false,"api":7.852823750000005,"total":195.76949041666668,"disc_prec":0.9875},{"name":"MAJ(gpt+haiku+gemini, reasoned)","kind":"MAJ","mode":"reasoned","floor":95,"cov":0.39666666666666667,"prec":0.9495798319327731,"lb":0.9139517676045076,"pass":false,"api":7.852823750000005,"total":208.68615708333334,"disc_prec":0.9848484848484849}]},"blimp":{"id":"blimp","short":"Grammar","name":"BLiMP grammaticality (A/B)","what":"Pick the grammatical sentence of a pair (A or B)","n":600,"target_accuracy":0.95,"configs":[{"model":"claude-haiku-4-5","mode":"gut","acc":0.9266666666666666,"ci":[0.905,0.9466666666666667],"cost":0.4131116666666666,"lat":1.5265,"think":0.0,"ece":0.013700000000000125,"overconf":0.00556666666666672,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":1,"mean_conf":0.5,"acc":1.0},{"bin":7,"lo":0.7,"hi":0.8,"n":39,"mean_conf":0.7600000000000001,"acc":0.6923076923076923},{"bin":8,"lo":0.8,"hi":0.9,"n":39,"mean_conf":0.84974358974359,"acc":0.7692307692307693},{"bin":9,"lo":0.9,"hi":1.0,"n":521,"mean_conf":0.952130518234165,"acc":0.9558541266794626}]},{"model":"claude-haiku-4-5","mode":"reasoned","acc":0.9383333333333334,"ci":[0.9183333333333333,0.9566666666666667],"cost":2.459395,"lat":6.112,"think":408.25666666666666,"ece":0.04268333333333336,"overconf":-0.03188333333333315,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":17,"mean_conf":0.543529411764706,"acc":0.35294117647058826},{"bin":6,"lo":0.6,"hi":0.7,"n":19,"mean_conf":0.6442105263157895,"acc":0.7368421052631579},{"bin":7,"lo":0.7,"hi":0.8,"n":77,"mean_conf":0.7384415584415582,"acc":0.7922077922077922},{"bin":8,"lo":0.8,"hi":0.9,"n":55,"mean_conf":0.86,"acc":0.9090909090909091},{"bin":9,"lo":0.9,"hi":1.0,"n":432,"mean_conf":0.968125,"acc":1.0}]},{"model":"gemini-3.5-flash","mode":"gut","acc":0.945,"ci":[0.9266666666666666,0.9616666666666667],"cost":0.34448,"lat":1.804,"think":0.0,"ece":0.04599999999999998,"overconf":0.04600000000000004,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":3,"mean_conf":0.5,"acc":0.3333333333333333},{"bin":8,"lo":0.8,"hi":0.9,"n":13,"mean_conf":0.8499999999999999,"acc":0.6923076923076923},{"bin":9,"lo":0.9,"hi":1.0,"n":584,"mean_conf":0.9966609589041096,"acc":0.9537671232876712}]},{"model":"gemini-3.5-flash","mode":"reasoned","acc":0.98,"ci":[0.9683333333333334,0.99],"cost":3.0994699999999997,"lat":3.2765,"think":306.2866666666667,"ece":0.011833333333333298,"overconf":0.010666666666666602,"rel":[{"bin":8,"lo":0.8,"hi":0.9,"n":2,"mean_conf":0.825,"acc":1.0},{"bin":9,"lo":0.9,"hi":1.0,"n":598,"mean_conf":0.9912207357859532,"acc":0.979933110367893}]},{"model":"gpt-5.4-mini","mode":"gut","acc":0.8733333333333333,"ci":[0.845,0.9],"cost":0.204725,"lat":1.4580000000000002,"think":0.0,"ece":0.08388333333333342,"overconf":0.0838833333333332,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":7,"mean_conf":0.5385714285714286,"acc":0.42857142857142855},{"bin":6,"lo":0.6,"hi":0.7,"n":6,"mean_conf":0.6433333333333333,"acc":0.16666666666666666},{"bin":7,"lo":0.7,"hi":0.8,"n":16,"mean_conf":0.7375,"acc":0.5},{"bin":8,"lo":0.8,"hi":0.9,"n":26,"mean_conf":0.8534615384615385,"acc":0.6538461538461539},{"bin":9,"lo":0.9,"hi":1.0,"n":545,"mean_conf":0.9774495412844038,"acc":0.908256880733945}]},{"model":"gpt-5.4-mini","mode":"reasoned","acc":0.955,"ci":[0.9366666666666666,0.97],"cost":1.7396749999999999,"lat":2.3765,"think":333.40833333333336,"ece":0.037383333333333366,"overconf":-0.037383333333333435,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":40,"mean_conf":0.55975,"acc":0.85},{"bin":6,"lo":0.6,"hi":0.7,"n":23,"mean_conf":0.6399999999999999,"acc":0.6956521739130435},{"bin":7,"lo":0.7,"hi":0.8,"n":26,"mean_conf":0.7515384615384615,"acc":0.7692307692307693},{"bin":8,"lo":0.8,"hi":0.9,"n":39,"mean_conf":0.8569230769230768,"acc":0.9487179487179487},{"bin":9,"lo":0.9,"hi":1.0,"n":472,"mean_conf":0.975635593220339,"acc":0.9872881355932204}]}],"per_model":{"claude-haiku-4-5":{"verdict":"Use fast mode","diff":0.011666666666666667,"ci":[-0.01,0.035],"ratio":5.953341913203453,"cpec":null,"r2w":18,"w2r":25,"overthink":true},"gemini-3.5-flash":{"verdict":"Use reasoning","diff":0.035,"ci":[0.018333333333333333,0.051666666666666666],"ratio":8.997532512772874,"cpec":0.07871399999999999,"r2w":4,"w2r":25,"overthink":false},"gpt-5.4-mini":{"verdict":"Use reasoning","diff":0.08166666666666667,"ci":[0.058333333333333334,0.10666666666666667],"ratio":8.49761875686897,"cpec":0.018795306122448976,"r2w":5,"w2r":54,"overthink":false}},"best_policy":{"policy":"SELF(gemini, reasoned)","kind":"SELF","models":["gemini-3.5-flash"],"mode":"reasoned","fitted_c":0,"fitted":true,"c":0,"n_total":600,"accepted":600,"correct":588,"precision":0.98,"precision_lower":0.9653699456538908,"coverage":1.0,"api_cost_per_1k":3.099469999999996,"passes":true,"total_cost_per_1k":53.09947,"sensitivity":{"R=0.05,E=0.0":3.099469999999996,"R=0.05,E=2.5":53.09947,"R=0.05,E=25.0":503.09947,"R=0.25,E=0.0":3.099469999999996,"R=0.25,E=2.5":53.09947,"R=0.25,E=25.0":503.09947,"R=1.0,E=0.0":3.099469999999996,"R=1.0,E=2.5":53.09947,"R=1.0,E=25.0":503.09947},"discovery_at_fit":{"c":0,"n_total":200,"accepted":200,"correct":195,"precision":0.975,"precision_lower":0.942821659593358,"coverage":1.0,"api_cost_per_1k":3.4140600000000005}},"cheapest_total":{"policy":"AGREE(gpt+gemini, reasoned)","kind":"AGREE","models":["gpt-5.4-mini","gemini-3.5-flash"],"mode":"reasoned","fitted_c":0,"fitted":true,"c":0,"n_total":600,"accepted":573,"correct":567,"precision":0.9895287958115183,"precision_lower":0.9773452226173158,"coverage":0.955,"api_cost_per_1k":4.839145,"passes":true,"total_cost_per_1k":41.089145,"sensitivity":{"R=0.05,E=0.0":7.089145,"R=0.05,E=2.5":32.089145,"R=0.05,E=25.0":257.089145,"R=0.25,E=0.0":16.089145000000002,"R=0.25,E=2.5":41.089145,"R=0.25,E=25.0":266.089145,"R=1.0,E=0.0":49.839145,"R=1.0,E=2.5":74.839145,"R=1.0,E=25.0":299.839145},"discovery_at_fit":{"c":0,"n_total":200,"accepted":193,"correct":190,"precision":0.9844559585492227,"precision_lower":0.9553033351151177,"coverage":0.965,"api_cost_per_1k":5.270118750000002}},"policies":[{"name":"SELF(gpt, reasoned)","kind":"SELF","mode":"reasoned","floor":80,"cov":0.8516666666666667,"prec":0.9843444227005871,"lb":0.9694148317918254,"pass":true,"api":1.7396750000000003,"total":72.15634166666668,"disc_prec":0.9766081871345029},{"name":"SELF(haiku, gut)","kind":"SELF","mode":"gut","floor":95,"cov":0.6116666666666667,"prec":0.9918256130790191,"lb":0.9762456623349125,"pass":true,"api":0.4131116666666653,"total":109.99644500000001,"disc_prec":0.9739130434782609},{"name":"SELF(haiku, reasoned)","kind":"SELF","mode":"reasoned","floor":80,"cov":0.8116666666666666,"prec":0.9897330595482546,"lb":0.9761937241466908,"pass":true,"api":2.4593949999999998,"total":70.37606166666667,"disc_prec":0.9806451612903225},{"name":"SELF(gemini, gut)","kind":"SELF","mode":"gut","floor":100,"cov":0.9316666666666666,"prec":0.9677996422182469,"lb":0.9496774078706604,"pass":false,"api":0.34448000000000084,"total":92.42781333333335,"disc_prec":0.9825581395348837},{"name":"SELF(gemini, reasoned)","kind":"SELF","mode":"reasoned","floor":0,"cov":1.0,"prec":0.98,"lb":0.9653699456538908,"pass":true,"api":3.099469999999996,"total":53.09947,"disc_prec":0.975},{"name":"AGREE(gpt+haiku, gut)","kind":"AGREE","mode":"gut","floor":95,"cov":0.575,"prec":0.9971014492753624,"lb":0.983766537455308,"pass":true,"api":0.6178366666666657,"total":111.03450333333332,"disc_prec":0.981651376146789},{"name":"AGREE(gpt+gemini, gut)","kind":"AGREE","mode":"gut","floor":95,"cov":0.7616666666666667,"prec":0.9846827133479212,"lb":0.9687241098327283,"pass":true,"api":0.5492050000000008,"total":89.299205,"disc_prec":0.9788732394366197},{"name":"AGREE(haiku+gemini, gut)","kind":"AGREE","mode":"gut","floor":80,"cov":0.8783333333333333,"prec":0.9810246679316889,"lb":0.9654264782896379,"pass":true,"api":0.7575916666666659,"total":72.840925,"disc_prec":0.9710982658959537},{"name":"AGREE(gpt+haiku+gemini, gut)","kind":"AGREE","mode":"gut","floor":90,"cov":0.755,"prec":0.9933774834437086,"lb":0.9807123628806745,"pass":true,"api":0.9623166666666672,"total":74.71231666666667,"disc_prec":0.9724137931034482},{"name":"MAJ(gpt+haiku+gemini, gut)","kind":"MAJ","mode":"gut","floor":95,"cov":0.6066666666666667,"prec":0.989010989010989,"lb":0.9720897342877888,"pass":true,"api":0.9623166666666672,"total":115.96231666666667,"disc_prec":0.9821428571428571},{"name":"AGREE(gpt+haiku, reasoned)","kind":"AGREE","mode":"reasoned","floor":0,"cov":0.94,"prec":0.975177304964539,"lb":0.9587683585022723,"pass":true,"api":4.199069999999996,"total":77.53240333333332,"disc_prec":0.9739583333333334},{"name":"AGREE(gpt+gemini, reasoned)","kind":"AGREE","mode":"reasoned","floor":0,"cov":0.955,"prec":0.9895287958115183,"lb":0.9773452226173158,"pass":true,"api":4.839145,"total":41.089145,"disc_prec":0.9844559585492227},{"name":"AGREE(haiku+gemini, reasoned)","kind":"AGREE","mode":"reasoned","floor":0,"cov":0.9416666666666667,"prec":0.9876106194690265,"lb":0.974649545686989,"pass":true,"api":5.558864999999999,"total":49.308865,"disc_prec":0.9792746113989638},{"name":"AGREE(gpt+haiku+gemini, reasoned)","kind":"AGREE","mode":"reasoned","floor":0,"cov":0.9183333333333333,"prec":0.9927404718693285,"lb":0.9814845466276649,"pass":true,"api":7.298540000000006,"total":44.381873333333345,"disc_prec":0.9841269841269841},{"name":"MAJ(gpt+haiku+gemini, reasoned)","kind":"MAJ","mode":"reasoned","floor":0,"cov":1.0,"prec":0.9683333333333334,"lb":0.9510727848694857,"pass":true,"api":7.298540000000006,"total":86.46520666666666,"disc_prec":0.97}]},"toxicity":{"id":"toxicity","short":"Moderation","name":"Toxicity (Civil Comments)","what":"Flag an online comment as toxic or not","n":600,"target_accuracy":0.9,"configs":[{"model":"claude-haiku-4-5","mode":"gut","acc":0.7883333333333333,"ci":[0.755,0.82],"cost":0.4478116666666667,"lat":1.5695000000000001,"think":0.0,"ece":0.05526666666666667,"overconf":0.02299999999999991,"rel":[{"bin":7,"lo":0.7,"hi":0.8,"n":336,"mean_conf":0.7514285714285714,"acc":0.6815476190476191},{"bin":8,"lo":0.8,"hi":0.9,"n":123,"mean_conf":0.8431707317073169,"acc":0.9024390243902439},{"bin":9,"lo":0.9,"hi":1.0,"n":141,"mean_conf":0.9263120567375888,"acc":0.9432624113475178}]},{"model":"claude-haiku-4-5","mode":"reasoned","acc":0.7433333333333333,"ci":[0.7083333333333334,0.7783333333333333],"cost":2.30642,"lat":6.124499999999999,"think":370.72,"ece":0.07451666666666676,"overconf":0.04738333333333333,"rel":[{"bin":5,"lo":0.5,"hi":0.6,"n":3,"mean_conf":0.5533333333333333,"acc":1.0},{"bin":6,"lo":0.6,"hi":0.7,"n":108,"mean_conf":0.6675000000000003,"acc":0.48148148148148145},{"bin":7,"lo":0.7,"hi":0.8,"n":261,"mean_conf":0.7485823754789271,"acc":0.6896551724137931},{"bin":8,"lo":0.8,"hi":0.9,"n":127,"mean_conf":0.8598425196850391,"acc":0.9133858267716536},{"bin":9,"lo":0.9,"hi":1.0,"n":101,"mean_conf":0.9514851485148516,"acc":0.9405940594059405}]},{"model":"gemini-3.5-flash","mode":"gut","acc":0.8083333333333333,"ci":[0.7766666666666666,0.8383333333333334],"cost":0.3797425,"lat":1.911,"think":0.0,"ece":0.09058333333333322,"overconf":0.09058333333333313,"rel":[{"bin":7,"lo":0.7,"hi":0.8,"n":65,"mean_conf":0.7476923076923077,"acc":0.5692307692307692},{"bin":8,"lo":0.8,"hi":0.9,"n":196,"mean_conf":0.8413265306122445,"acc":0.6683673469387755},{"bin":9,"lo":0.9,"hi":1.0,"n":339,"mean_conf":0.9612094395280236,"acc":0.9351032448377581}]},{"model":"gemini-3.5-flash","mode":"reasoned","acc":0.8066666666666666,"ci":[0.775,0.8366666666666667],"cost":2.2269025,"lat":3.3185000000000002,"think":205.41333333333333,"ece":0.10543333333333335,"overconf":0.10543333333333338,"rel":[{"bin":6,"lo":0.6,"hi":0.7,"n":1,"mean_conf":0.65,"acc":0.0},{"bin":7,"lo":0.7,"hi":0.8,"n":23,"mean_conf":0.7456521739130434,"acc":0.5217391304347826},{"bin":8,"lo":0.8,"hi":0.9,"n":177,"mean_conf":0.8387005649717514,"acc":0.6666666666666666},{"bin":9,"lo":0.9,"hi":1.0,"n":399,"mean_conf":0.9549122807017544,"acc":0.8872180451127819}]},{"model":"gpt-5.4-mini","mode":"gut","acc":0.775,"ci":[0.7399583333333333,0.8066666666666666],"cost":0.23008125,"lat":1.4545,"think":0.0,"ece":0.1448666666666666,"overconf":0.13719999999999988,"rel":[{"bin":6,"lo":0.6,"hi":0.7,"n":4,"mean_conf":0.635,"acc":0.75},{"bin":7,"lo":0.7,"hi":0.8,"n":20,"mean_conf":0.758,"acc":0.85},{"bin":8,"lo":0.8,"hi":0.9,"n":199,"mean_conf":0.8626130653266332,"acc":0.7236180904522613},{"bin":9,"lo":0.9,"hi":1.0,"n":377,"mean_conf":0.9494960212201591,"acc":0.7984084880636605}]},{"model":"gpt-5.4-mini","mode":"reasoned","acc":0.7766666666666666,"ci":[0.7433333333333333,0.81],"cost":0.52841625,"lat":1.6435,"think":61.17333333333333,"ece":0.14256666666666673,"overconf":0.14256666666666662,"rel":[{"bin":6,"lo":0.6,"hi":0.7,"n":2,"mean_conf":0.645,"acc":0.0},{"bin":7,"lo":0.7,"hi":0.8,"n":55,"mean_conf":0.7567272727272728,"acc":0.4909090909090909},{"bin":8,"lo":0.8,"hi":0.9,"n":130,"mean_conf":0.8628461538461538,"acc":0.7307692307692307},{"bin":9,"lo":0.9,"hi":1.0,"n":413,"mean_conf":0.9599515738498791,"acc":0.8329297820823245}]}],"per_model":{"claude-haiku-4-5":{"verdict":"Use fast mode","diff":-0.045,"ci":[-0.07333333333333333,-0.018333333333333333],"ratio":5.150424099416793,"cpec":null,"r2w":53,"w2r":26,"overthink":true},"gemini-3.5-flash":{"verdict":"Use fast mode","diff":-0.0016666666666666668,"ci":[-0.023333333333333334,0.02],"ratio":5.8642435334470076,"cpec":null,"r2w":22,"w2r":21,"overthink":true},"gpt-5.4-mini":{"verdict":"Use fast mode","diff":0.0016666666666666668,"ci":[-0.025,0.02666666666666667],"ratio":2.2966506397196644,"cpec":null,"r2w":31,"w2r":32,"overthink":true}},"best_policy":null,"cheapest_total":null,"policies":[{"name":"SELF(gemini, gut)","kind":"SELF","mode":"gut","floor":100,"cov":0.23,"prec":0.9782608695652174,"lb":0.9380368800052548,"pass":false,"api":0.37974249999999926,"total":205.3797425,"disc_prec":1.0},{"name":"SELF(gemini, reasoned)","kind":"SELF","mode":"reasoned","floor":100,"cov":0.17666666666666667,"prec":0.9622641509433962,"lb":0.9069658438911791,"pass":false,"api":2.226902500000001,"total":224.7269025,"disc_prec":1.0}]}},"examples":[{"task":"blimp","short":"Grammar","model":"gpt-5.4-mini","input":"A: A lot of women hadn't learned what the lady isn't concealing.\nB: A lot of women hadn't learned that the lady isn't concealing.","gold":"A","gut":["B",98.0,false],"rea":["A",97.0,true]},{"task":"banking77","short":"Banking intents","model":"gpt-5.4-mini","input":"Payments from my disposable virtual card don't work","gold":"virtual_card_not_working","gut":["disposable_card_limits",89.0,false],"rea":["virtual_card_not_working",95.0,true]},{"task":"toxicity","short":"Moderation","model":"claude-haiku-4-5","input":"Let me see if I understand this correctly - we will be using electricity generated from oil to create hydrogen to replace oil.  Can someone explain the laws of thermodynamics to those designing this project?","gold":"NO","gut":["NO",82.0,true],"rea":["YES",68.0,false]}],"review_cost":0.25,"n_calls_confirm":10800,"spend_total":21.353628499999967,"spend_confirm":15.673734500000023,"hyp":{"H4":"NOT SUPPORTED","H5":"NOT SUPPORTED","H6":"NOT SUPPORTED","H7":"SUPPORTED"},"h6":{"share":0.8116666666666666,"prec":0.8562628336755647},"shrink":{"fitted":27,"failed":12,"b77_fitted":10,"b77_failed":9}};
 const MODELS = ["gpt-5.4-mini", "claude-haiku-4-5", "gemini-3.5-flash"];
 const MC = { "gpt-5.4-mini": "var(--m1)", "claude-haiku-4-5": "var(--m2)", "gemini-3.5-flash": "var(--m3)" };
 const SH = { "gpt-5.4-mini": "gpt-5.4-mini", "claude-haiku-4-5": "Haiku 4.5", "gemini-3.5-flash": "Gemini 3.5 Flash" };
-function polName(p) {
-  const mm = p.match(/^(\w+)\((.*), (gut|reasoned)\)$/); if (!mm) return p;
-  const names = { gpt: "gpt-5.4-mini", haiku: "Haiku 4.5", gemini: "Gemini 3.5 Flash" };
-  const ms = mm[2].split("+").map(x => names[x] || x), mode = mm[3] === "gut" ? "fast mode" : "thinking mode";
-  if (mm[1] === "SELF") return `${ms[0]} in ${mode}, using its own stated confidence`;
-  if (mm[1] === "AGREE") return `${ms.join(" and ").replace(/ and (?=.* and )/, ", ")} in ${mode}, accepted only when all agree`;
-  return `all three in ${mode}, accepted when at least 2 agree`;
-}
+const ORDER = ["blimp", "banking77", "toxicity"];
+const T = D.tasks;
 const pct = (x, d = 0) => (x * 100).toFixed(d) + "%";
 const usd = (x, d = 2) => "$" + x.toFixed(d);
 const $ = id => document.getElementById(id);
@@ -223,155 +239,233 @@ function el(tag, attrs, parent, text) {
   return e;
 }
 function svg(w, h, host) { host.innerHTML = ""; return el("svg", { viewBox: `0 0 ${w} ${h}`, role: "img" }, host); }
-function lin(d0, d1, r0, r1) { return v => r0 + (v - d0) / (d1 - d0) * (r1 - r0); }
-function logs(d0, d1, r0, r1) { const a = Math.log10(d0), b = Math.log10(d1); return v => r0 + (Math.log10(v) - a) / (b - a) * (r1 - r0); }
-function axes(s, x, y, xt, yt, W, H, m, xl, yl, xf, yf) {
-  for (const t of yt) { el("line", { x1: m.l, x2: W - m.r, y1: y(t), y2: y(t), stroke: "var(--rule)" }, s); el("text", { x: m.l - 6, y: y(t) + 4, "text-anchor": "end" }, s, yf(t)); }
-  for (const t of xt) { el("text", { x: x(t), y: H - m.b + 16, "text-anchor": "middle" }, s, xf(t)); }
-  el("text", { x: (m.l + W - m.r) / 2, y: H - 4, "text-anchor": "middle" }, s, xl);
-  el("text", { x: 12, y: (m.t + H - m.b) / 2, "text-anchor": "middle", transform: `rotate(-90 12 ${(m.t + H - m.b) / 2})` }, s, yl);
+const lin = (d0, d1, r0, r1) => v => r0 + (v - d0) / (d1 - d0) * (r1 - r0);
+function box(s, x, y, w, h, title, sub, fill) {
+  el("rect", { x, y, width: w, height: h, rx: 8, fill: fill || "var(--panel)", stroke: "var(--rule)" }, s);
+  el("text", { x: x + w / 2, y: y + (sub ? h / 2 - 3 : h / 2 + 5), "text-anchor": "middle", class: "strong" }, s, title);
+  if (sub) el("text", { x: x + w / 2, y: y + h / 2 + 15, "text-anchor": "middle" }, s, sub);
 }
-
-// ---------- header
-const T = D.tasks;
-$("lede").textContent = `We ran three vendors' cheap-tier models (${MODELS.map(m => SH[m]).join(", ")}) on three business-style tasks, each in fast mode and in thinking mode. Rules were set on 200 items per task and then tested on ${T.banking77.n} fresh items per task: ${D.n_calls_confirm.toLocaleString()} test calls, ${usd(D.spend_total)} in API spend for the whole study.`;
-$("rc").textContent = usd(D.review_cost);
-
-// ---------- Finding 1 tiles
-for (const t of ["blimp", "banking77", "toxicity"]) {
-  const k = T[t], b = k.cheapest_total, c = k.cheapest_total;  // one rule per tile: the cheapest safe one
-  const allHuman = D.review_cost * 1000;
-  const div = document.createElement("div"); div.className = "panel tile";
-  const saving = c ? 1 - c.total_cost_per_1k / allHuman : 0;
-  div.innerHTML = `<h3>${k.short}</h3><div class="sub">${k.what}</div>
-    <div class="big">${b ? pct(b.coverage) : "0%"}</div>
-    <div class="sub">of items safely auto-accepted${b ? ` (${pct(b.precision, 1)} correct on new data)` : ""}</div>
-    <div class="sub">${c ? `<b>${usd(c.total_cost_per_1k, 0)}</b> per 1,000 items incl. review, vs ${usd(allHuman, 0)} all-human (<span class="${saving > 0.3 ? "ok" : "muted"}">−${pct(saving)}</span>)` : `No rule is safe: <b>${usd(allHuman, 0)}</b> per 1,000, all to human review`}</div>
-    <div>${MODELS.map(m => { const v = k.per_model[m]; const cls = v.verdict === "Use reasoning" ? "good" : "neutral";
-      return `<span class="chip ${cls}" title="${SH[m]}: thinking changes accuracy by ${(v.diff * 100).toFixed(1)} pts">${SH[m]}: ${v.verdict === "Use reasoning" ? "think" : "fast"}</span>`; }).join(" ")}</div>`;
-  $("tiles").appendChild(div);
+function arrow(s, x1, y1, x2, y2, label) {
+  el("line", { x1, y1, x2, y2, stroke: "var(--muted)", "stroke-width": 1.5, "marker-end": "url(#ah)" }, s);
+  if (label) el("text", { x: (x1 + x2) / 2, y: (y1 + y2) / 2 - 6, "text-anchor": "middle" }, s, label);
 }
+function defs(s) {
+  const d = el("defs", {}, s), m = el("marker", { id: "ah", viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 7, markerHeight: 7, orient: "auto" }, d);
+  el("path", { d: "M0,0L10,5L0,10z", fill: "var(--muted)" }, m);
+}
+document.querySelectorAll(".rc").forEach(e => e.textContent = usd(D.review_cost));
+document.querySelectorAll(".ec").forEach(e => e.textContent = usd(D.error_cost));
+document.querySelectorAll(".all").forEach(e => e.textContent = usd(D.review_cost * 1000, 0) + " per 1,000");
+const totalSpend = D.spend.main + D.spend.confirm + D.spend.pilot + D.spend.probe;
+const totalCalls = D.n_calls_main + D.n_calls_confirm;
 
-// ---------- Finding 2 flips
+// ---------- hook + verdict
+const g = T.blimp.cheapest_total, bk = T.banking77.cheapest_total;
+$("hook").textContent = `We ran ${totalCalls.toLocaleString()} questions through three cheap AI models to find out, for about $${Math.round(totalSpend)} in total. Here's what happened, and whether it works.`;
+$("v-gram").textContent = `${pct(g.coverage)} of items, cutting the cost of the work by ${pct(1 - g.total_cost_per_1k / (D.review_cost * 1000))}`;
+$("c-gram").textContent = pct(g.coverage);
+$("c-bank").textContent = bk ? pct(bk.coverage) : "none";
+$("v-shrink").textContent = `${D.shrink.failed} of ${D.shrink.fitted} cut-offs that looked safe at first failed on new data.`;
+
+// ---------- flow diagram
 (function () {
-  const W = 880, H = 300, m = { l: 50, r: 10, t: 10, b: 54 };
-  const s = svg(W, H, $("flips"));
-  const groups = []; for (const t of ["blimp", "banking77", "toxicity"]) for (const mm of MODELS) groups.push([t, mm]);
-  const max = Math.max(...groups.map(([t, mm]) => Math.max(T[t].per_model[mm].r2w, T[t].per_model[mm].w2r)));
-  const top = Math.ceil(max / 10) * 10;
-  const y = lin(0, top, H - m.b, m.t), gw = (W - m.l - m.r) / groups.length;
-  axes(s, v => v, y, [], [0, top / 2, top], W, H, m, "", "items (of " + T.blimp.n + ")", v => v, v => v);
-  groups.forEach(([t, mm], i) => {
-    const v = T[t].per_model[mm], x0 = m.l + i * gw + gw * 0.18, bw = gw * 0.3;
-    el("rect", { x: x0, y: y(v.w2r), width: bw, height: y(0) - y(v.w2r), fill: "var(--good)" }, s);
-    el("rect", { x: x0 + bw + 2, y: y(v.r2w), width: bw, height: y(0) - y(v.r2w), fill: "var(--bad)" }, s);
-    el("text", { x: x0 + bw / 2, y: y(v.w2r) - 4, "text-anchor": "middle", class: "lbl" }, s, v.w2r);
-    el("text", { x: x0 + bw * 1.5 + 2, y: y(v.r2w) - 4, "text-anchor": "middle", class: "lbl" }, s, v.r2w);
-    el("text", { x: m.l + i * gw + gw / 2, y: H - m.b + 16, "text-anchor": "middle" }, s, SH[mm].replace("gpt-5.4-mini", "gpt-mini").replace("Gemini 3.5 Flash", "Gemini").replace("Haiku 4.5", "Haiku"));
-    if (i % 3 === 1) el("text", { x: m.l + i * gw + gw / 2, y: H - m.b + 34, "text-anchor": "middle", class: "lbl" }, s, T[t].short);
-  });
-  [3, 6].forEach(i => el("line", { x1: m.l + i * gw, x2: m.l + i * gw, y1: m.t, y2: H - m.b + 38, stroke: "var(--rule)" }, s));
+  const W = 840, H = 210, s = svg(W, H, $("flow")); defs(s);
+  box(s, 10, 75, 120, 60, "An item", "e.g. a comment");
+  box(s, 190, 20, 150, 56, "Fast mode", "answer right away");
+  box(s, 190, 134, 150, 56, "Thinking mode", "reason first · costs more");
+  arrow(s, 130, 95, 188, 50); arrow(s, 130, 115, 188, 160);
+  box(s, 400, 75, 170, 60, "Answer + \"87% sure\"");
+  arrow(s, 340, 48, 398, 95); arrow(s, 340, 162, 398, 118);
+  box(s, 650, 20, 180, 56, "Auto-accept", "confidence ≥ cut-off", "color-mix(in srgb, var(--good) 14%, var(--panel))");
+  box(s, 650, 134, 180, 56, "A person checks it", "costs " + usd(D.review_cost) + " each", "color-mix(in srgb, var(--warn) 16%, var(--panel))");
+  arrow(s, 570, 95, 648, 50, "sure enough"); arrow(s, 570, 118, 648, 160, "not sure");
 })();
 
-// ---------- Finding 3 shrinkage
+// ---------- tasks
+const WHAT_EX = { blimp: "Which is grammatical? A or B", banking77: "\"My card hasn't arrived\" → card_arrival (1 of 77)", toxicity: "Is this comment toxic? Yes or no" };
+for (const t of ORDER) {
+  const d = document.createElement("div"); d.className = "panel";
+  d.innerHTML = `<h3></h3><div class="small muted"></div><div class="small"></div>`;
+  d.children[0].textContent = T[t].short; d.children[1].textContent = T[t].what; d.children[2].textContent = "e.g. " + WHAT_EX[t];
+  $("tasks").appendChild(d);
+}
+
+// ---------- timeline
 (function () {
-  const pts = []; for (const t of ["banking77", "blimp", "toxicity"]) for (const p of T[t].policies) pts.push({ ...p, task: t });
-  const sh = D.shrink;
-  $("shrinktext").textContent = `We picked every auto-accept rule that was at least 97% correct on the first 200 items (${sh.fitted} rules), then ran each one unchanged on the new items. ${sh.failed} of ${sh.fitted} no longer cleared the 95% bar. On banking intents, ${sh.b77_failed} of ${sh.b77_fitted} failed. A vendor that sets your cut-off on a few hundred examples is likely to over-promise on harder tasks.`;
-  const W = 880, H = 340, m = { l: 56, r: 140, t: 12, b: 40 };
-  const s = svg(W, H, $("shrink"));
-  const x = lin(0.9, 1.0, m.l, W - m.r), y = lin(0.88, 1.0, H - m.b, m.t);
-  axes(s, x, y, [0.9, 0.92, 0.94, 0.96, 0.98, 1.0], [0.88, 0.92, 0.96, 1.0], W, H, m,
-       "precision on the first 200 items (where the rule was set)", "precision on new items", v => pct(v), v => pct(v));
-  el("line", { x1: x(0.9), y1: y(0.9), x2: x(1), y2: y(1), stroke: "var(--muted)", "stroke-dasharray": "3 4" }, s);
-  el("text", { x: x(0.995), y: y(0.995) - 8, "text-anchor": "end" }, s, "no change");
-  el("line", { x1: m.l, x2: W - m.r, y1: y(0.95), y2: y(0.95), stroke: "var(--bad)", "stroke-dasharray": "5 4" }, s);
-  el("text", { x: W - m.r + 6, y: y(0.95) + 4, class: "lbl" }, s, "95% target");
-  const shp = { banking77: "M-5,-5h10v10h-10z", blimp: "M0,-6L6,0L0,6L-6,0z", toxicity: "M0,-6L6,5H-6z" };
-  for (const p of pts) {
-    const px = x(Math.max(0.9, p.disc_prec)), py = y(Math.max(0.88, p.prec));
-    const g = el("path", { d: shp[p.task], transform: `translate(${px},${py})`, fill: p.pass ? "var(--good)" : "var(--bad)", "fill-opacity": .75 }, s);
-    el("title", {}, g, `${T[p.task].short} · ${p.name}: ${pct(p.disc_prec, 1)} → ${pct(p.prec, 1)}`);
-  }
-  [["banking77", "Banking (■)"], ["blimp", "Grammar (◆)"], ["toxicity", "Moderation (▲)"]].forEach(([t, lab], i) => {
-    el("path", { d: shp[t], transform: `translate(${x(0.905)},${y(0.905) + i * 22})`, fill: "var(--muted)" }, s);
-    el("text", { x: x(0.905) + 12, y: y(0.905) + 4 + i * 22, class: "lbl" }, s, lab);
+  const W = 840, H = 150, s = svg(W, H, $("timeline")); defs(s);
+  const steps = [
+    ["Round 1: explore", `${D.n_disc} items per task`, `$${D.spend.main.toFixed(2)}`],
+    ["Spot patterns", "e.g. \"two models agreeing", "is a safe signal\""],
+    ["Write predictions", "7 predictions, saved", "before any new data"],
+    ["Round 2: test", `${T.blimp.n} new items per task`, `$${D.spend.confirm.toFixed(2)}`],
+    ["Score them", "held · partly · failed", "(chapter 7)"],
+  ];
+  const w = 152, gap = (W - 5 * w) / 4;
+  steps.forEach(([a, b, c], i) => {
+    const x = i * (w + gap), hl = i === 2;
+    el("rect", { x, y: 26, width: w, height: 100, rx: 8, fill: hl ? "color-mix(in srgb, var(--accent) 14%, var(--panel))" : "var(--panel)", stroke: hl ? "var(--accent)" : "var(--rule)" }, s);
+    el("text", { x: x + w / 2, y: 56, "text-anchor": "middle", class: "strong" }, s, a);
+    el("text", { x: x + w / 2, y: 82, "text-anchor": "middle" }, s, b);
+    el("text", { x: x + w / 2, y: 100, "text-anchor": "middle" }, s, c);
+    el("text", { x: x + w / 2, y: 16, "text-anchor": "middle", class: "lbl" }, s, "step " + (i + 1));
+    if (i < 4) arrow(s, x + w + 2, 76, x + w + gap - 2, 76);
   });
+})();
+
+// ---------- thinking gain dot plot
+(function () {
+  const rows = []; for (const t of ORDER) for (const m of MODELS) rows.push([t, m]);
+  const W = 840, rh = 30, top = 30, H = top + rows.length * rh + 40, m = { l: 250, r: 40 };
+  const s = svg(W, H, $("gain"));
+  const x = lin(-0.15, 0.15, m.l, W - m.r);
+  for (const v of [-0.1, -0.05, 0, 0.05, 0.1]) {
+    el("line", { x1: x(v), x2: x(v), y1: top - 6, y2: H - 34, stroke: v === 0 ? "var(--ink)" : "var(--rule)", "stroke-width": v === 0 ? 1.5 : 1 }, s);
+    el("text", { x: x(v), y: H - 16, "text-anchor": "middle" }, s, (v > 0 ? "+" : "") + Math.round(v * 100) + " pts");
+  }
+  el("text", { x: x(-0.075), y: 14, "text-anchor": "middle", class: "lbl" }, s, "← thinking worse");
+  el("text", { x: x(0.075), y: 14, "text-anchor": "middle", class: "lbl" }, s, "thinking better →");
+  rows.forEach(([t, mm], i) => {
+    const v = T[t].per_model[mm], y = top + i * rh + rh / 2;
+    const col = v.ci[0] > 0 ? "var(--good)" : v.ci[1] < 0 ? "var(--bad)" : "var(--muted)";
+    if (i % 3 === 0) { el("text", { x: 0, y: y + 4, class: "strong" }, s, T[t].short); if (i) el("line", { x1: 0, x2: W, y1: y - rh / 2, y2: y - rh / 2, stroke: "var(--rule)" }, s); }
+    el("text", { x: m.l - 14, y: y + 4, "text-anchor": "end", class: "lbl" }, s, SH[mm]);
+    el("line", { x1: x(Math.max(-0.15, v.ci[0])), x2: x(Math.min(0.15, v.ci[1])), y1: y, y2: y, stroke: col, "stroke-width": 3, "stroke-linecap": "round" }, s);
+    el("circle", { cx: x(v.diff), cy: y, r: 6, fill: col }, s);
+    el("text", { x: x(Math.min(0.15, v.ci[1])) + 8, y: y + 4 }, s, (v.diff >= 0 ? "+" : "") + (v.diff * 100).toFixed(1));
+  });
+})();
+
+// ---------- flips
+(function () {
+  const W = 840, H = 290, m = { l: 40, r: 10, t: 22, b: 56 };
+  const s = svg(W, H, $("flips"));
+  const groups = []; for (const t of ORDER) for (const mm of MODELS) groups.push([t, mm]);
+  const max = Math.max(...groups.map(([t, mm]) => Math.max(T[t].per_model[mm].r2w, T[t].per_model[mm].w2r)));
+  const topv = Math.ceil(max / 10) * 10, y = lin(0, topv, H - m.b, m.t), gw = (W - m.l - m.r) / groups.length;
+  for (const v of [0, topv / 2, topv]) { el("line", { x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: "var(--rule)" }, s); el("text", { x: m.l - 6, y: y(v) + 4, "text-anchor": "end" }, s, v); }
+  groups.forEach(([t, mm], i) => {
+    const v = T[t].per_model[mm], x0 = m.l + i * gw + gw * 0.16, bw = gw * 0.32;
+    el("rect", { x: x0, y: y(v.w2r), width: bw, height: y(0) - y(v.w2r), fill: "var(--good)", rx: 2 }, s);
+    el("rect", { x: x0 + bw + 3, y: y(v.r2w), width: bw, height: y(0) - y(v.r2w), fill: "var(--bad)", rx: 2 }, s);
+    el("text", { x: x0 + bw / 2, y: y(v.w2r) - 5, "text-anchor": "middle", class: "lbl" }, s, v.w2r);
+    el("text", { x: x0 + bw * 1.5 + 3, y: y(v.r2w) - 5, "text-anchor": "middle", class: "lbl" }, s, v.r2w);
+    el("text", { x: m.l + i * gw + gw / 2, y: H - m.b + 17, "text-anchor": "middle" }, s, { "gpt-5.4-mini": "gpt-mini", "claude-haiku-4-5": "Haiku", "gemini-3.5-flash": "Gemini" }[mm]);
+    if (i % 3 === 1) el("text", { x: m.l + i * gw + gw / 2, y: H - m.b + 38, "text-anchor": "middle", class: "strong" }, s, T[t].short);
+  });
+  [3, 6].forEach(i => el("line", { x1: m.l + i * gw, x2: m.l + i * gw, y1: m.t, y2: H - 10, stroke: "var(--rule)" }, s));
+  el("text", { x: m.l, y: 10 }, s, `items whose answer changed (out of ${T.blimp.n} per task)`);
 })();
 
 // ---------- examples
 for (const e of D.examples) {
-  const div = document.createElement("div"); div.className = "panel ex";
-  const row = (lab, a) => `<span class="k">${lab}</span><span><b>${a[0]}</b> · says ${a[1]}% sure · <span class="${a[2] ? "ok" : "no"}">${a[2] ? "right" : "wrong"}</span></span>`;
-  const story = e.gut[2] && !e.rea[2] ? "Thinking talked it out of a right answer." : "98% sure and wrong in fast mode; thinking fixed it.";
-  div.innerHTML = `<h3>${e.short} · ${SH[e.model]}</h3><blockquote></blockquote>
-    <div class="ans"><span class="k">Correct</span><span><b>${e.gold}</b></span>${row("Fast", e.gut)}${row("Thinking", e.rea)}</div>
-    <p class="muted" style="font-size:14px"></p>`;
-  div.querySelector("blockquote").textContent = e.input;
-  div.querySelector("p").textContent = e.gut[2] && !e.rea[2] ? "Thinking talked it out of a right answer."
-    : (e.gut[1] >= 95 ? `${e.gut[1]}% sure and wrong in fast mode. Thinking fixed it.` : "Fast mode picked a near-miss label. Thinking fixed it.");
-  $("examples").appendChild(div);
+  const d = document.createElement("div"); d.className = "panel ex";
+  const r = (lab, a) => `<span class="muted">${lab}</span><span><b>${a[0]}</b>, "${a[1]}% sure" · <span class="${a[2] ? "ok" : "bad"}">${a[2] ? "right" : "wrong"}</span></span>`;
+  const story = e.gut[2] && !e.rea[2] ? "Thinking talked it out of the right answer." : (e.gut[1] >= 95 ? `${e.gut[1]}% sure and wrong. Thinking fixed it.` : "Fast mode picked a near-miss. Thinking fixed it.");
+  d.innerHTML = `<h3></h3><blockquote></blockquote><div class="row"><span class="muted">Correct</span><span><b>${e.gold}</b></span>${r("Fast", e.gut)}${r("Thinking", e.rea)}</div><div class="small"><b></b></div>`;
+  d.querySelector("h3").textContent = `${e.short} · ${SH[e.model]}`;
+  d.querySelector("blockquote").textContent = e.input;
+  d.querySelector(".small b").textContent = story;
+  $("examples").appendChild(d);
 }
-
-// ---------- verdict card + frontier
-const legend = MODELS.map(mm => `<span style="--c:${MC[mm]}">${SH[mm]}</span>`).join("") + `<span style="--c:transparent;border:0">● fast · ◆ thinking</span>`;
-$("mlegend").innerHTML = legend; $("mlegend2").innerHTML = MODELS.map(mm => `<span style="--c:${MC[mm]}">${SH[mm]}</span>`).join("");
-function showTask(t) {
-  const k = T[t];
-  document.querySelectorAll("#tasktabs button").forEach(b => b.setAttribute("aria-pressed", b.dataset.t === t));
-  const b = k.best_policy;
-  const lines = MODELS.map(mm => { const v = k.per_model[mm];
-    const ci = `${(v.ci[0] * 100).toFixed(1)} to ${(v.ci[1] * 100).toFixed(1)}`;
-    return `<li><b>${SH[mm]}: ${v.verdict === "Use reasoning" ? "use thinking" : "use fast mode"}.</b> Thinking changes accuracy by ${(v.diff * 100 >= 0 ? "+" : "") + (v.diff * 100).toFixed(1)} pts (95% CI ${ci}) at ${v.ratio.toFixed(1)}× the cost${v.cpec ? `, ${usd(v.cpec, 3)} per extra correct answer` : ""}. ${v.w2r} fixed, ${v.r2w} broken${v.overthink ? ' <span class="chip bad">overthinking risk</span>' : ""}</li>`; }).join("");
-  $("verdict").innerHTML = `<h3>${k.name} · ${k.n} test items</h3>
-    <p><b>Auto-accept:</b> ${b ? `${polName(b.policy)}, at confidence ≥ ${b.fitted_c}. Covers <b>${pct(b.coverage)}</b> at ${pct(b.precision, 1)} precision (lower bound ${pct(b.precision_lower, 1)}).` : "no rule reaches 95% precision on new data. Send everything to review, or don't use confidence."}</p>
-    <ul>${lines}</ul>`;
-  const rows = k.configs.map(c => `<tr><td>${SH[c.model]}</td><td>${c.mode === "gut" ? "fast" : "thinking"}</td><td>${pct(c.acc, 1)} <span class="muted">(${pct(c.ci[0], 1)}–${pct(c.ci[1], 1)})</span></td><td>${usd(c.cost)}</td><td>${c.lat.toFixed(1)}s</td><td>${Math.round(c.think)}</td><td>${(c.overconf * 100 >= 0 ? "+" : "") + (c.overconf * 100).toFixed(1)} pts</td></tr>`).join("");
-  $("cfgtable").innerHTML = `<thead><tr><th>Model</th><th>Mode</th><th>Accuracy (95% CI)</th><th>$ / 1k items</th><th>Median latency</th><th>Thinking tokens / item</th><th>Over-confidence</th></tr></thead><tbody>${rows}</tbody>`;
-  // frontier
-  const W = 880, H = 320, m = { l: 56, r: 20, t: 14, b: 40 };
-  const s = svg(W, H, $("frontier"));
-  const costs = k.configs.map(c => c.cost), lo = Math.min(...k.configs.map(c => c.ci[0]), k.target_accuracy) - 0.02;
-  const x = logs(Math.min(...costs) / 1.5, Math.max(...costs) * 1.5, m.l, W - m.r), y = lin(Math.floor(lo * 20) / 20, 1, H - m.b, m.t);
-  const xt = [0.2, 0.5, 1, 2, 5, 10].filter(v => v >= Math.min(...costs) / 1.5 && v <= Math.max(...costs) * 1.5);
-  const y0 = Math.floor(lo * 20) / 20, yt = []; for (let v = y0; v <= 1.0001; v += 0.05) yt.push(+v.toFixed(2));
-  axes(s, x, y, xt, yt, W, H, m, "API cost per 1,000 items (log scale)", "accuracy", v => "$" + v, v => pct(v));
-  el("line", { x1: m.l, x2: W - m.r, y1: y(k.target_accuracy), y2: y(k.target_accuracy), stroke: "var(--muted)", "stroke-dasharray": "2 4" }, s);
-  el("text", { x: W - m.r, y: y(k.target_accuracy) - 6, "text-anchor": "end" }, s, `target ${pct(k.target_accuracy)}`);
-  for (const c of k.configs) {
-    const px = x(c.cost);
-    el("line", { x1: px, x2: px, y1: y(c.ci[0]), y2: y(c.ci[1]), stroke: MC[c.model], "stroke-width": 1.5 }, s);
-    const shape = c.mode === "gut" ? el("circle", { cx: px, cy: y(c.acc), r: 6, fill: MC[c.model] }, s)
-      : el("path", { d: "M0,-8L8,0L0,8L-8,0z", transform: `translate(${px},${y(c.acc)})`, fill: MC[c.model] }, s);
-    el("title", {}, shape, `${SH[c.model]} ${c.mode === "gut" ? "fast" : "thinking"}: ${pct(c.acc, 1)}, ${usd(c.cost)}/1k`);
-  }
-}
-for (const t of ["banking77", "blimp", "toxicity"]) {
-  const b = document.createElement("button"); b.textContent = T[t].short; b.dataset.t = t; b.type = "button";
-  b.addEventListener("click", () => showTask(t)); $("tasktabs").appendChild(b);
-}
-showTask("banking77");
 
 // ---------- reliability
+$("mleg").innerHTML = MODELS.map(mm => `<span style="--c:${MC[mm]}">${SH[mm]} (fast mode)</span>`).join("");
 for (const t of ["blimp", "toxicity"]) {
   const host = document.createElement("div"); host.className = "panel";
-  host.innerHTML = `<h3>${T[t].short}</h3><div></div>`; $("rel").appendChild(host);
-  const W = 420, H = 380, m = { l: 48, r: 10, t: 10, b: 40 };
+  host.innerHTML = `<h3></h3><div></div>`; host.querySelector("h3").textContent = T[t].short; $("rel").appendChild(host);
+  const W = 420, H = 360, m = { l: 46, r: 12, t: 10, b: 44 };
   const s = svg(W, H, host.querySelector("div"));
   const x = lin(0.5, 1, m.l, W - m.r), y = lin(0.3, 1, H - m.b, m.t);
-  axes(s, x, y, [0.5, 0.6, 0.7, 0.8, 0.9, 1.0], [0.3, 0.5, 0.7, 0.9, 1.0], W, H, m, "model says it's this sure", "actually right", v => pct(v), v => pct(v));
-  el("line", { x1: x(0.5), y1: y(0.5), x2: x(1), y2: y(1), stroke: "var(--muted)", "stroke-dasharray": "3 4" }, s);
+  for (const v of [0.3, 0.5, 0.7, 0.9, 1.0]) { el("line", { x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: "var(--rule)" }, s); el("text", { x: m.l - 6, y: y(v) + 4, "text-anchor": "end" }, s, pct(v)); }
+  for (const v of [0.5, 0.6, 0.7, 0.8, 0.9, 1.0]) el("text", { x: x(v), y: H - m.b + 16, "text-anchor": "middle" }, s, pct(v));
+  el("text", { x: (m.l + W - m.r) / 2, y: H - 6, "text-anchor": "middle" }, s, "model says it's this sure →");
+  el("text", { x: 12, y: (m.t + H - m.b) / 2, "text-anchor": "middle", transform: `rotate(-90 12 ${(m.t + H - m.b) / 2})` }, s, "actually right →");
+  el("line", { x1: x(0.5), y1: y(0.5), x2: x(1), y2: y(1), stroke: "var(--ink)", "stroke-dasharray": "4 4", opacity: .5 }, s);
+  el("text", { x: x(0.55), y: y(0.55) - 8, class: "lbl", transform: `rotate(-36 ${x(0.55)} ${y(0.55) - 8})` }, s, "honest");
+  el("text", { x: x(0.78), y: y(0.36), class: "lbl" }, s, "overconfident zone");
   for (const c of T[t].configs.filter(c => c.mode === "gut")) {
     const bins = c.rel.filter(b => b.n >= 5 && b.mean_conf >= 0.5);
     el("polyline", { points: bins.map(b => `${x(b.mean_conf)},${y(Math.max(0.3, b.acc))}`).join(" "), fill: "none", stroke: MC[c.model], "stroke-width": 2 }, s);
-    for (const b of bins) { const d = el("circle", { cx: x(b.mean_conf), cy: y(Math.max(0.3, b.acc)), r: Math.max(3, Math.min(10, Math.sqrt(b.n))), fill: MC[c.model], "fill-opacity": .8 }, s);
-      el("title", {}, d, `${SH[c.model]}: says ${pct(b.mean_conf)}, right ${pct(b.acc)} (n=${b.n})`); }
+    for (const b of bins) { const d = el("circle", { cx: x(b.mean_conf), cy: y(Math.max(0.3, b.acc)), r: Math.max(3, Math.min(11, Math.sqrt(b.n))), fill: MC[c.model], "fill-opacity": .85 }, s);
+      el("title", {}, d, `${SH[c.model]}: says ${pct(b.mean_conf)}, right ${pct(b.acc)} (${b.n} items)`); }
   }
 }
 
-// ---------- footer
-$("hyplimit").textContent = `We pre-registered four predictions for the test run and published the outcome: ${Object.entries(D.hyp).map(([k, v]) => k + " " + v.toLowerCase()).join(", ")}. The findings above are the ones that held.`;
-$("foot").textContent = `Generated by gch site from reports/confirm/ and runs/. Test spend ${usd(D.spend_confirm)} for ${D.n_calls_confirm.toLocaleString()} calls.`;
+// ---------- tiles + cost
+for (const t of ORDER) {
+  const k = T[t], c = k.cheapest_total, d = document.createElement("div"); d.className = "panel tile";
+  d.innerHTML = `<h3></h3><div class="big">${c ? pct(c.coverage) : "0%"}</div><div class="small muted">${c ? `of items can skip a person (${pct(c.precision, 1)} of those were right)` : "No rule was safe. Every item needs a person."}</div>`;
+  d.querySelector("h3").textContent = k.short;
+  $("tiles").appendChild(d);
+}
+(function () {
+  const W = 840, rh = 56, H = 30 + ORDER.length * rh + 30, m = { l: 150, r: 70 };
+  const s = svg(W, H, $("cost"));
+  const all = D.review_cost * 1000, x = lin(0, all * 1.05, m.l, W - m.r);
+  for (const v of [0, 50, 100, 150, 200, 250]) { el("line", { x1: x(v), x2: x(v), y1: 20, y2: H - 28, stroke: "var(--rule)" }, s); el("text", { x: x(v), y: H - 10, "text-anchor": "middle" }, s, "$" + v); }
+  ORDER.forEach((t, i) => {
+    const c = T[t].cheapest_total, y = 30 + i * rh;
+    el("text", { x: m.l - 12, y: y + 24, "text-anchor": "end", class: "strong" }, s, T[t].short);
+    let parts;
+    if (c) {
+      const api = c.api_cost_per_1k, rev = D.review_cost * (c.n_total - c.accepted) / c.n_total * 1000, err = D.error_cost * (c.accepted - c.correct) / c.n_total * 1000;
+      parts = [[api, "var(--accent)", "AI calls " + usd(api)], [rev, "var(--warn)", "human review " + usd(rev, 0)], [err, "var(--bad)", "wrong auto-accepts " + usd(err, 0)]];
+    } else parts = [[all, "var(--warn)", "human review " + usd(all, 0)]];
+    let x0 = 0;
+    for (const [v, col, lab] of parts) {
+      const r = el("rect", { x: x(x0), y: y + 4, width: Math.max(2, x(x0 + v) - x(x0)), height: 30, fill: col, rx: 3 }, s);
+      el("title", {}, r, lab); x0 += v;
+    }
+    el("text", { x: x(x0) + 8, y: y + 24, class: "strong" }, s, usd(x0, 0));
+  });
+  el("line", { x1: x(all), x2: x(all), y1: 16, y2: H - 28, stroke: "var(--ink)", "stroke-dasharray": "5 4" }, s);
+  el("text", { x: x(all), y: 12, "text-anchor": "middle", class: "lbl" }, s, "all-human " + usd(all, 0));
+})();
+
+// ---------- shrinkage
+(function () {
+  const sh = D.shrink;
+  $("shrinkans").textContent = `${sh.failed} of ${sh.fitted} cut-offs that were at least 97% right in round 1 dropped below the 95% safety bar on new items. On banking intents, ${sh.b77_failed} of ${sh.b77_fitted} did.`;
+  const pts = []; for (const t of ORDER) for (const p of T[t].policies) pts.push({ ...p, task: t });
+  const W = 840, H = 380, m = { l: 56, r: 150, t: 14, b: 46 };
+  const s = svg(W, H, $("shrink"));
+  const x = lin(0.965, 1.003, m.l, W - m.r), y = lin(0.88, 1.0, H - m.b, m.t);
+  el("rect", { x: m.l, y: y(0.95), width: W - m.r - m.l, height: y(0.88) - y(0.95), fill: "var(--bad)", opacity: .08 }, s);
+  for (const v of [0.88, 0.92, 0.96, 1.0]) { el("line", { x1: m.l, x2: W - m.r, y1: y(v), y2: y(v), stroke: "var(--rule)" }, s); el("text", { x: m.l - 6, y: y(v) + 4, "text-anchor": "end" }, s, pct(v)); }
+  for (const v of [0.97, 0.98, 0.99, 1.0]) el("text", { x: x(v), y: H - m.b + 16, "text-anchor": "middle" }, s, pct(v));
+  el("text", { x: (m.l + W - m.r) / 2, y: H - 6, "text-anchor": "middle" }, s, "accuracy in round 1, where the cut-off was set →");
+  el("text", { x: 12, y: (m.t + H - m.b) / 2, "text-anchor": "middle", transform: `rotate(-90 12 ${(m.t + H - m.b) / 2})` }, s, "accuracy on new items →");
+  el("line", { x1: x(0.965), y1: y(0.965), x2: x(1), y2: y(1), stroke: "var(--ink)", "stroke-dasharray": "4 4", opacity: .5 }, s);
+  el("text", { x: x(0.968), y: y(0.968) - 10, class: "lbl" }, s, "held steady");
+  el("line", { x1: m.l, x2: W - m.r, y1: y(0.95), y2: y(0.95), stroke: "var(--bad)", "stroke-width": 1.5 }, s);
+  el("text", { x: W - m.r + 10, y: y(0.95) + 4, class: "lbl" }, s, "95% safety bar");
+  el("text", { x: W - m.r + 10, y: y(0.915), class: "lbl" }, s, "shaded = unsafe");
+  const shp = { banking77: "M-6,-6h12v12h-12z", blimp: "M0,-7L7,0L0,7L-7,0z", toxicity: "M0,-7L7,6H-7z" };
+  const seen = {};
+  for (const p of pts) {
+    const px = x(Math.max(0.965, p.disc_prec)), py = y(Math.max(0.88, p.prec));
+    const key = Math.round(px / 6) + "," + Math.round(py / 6); seen[key] = (seen[key] || 0) + 1;
+    const jx = (seen[key] - 1) * 10;
+    const gEl = el("path", { d: shp[p.task], transform: `translate(${px - jx},${py})`, fill: p.pass ? "var(--good)" : "var(--bad)", "fill-opacity": .85 }, s);
+    el("title", {}, gEl, `${T[p.task].short}: ${pct(p.disc_prec, 1)} in round 1 → ${pct(p.prec, 1)} on new items`);
+  }
+  ORDER.forEach((t, i) => {
+    el("path", { d: shp[t], transform: `translate(${x(0.9665)},${y(0.905) + i * 22})`, fill: "var(--muted)" }, s);
+    el("text", { x: x(0.9665) + 14, y: y(0.905) + 4 + i * 22, class: "lbl" }, s, T[t].short);
+  });
+})();
+
+// ---------- scorecard
+$("score").innerHTML = `<thead><tr><th>We predicted…</th><th>Result</th><th>What actually happened</th></tr></thead><tbody></tbody>`;
+for (const r of D.scorecard) {
+  const tr = document.createElement("tr");
+  const cls = r.status === "held" ? "held" : r.status === "failed" ? "failed" : "partly";
+  tr.innerHTML = `<td></td><td><span class="pill ${cls}"></span></td><td class="small"></td>`;
+  tr.children[0].textContent = r.claim; tr.querySelector(".pill").textContent = r.status; tr.children[2].textContent = r.detail;
+  $("score").tBodies[0].appendChild(tr);
+}
+
+$("foot").textContent = `Generated by gch site from the run logs: ${totalCalls.toLocaleString()} model calls, ${usd(totalSpend)} total API spend.`;
 </script>
 </body>
 </html>
