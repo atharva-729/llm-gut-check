@@ -75,6 +75,19 @@ def build_data() -> dict:
                          "gut": [g["answer"], g["confidence"], g["correct"]],
                          "rea": [r["answer"], r["confidence"], r["correct"]]})
 
+    # The starting rule of thumb: "answers given at >= 90% confidence are ~99% right". Checked on the confirmation set.
+    from .threshold import wilson_lower
+    acc90 = defaultdict(lambda: [0, 0, 0])
+    for r in res:
+        k = (r["task"], r["model"], r["mode"])
+        acc90[k][2] += 1
+        if r["status"] == "ok" and r["confidence"] >= 90:
+            acc90[k][0] += 1
+            acc90[k][1] += bool(r["correct"])
+    rule90 = [{"task": t, "model": m, "mode": mo, "n": n, "correct": c, "prec": c / n if n else None,
+               "lb": wilson_lower(c, n) if n else None, "cov": n / N}
+              for (t, m, mo), (n, c, N) in sorted(acc90.items())]
+
     h = conf["hypotheses"]
     rep = conf["replications"]
     models = conf["models"]
@@ -118,6 +131,8 @@ def build_data() -> dict:
     n_fit = sum(len(tasks[t]["policies"]) for t in TASKS)
     n_fail = sum(1 for t in TASKS for p in tasks[t]["policies"] if not p["pass"])
     return {
+        "rule90": rule90, "repo": "https://github.com/atharva-729/llm-gut-check",
+        "n_pilot": len(load("banking77").items("pilot")),
         "scorecard": scorecard, "error_cost": 2.50, "spend": spend["by_split"],
         "n_disc": len(load("banking77").items("main")),
         "n_calls_main": len(_jl(ROOT / "runs/results_main.jsonl")),
