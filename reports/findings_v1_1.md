@@ -1,6 +1,6 @@
 # Findings, v1.1 confirmation study (2026-11-04)
 
-**Design.** Hypotheses H4–H7 were pre-registered (PREREG.md, Addendum v1.1, commit `59fae64`) before any confirmation item was run. Thresholds and rules were fitted on the 200-item discovery set, then applied unchanged to **600 new items per task**. Three vendors' cheap tier (gpt-5.4-mini, claude-haiku-4-5, gemini-3.5-flash), each in gut and reasoned mode.
+**Design.** Hypotheses H4–H7 were pre-registered (PREREG.md, Addendum v1.1, commit `58308da`) before any confirmation item was run. Thresholds and rules were fitted on the 200-item discovery set, then applied unchanged to **600 new items per task**. Three vendors' cheap tier (gpt-5.4-mini, claude-haiku-4-5, gemini-3.5-flash), each in gut and reasoned mode.
 
 10,800 confirmation calls with 0 errors, 0 parse failures, 0 gut-mode thinking leaks and 0 truncations. Spend for the confirmation run: $15.67 (estimate $20.07). Project total: **$21.35**.
 

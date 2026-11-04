@@ -2,7 +2,7 @@
 
 3 tasks × 200 items × 2 models (gpt-5.4-mini, claude-haiku-4-5) × 2 modes (gut / reasoned) = 2,400 calls.
 0 errors, 0 parse failures, 0 gut-mode reasoning leaks, 0 truncations. Spend: **$3.13** for the main run (estimate $3.51); $3.29 in total including probe and pilot.
-Verdict cards: `reports/verdicts/<task>.md`. Hypotheses as pre-registered in `PREREG.md` (commit `de5f558`, pushed before the main run).
+Verdict cards: `reports/verdicts/<task>.md`. Hypotheses as pre-registered in `PREREG.md` (commit `35972ed`, pushed before the main run).
 
 ## Verdicts at a glance
 
