@@ -143,7 +143,7 @@ footer { font-size: 13px; color: var(--muted); display: grid; gap: 6px; }
 <section class="hero">
   <div class="act">A personal experiment · the question</div>
   <h1>Can we trust an LLM's gut?</h1>
-  <p class="lead">With people, intuition is trustworthy in <b>"kind"</b> settings, where patterns are regular and feedback is quick, and unreliable in <b>"wicked"</b> ones (Kahneman &amp; Klein, 2009). In earlier work I'd noticed that when an LLM said it was <b>at least 90% sure</b>, it was right about <b>99%</b> of the time. If that held up, you could let the confident answers through and send only the unsure ones to a person.</p>
+  <p class="lead">With people, intuition is trustworthy in <b>"kind"</b> settings, where patterns are regular and feedback is quick, and unreliable in <b>"wicked"</b> ones (Kahneman &amp; Klein, 2009). So I wanted to test a tempting idea: when an LLM answers on instinct and says it's <b>at least 90% sure</b>, maybe it's right nearly every time, <b>say 99%</b>. If that were true, you could let the confident answers through and send only the unsure ones to a person.</p>
   <div class="panel"><div id="hero"></div></div>
   <div class="qs">
     <div>When a model's quick answer says "≥ 90% sure", is it really right ~99% of the time?</div>
@@ -196,7 +196,7 @@ footer { font-size: 13px; color: var(--muted); display: grid; gap: 6px; }
   <p class="takeaway" id="r1take"></p>
   <div class="panel"><div id="rule90"></div>
     <div class="legend"><span style="--c:var(--accent)">gut mode</span><span style="--c:transparent;--c2:var(--accent)">thinking mode</span></div>
-    <p class="howto"><b>How to read it:</b> for each model we took only the answers it gave at ≥ 90% confidence and checked how many were right. The bar is that accuracy, and the thin line is the uncertainty range. The dashed line on the right is the 99% we hoped for. The number at the end is how many of all items got ≥ 90%. This is a direct check of the starting rule. It's labelled exploratory because it wasn't one of the locked predictions.</p>
+    <p class="howto"><b>How to read it:</b> for each model we took only the answers it gave at ≥ 90% confidence and checked how many were right. The bar is that accuracy, and the thin line is the uncertainty range. The dashed line on the right is the 99% we hoped for. The number at the end is how many of all items got ≥ 90%. This is a direct check of the starting idea. It's labelled exploratory because it wasn't one of the locked predictions.</p>
   </div>
 </section>
 
@@ -289,7 +289,7 @@ footer { font-size: 13px; color: var(--muted); display: grid; gap: 6px; }
     <li>Confidence is the model's own stated number. Token-probability confidence wasn't tried.</li>
     <li>Moderation "truth" is a crowd vote, so part of the error is disagreement about policy rather than model failure.</li>
     <li>Review and error costs are assumptions. Gemini prices come from third-party listings.</li>
-    <li>The ≥ 90% check in Result 1 is exploratory. It directly tests the starting rule, but it wasn't among the locked predictions.</li>
+    <li>The ≥ 90% check in Result 1 is exploratory. It directly tests the starting idea, but it wasn't among the locked predictions.</li>
   </ul>
 </section>
 
@@ -348,7 +348,7 @@ const callsTotal = D.n_calls_main + D.n_calls_confirm;
   box(s, 185, 10, 220, 74, "Gut", "answers instantly: \"YES, 92% sure\"", tint("var(--accent)", 12), "var(--accent)");
   box(s, 185, 146, 220, 74, "Thinking", "reasons first, then answers · costs more");
   arrow(s, id, 130, 105, 183, 50); arrow(s, id, 130, 125, 183, 180);
-  box(s, 470, 10, 170, 74, "≥ 90% sure?", "the rule of thumb");
+  box(s, 470, 10, 170, 74, "≥ 90% sure?", "the idea to test");
   arrow(s, id, 405, 47, 468, 47);
   box(s, 690, 0, 170, 52, "Let it through", "no person needed", tint("var(--good)", 16), "var(--good)");
   box(s, 690, 64, 170, 52, "A person checks", "slow and costly", tint("var(--warn)", 18), "var(--warn)");
@@ -635,7 +635,7 @@ for (const r of D.scorecard) {
 // ================= CONCLUSION
 (function () {
   const gut = D.rule90.filter(r => r.mode === "gut" && r.n > 0);
-  $("c1").textContent = `The rule of thumb fails. When the gut said "≥ 90% sure", it was right ${pct(Math.min(...gut.map(r => r.prec)))}–${pct(Math.max(...gut.map(r => r.prec)))} of the time, not 99%. Not good enough to skip a person.`;
+  $("c1").textContent = `The idea fails. When the gut said "≥ 90% sure", it was right ${pct(Math.min(...gut.map(r => r.prec)))}–${pct(Math.max(...gut.map(r => r.prec)))} of the time, not 99%. Not good enough to skip a person.`;
   const g = T.blimp.cheapest_total, b = T.banking77.cheapest_total;
   $("c3").textContent = `Even with careful, tested cut-offs, the work that could safely skip a person was ${pct(g.coverage)} on grammar but only ${b ? pct(b.coverage) : "0%"} on banking intents and 0% on moderation. ${D.shrink.failed} of ${D.shrink.fitted} cut-offs that looked safe at first broke on fresh data.`;
 })();

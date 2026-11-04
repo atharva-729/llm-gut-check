@@ -75,7 +75,7 @@ def build_data() -> dict:
                          "gut": [g["answer"], g["confidence"], g["correct"]],
                          "rea": [r["answer"], r["confidence"], r["correct"]]})
 
-    # The starting rule of thumb: "answers given at >= 90% confidence are ~99% right". Checked on the confirmation set.
+    # The starting idea to test: "answers given at >= 90% confidence are ~99% right". Checked on the confirmation set.
     from .threshold import wilson_lower
     acc90 = defaultdict(lambda: [0, 0, 0])
     for r in res:
