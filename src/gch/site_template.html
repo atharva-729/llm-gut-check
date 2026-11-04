@@ -164,18 +164,11 @@ footer { font-size: 13px; color: var(--muted); display: grid; gap: 6px; }
   <div class="cols3" id="taskcards"></div>
 </section>
 
-<!-- ======================= ACT 3: WHAT WE TESTED ======================= -->
+<!-- ======================= ACT 3: TEST + RESULTS ======================= -->
 <section>
-  <div class="act">Act 3 · What we tested</div>
+  <div class="act">Act 3 · What we tested and what happened</div>
   <h2>Gut versus thinking, three models</h2>
-  <p>Every item was asked twice: once in <b>gut mode</b> (thinking switched off, checked to use zero thinking tokens) and once in <b>thinking mode</b> (reason first). Each time, the model returned an answer and how sure it was.</p>
-  <div class="panel"><div id="call"></div></div>
-</section>
-
-<!-- ======================= ACT 4: RESULTS ======================= -->
-<section>
-  <div class="act">Act 4 · Results</div>
-  <h2>What happened</h2>
+  <p>Every item went to gpt-5.4-mini, Claude Haiku 4.5 and Gemini 3.5 Flash twice: once in <b>gut mode</b> (thinking switched off, checked to use zero thinking tokens) and once in <b>thinking mode</b> (reason first). Each time the model returned an answer and how sure it was, graded against the known correct answer.</p>
 </section>
 
 <section>
@@ -223,9 +216,9 @@ footer { font-size: 13px; color: var(--muted); display: grid; gap: 6px; }
   <div class="chips" id="chips"></div>
 </section>
 
-<!-- ======================= ACT 5: CONCLUSION ======================= -->
+<!-- ======================= ACT 4: CONCLUSION ======================= -->
 <section>
-  <div class="act">Act 5 · Conclusion</div>
+  <div class="act">Act 4 · Conclusion</div>
   <div class="verdict">
     <div class="big">No. A cheap model's gut can't be trusted on its own.</div>
     <div class="pt"><span class="x">✕</span><span id="c1"></span></div>
@@ -383,19 +376,6 @@ for (const t of ORDER) {
 }
 
 // ================= ACT 3
-(function () {
-  const W = 860, H = 160, s = svg(W, H, $("call")), id = defs(s);
-  box(s, 0, 40, 170, 60, "Instructions + item", "same template every task");
-  box(s, 230, 10, 170, 50, "gpt-5.4-mini", "", tint("var(--m1)", 14), "var(--m1)");
-  box(s, 230, 70, 170, 26, "Haiku 4.5", "", tint("var(--m2)", 14), "var(--m2)");
-  box(s, 230, 104, 170, 26, "Gemini 3.5 Flash", "", tint("var(--m3)", 14), "var(--m3)");
-  arrow(s, id, 170, 70, 228, 40); arrow(s, id, 170, 70, 228, 84); arrow(s, id, 170, 70, 228, 116);
-  el("text", { x: 315, y: 152, "text-anchor": "middle", class: "lbl" }, s, "each model asked twice: gut and thinking");
-  box(s, 470, 40, 210, 60, "{\"answer\": \"B\",", "\"confidence\": 92}");
-  arrow(s, id, 400, 70, 468, 70);
-  box(s, 740, 40, 120, 60, "Graded", "vs correct answer", tint("var(--good)", 12));
-  arrow(s, id, 680, 70, 738, 70);
-})();
 (function () {
   const W = 860, H = 140, s = svg(W, H, $("timeline")), id = defs(s);
   const steps = [
