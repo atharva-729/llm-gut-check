@@ -115,10 +115,10 @@ The main models are the **cheap tier**, because that's what high-volume work act
 ```
 For `probability` tasks, `answer` is the probability and `confidence` is ignored. Unparseable output gets one retry; after that, the item is marked `parse_fail` and counted.
 
-### Optional arm: an external decision model (only if access arrives; never blocks anything)
-- The decision model returns **native probabilities** per option instead of a stated confidence. It's a "decision model" comparison arm.
-- **Limit: 64 options per question.** Grammar, toxicity and forecasting run natively. For Banking77 (77) and LEDGAR (100), use a **2-stage** set-up: an embedding shortlist of the top 32 options (`text-embedding-3-small`), then the decision model picks from the shortlist. Report **shortlist recall** (how often the gold answer was in the 32), and label these results as "shortlisted", not directly comparable.
-- Implement it as a pluggable `arms/decision_model.py` adapter behind a config flag. With no key, the harness skips it silently, and the reports say "not run".
+### Optional arm: Jev (only if access arrives; never blocks anything)
+- Jev returns **native probabilities** per option instead of a stated confidence. It's a "decision model" comparison arm.
+- **Limit: 64 options per question.** Grammar, toxicity and forecasting run natively. For Banking77 (77) and LEDGAR (100), use a **2-stage** set-up: an embedding shortlist of the top 32 options (`text-embedding-3-small`), then Jev picks from the shortlist. Report **shortlist recall** (how often the gold answer was in the 32), and label these results as "shortlisted", not directly comparable.
+- Implement it as a pluggable `arms/jev.py` adapter behind a config flag. With no key, the harness skips it silently, and the reports say "not run".
 
 ---
 
@@ -160,7 +160,7 @@ gut-check-harness/
     verdict.py     # rules → verdict cards
     crowd.py       # human/crowd comparisons (BLiMP, Manifold)
     drift.py       # rerun + compare to baseline
-    arms/decision_model.py    # optional
+    arms/jev.py    # optional
     cli.py
   runs/  reports/  docs/  tests/
 ```
@@ -309,18 +309,18 @@ Show the AG News run end to end, including its verdict card, plus the drift repo
 
 ---
 
-## Phase 7 (optional): decision-model arm
+## Phase 7 (optional): Jev arm
 
 Only if access exists:
-- implement `arms/decision_model.py`;
+- implement `arms/jev.py`;
 - run grammar, toxicity and forecasting natively, and Banking77/LEDGAR shortlisted (top 32 by embedding);
 - report shortlist recall;
-- add the decision model as an extra point on each frontier chart and an extra row in each verdict card, labelled "decision model, native probabilities".
+- add Jev as an extra point on each frontier chart and an extra row in each verdict card, labelled "decision model, native probabilities".
 
 **Key question:** are native probabilities better calibrated than stated confidence, and at what cost?
 
 ### CHECKPOINT 7
-Show the decision-model results table, the calibration comparison and shortlist recall.
+Show the Jev results table, the calibration comparison and shortlist recall.
 
 ---
 
@@ -376,10 +376,10 @@ Gut calls are tiny (about 20 output tokens). Cost is dominated by thinking token
 | 4 Verdict cards | 1 day |
 | 5 Cross-task findings | ½–1 day |
 | 6 Bring your own task + drift | 1 day |
-| 7 the decision model (optional) | ½–1 day |
+| 7 Jev (optional) | ½–1 day |
 | 8 Demo page | 1 day |
 
-About **7–8 working days** without the decision model.
+About **7–8 working days** without Jev.
 
 ## Out of scope (v1)
 - Live routing in production pipelines (the harness advises; it doesn't route).
